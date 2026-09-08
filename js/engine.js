@@ -1,5 +1,6 @@
 /**
  * Core Visual Novel Engine for "Bình Minh Tháng Tám - Hà Nội 1945"
+ * Tinh gọn, thuần túy cốt truyện, loại bỏ thanh token/chỉ số rườm rà
  */
 
 class VNEngine {
@@ -8,7 +9,7 @@ class VNEngine {
         this.codexData = window.CODEX_DATA;
         this.sound = window.soundCtrl;
 
-        // Trạng thái game hiện tại
+        // Trạng thái kịch bản hiện tại
         this.currentNode = null;
         this.stats = { ...this.scenario.initialStats };
         this.history = []; // Backlog
@@ -19,15 +20,14 @@ class VNEngine {
         this.isTyping = false;
         this.typewriterTimeout = null;
         this.currentFullText = "";
-        this.currentVisibleText = "";
         this.charIndex = 0;
 
         // Settings
         this.settings = {
             textSpeed: 28, // ms per char
             autoPlayDelay: 2200,
-            bgmVolume: 0.5,
-            sfxVolume: 0.7
+            bgmVolume: 0.4,
+            sfxVolume: 0.65
         };
 
         // Engine flags
@@ -42,7 +42,6 @@ class VNEngine {
     init() {
         this.cacheDOM();
         this.bindEvents();
-        this.updateStatsUI(false);
     }
 
     cacheDOM() {
@@ -62,16 +61,6 @@ class VNEngine {
             advanceIndicator: document.getElementById("advance-indicator"),
             flashOverlay: document.getElementById("flash-overlay"),
 
-            // Stats
-            statMoraleBar: document.getElementById("stat-morale-bar"),
-            statMoraleVal: document.getElementById("stat-morale-val"),
-            statReadinessBar: document.getElementById("stat-readiness-bar"),
-            statReadinessVal: document.getElementById("stat-readiness-val"),
-            statGarrisonBar: document.getElementById("stat-garrison-bar"),
-            statGarrisonVal: document.getElementById("stat-garrison-val"),
-            statAlertBar: document.getElementById("stat-alert-bar"),
-            statAlertVal: document.getElementById("stat-alert-val"),
-
             // Buttons
             btnAuto: document.getElementById("btn-auto"),
             btnBacklog: document.getElementById("btn-backlog"),
@@ -80,7 +69,7 @@ class VNEngine {
             btnCodex: document.getElementById("btn-codex-open"),
             btnSettings: document.getElementById("btn-settings-open"),
 
-            // Notification
+            // Toast
             toastContainer: document.getElementById("toast-container")
         };
     }
@@ -92,18 +81,9 @@ class VNEngine {
             dialogueBox.addEventListener("click", () => this.handleAdvance());
         }
 
-        // Advance Indicator
-        if (this.dom.advanceIndicator) {
-            this.dom.advanceIndicator.addEventListener("click", (e) => {
-                e.stopPropagation();
-                this.handleAdvance();
-            });
-        }
-
         // Bàn phím điều khiển
         window.addEventListener("keydown", (e) => {
-            if (this.dom.gameScreen.classList.contains("hidden")) return;
-            // Tránh kích hoạt khi đang mở modal
+            if (this.dom.gameScreen && this.dom.gameScreen.classList.contains("hidden")) return;
             if (document.querySelector(".modal:not(.hidden)")) return;
 
             if (e.code === "Space" || e.code === "Enter") {
@@ -120,7 +100,7 @@ class VNEngine {
             }
         });
 
-        // Quick Controls
+        // Tự động chạy thoại
         if (this.dom.btnAuto) {
             this.dom.btnAuto.addEventListener("click", () => this.toggleAutoPlay());
         }
@@ -137,66 +117,61 @@ class VNEngine {
         this.dom.gameScreen.classList.remove("hidden");
 
         this.sound.init();
-        this.updateStatsUI(false);
         this.goToNode("start");
     }
 
     goToNode(nodeId) {
         const node = this.scenario.nodes[nodeId];
         if (!node) {
-            console.error("Node not found:", nodeId);
+            console.error("Không tìm thấy node:", nodeId);
             return;
         }
 
         this.currentNode = node;
         this.isWaitingForChoice = false;
 
-        // Dọn dẹp hẹn giờ auto
         if (this.autoPlayTimeout) clearTimeout(this.autoPlayTimeout);
 
-        // Cập nhật phông nền
+        // Đổi phông nền
         if (node.background) {
             this.dom.sceneBg.style.backgroundImage = `url('${node.background}')`;
         }
 
-        // Cập nhật thông tin địa điểm / thời gian
-        if (node.chapter) this.dom.chapterBadge.textContent = node.chapter;
-        if (node.date) this.dom.dateBadge.textContent = node.date;
-        if (node.location) this.dom.locationBadge.textContent = node.location;
+        // Thông tin địa điểm / thời gian
+        if (node.chapter && this.dom.chapterBadge) this.dom.chapterBadge.textContent = node.chapter;
+        if (node.date && this.dom.dateBadge) this.dom.dateBadge.textContent = node.date;
+        if (node.location && this.dom.locationBadge) this.dom.locationBadge.textContent = node.location;
 
-        // Cập nhật BGM
-        if (node.bgm) {
-            this.sound.startAmbience(node.bgm);
-        }
-
-        // Hiệu ứng âm thanh node
+        // BGM & SFX
+        if (node.bgm) this.sound.startAmbience(node.bgm);
         if (node.sfx === "tension") this.sound.playTension();
         else if (node.sfx === "fanfare") this.sound.playVictoryFanfare();
         else if (node.sfx === "unlock") this.sound.playUnlock();
 
-        // Hiệu ứng rung lắc / chớp sáng
         if (node.shake) this.triggerScreenShake();
         if (node.flash) this.triggerScreenFlash();
 
-        // Mở khóa Codex nếu có
+        // Mở khóa tư liệu nếu có
         if (node.unlockCodex) {
             this.unlockCodexItem(node.unlockCodex);
         }
 
-        // Cập nhật Nhân vật hiển thị
+        // Nhân vật
         this.updateCharacterStage(node);
 
-        // Cập nhật người nói
-        this.dom.speakerBox.textContent = node.speaker || "";
-        if (!node.speaker || node.speaker === "Lời Dẫn") {
-            this.dom.speakerBox.classList.add("narrator");
-        } else {
-            this.dom.speakerBox.classList.remove("narrator");
+        // Người nói
+        if (this.dom.speakerBox) {
+            this.dom.speakerBox.textContent = node.speaker || "Lời Dẫn";
+            if (!node.speaker || node.speaker === "Lời Dẫn") {
+                this.dom.speakerBox.classList.add("narrator");
+            } else {
+                this.dom.speakerBox.classList.remove("narrator");
+            }
         }
 
-        // Xóa lựa chọn cũ
+        // Dọn lựa chọn cũ
         this.dom.choicesContainer.innerHTML = "";
-        this.dom.advanceIndicator.classList.add("hidden");
+        if (this.dom.advanceIndicator) this.dom.advanceIndicator.classList.add("hidden");
 
         // Ghi vào Backlog
         this.history.push({
@@ -205,12 +180,12 @@ class VNEngine {
             text: node.text
         });
 
-        // Bắt đầu gõ chữ Typewriter
+        // Bắt đầu hiệu ứng gõ chữ
         this.startTypewriter(node.text, () => {
             if (node.choices && node.choices.length > 0) {
                 this.renderChoices(node.choices);
             } else {
-                this.dom.advanceIndicator.classList.remove("hidden");
+                if (this.dom.advanceIndicator) this.dom.advanceIndicator.classList.remove("hidden");
                 if (this.isAutoPlay) {
                     this.autoPlayTimeout = setTimeout(() => {
                         this.handleAdvance();
@@ -225,7 +200,7 @@ class VNEngine {
         this.isTyping = true;
         this.currentFullText = fullText;
         this.charIndex = 0;
-        this.dom.dialogueText.innerHTML = "";
+        this.dom.dialogueText.textContent = "";
 
         const typeNextChar = () => {
             if (!this.isTyping) return;
@@ -257,18 +232,16 @@ class VNEngine {
     handleAdvance() {
         if (this.isWaitingForChoice) return;
 
-        // Nếu đang gõ chữ -> nhấp để hiện trọn vẹn văn bản ngay
         if (this.isTyping) {
             this.finishTypewriterInstantly();
             if (this.currentNode.choices && this.currentNode.choices.length > 0) {
                 this.renderChoices(this.currentNode.choices);
             } else {
-                this.dom.advanceIndicator.classList.remove("hidden");
+                if (this.dom.advanceIndicator) this.dom.advanceIndicator.classList.remove("hidden");
             }
             return;
         }
 
-        // Chuyển sang node tiếp theo
         if (this.currentNode && this.currentNode.next) {
             this.sound.playHover();
             this.goToNode(this.currentNode.next);
@@ -279,14 +252,14 @@ class VNEngine {
 
     renderChoices(choices) {
         this.isWaitingForChoice = true;
-        this.dom.advanceIndicator.classList.add("hidden");
+        if (this.dom.advanceIndicator) this.dom.advanceIndicator.classList.add("hidden");
         this.dom.choicesContainer.innerHTML = "";
 
         choices.forEach((choice, index) => {
             const btn = document.createElement("button");
             btn.className = "choice-btn";
             btn.innerHTML = `
-                <span class="choice-num">${index + 1}</span>
+                <span class="choice-bullet">&bull;</span>
                 <span class="choice-text">${choice.text}</span>
             `;
 
@@ -304,81 +277,32 @@ class VNEngine {
         this.isWaitingForChoice = false;
         this.dom.choicesContainer.innerHTML = "";
 
-        // Áp dụng thay đổi chỉ số
+        // Cập nhật ngầm trạng thái rẽ nhánh (không hiển thị token game)
         if (choice.statChanges) {
-            this.applyStatChanges(choice.statChanges);
+            for (let key in choice.statChanges) {
+                if (this.stats[key] !== undefined) {
+                    this.stats[key] = Math.max(0, Math.min(100, this.stats[key] + choice.statChanges[key]));
+                }
+            }
         }
 
-        // Mở khóa codex nếu có
         if (choice.unlockCodex) {
             this.unlockCodexItem(choice.unlockCodex);
         }
 
-        // Hiệu ứng rung lắc / chớp sáng
         if (choice.shake) this.triggerScreenShake();
         if (choice.flash) this.triggerScreenFlash();
 
-        // Hiển thị phản hồi chiến lược ngắn gọn (feedback toast)
-        if (choice.feedback) {
-            this.showToast(choice.feedback, "stat-notice");
-        }
-
-        // Đánh giá kết thúc nếu là chốt chặn cuối
         if (choice.evalEnding) {
             setTimeout(() => {
                 this.evaluateAndShowEnding();
-            }, 700);
+            }, 600);
             return;
         }
 
-        // Đi tới node tiếp theo
         if (choice.next) {
             this.goToNode(choice.next);
         }
-    }
-
-    applyStatChanges(delta) {
-        for (let key in delta) {
-            if (this.stats[key] !== undefined) {
-                const oldVal = this.stats[key];
-                this.stats[key] = Math.max(0, Math.min(100, this.stats[key] + delta[key]));
-                const diff = this.stats[key] - oldVal;
-
-                if (diff !== 0) {
-                    const sign = diff > 0 ? `+${diff}` : `${diff}`;
-                    const label = this.getStatLabel(key);
-                    this.showToast(`${label}: ${sign}`, diff > 0 ? "stat-up" : "stat-down");
-                }
-            }
-        }
-        this.updateStatsUI(true);
-    }
-
-    getStatLabel(key) {
-        switch (key) {
-            case "morale": return "Khí Thế Quần Chúng";
-            case "readiness": return "Chuẩn Bị Lực Lượng";
-            case "garrison": return "Thuyết Phục Bảo An";
-            case "alert": return "Cảnh Giác Quân Nhật";
-            default: return key;
-        }
-    }
-
-    updateStatsUI(animate = true) {
-        const updateBar = (bar, valEl, val) => {
-            if (!bar || !valEl) return;
-            bar.style.width = `${val}%`;
-            valEl.textContent = `${val}%`;
-            if (animate) {
-                bar.classList.add("bar-pulse");
-                setTimeout(() => bar.classList.remove("bar-pulse"), 600);
-            }
-        };
-
-        updateBar(this.dom.statMoraleBar, this.dom.statMoraleVal, this.stats.morale);
-        updateBar(this.dom.statReadinessBar, this.dom.statReadinessVal, this.stats.readiness);
-        updateBar(this.dom.statGarrisonBar, this.dom.statGarrisonVal, this.stats.garrison);
-        updateBar(this.dom.statAlertBar, this.dom.statAlertVal, this.stats.alert);
     }
 
     updateCharacterStage(node) {
@@ -388,7 +312,7 @@ class VNEngine {
             this.dom.characterAvatar.src = node.avatar;
             this.dom.characterStage.classList.remove("hidden");
             this.dom.characterStage.classList.add("char-appear");
-            setTimeout(() => this.dom.characterStage.classList.remove("char-appear"), 500);
+            setTimeout(() => this.dom.characterStage.classList.remove("char-appear"), 400);
         } else {
             this.dom.characterStage.classList.add("hidden");
         }
@@ -396,7 +320,7 @@ class VNEngine {
 
     triggerScreenShake() {
         this.dom.gameScreen.classList.add("screen-shake");
-        setTimeout(() => this.dom.gameScreen.classList.remove("screen-shake"), 600);
+        setTimeout(() => this.dom.gameScreen.classList.remove("screen-shake"), 500);
     }
 
     triggerScreenFlash() {
@@ -408,18 +332,18 @@ class VNEngine {
         }, 500);
     }
 
-    showToast(message, type = "info") {
+    showToast(message) {
         if (!this.dom.toastContainer) return;
 
         const toast = document.createElement("div");
-        toast.className = `toast-item toast-${type}`;
-        toast.innerHTML = `<span class="toast-text">${message}</span>`;
+        toast.className = "toast-item";
+        toast.textContent = message;
 
         this.dom.toastContainer.appendChild(toast);
         setTimeout(() => {
             toast.classList.add("toast-fadeout");
-            setTimeout(() => toast.remove(), 400);
-        }, 3200);
+            setTimeout(() => toast.remove(), 350);
+        }, 3000);
     }
 
     unlockCodexItem(itemId) {
@@ -428,7 +352,6 @@ class VNEngine {
             this.saveUnlockedCodex();
             this.sound.playUnlock();
 
-            // Tìm tên tư liệu
             let title = "Tư liệu lịch sử mới";
             for (let cat in this.codexData) {
                 const found = this.codexData[cat].find(item => item.id === itemId);
@@ -438,15 +361,14 @@ class VNEngine {
                 }
             }
 
-            this.showToast(`📜 Đã mở khóa Hồ sơ: ${title}`, "unlock");
+            this.showToast(`Đã mở khóa tư liệu: ${title}`);
         }
     }
 
     evaluateAndShowEnding() {
         let endingKey = "true_ending";
 
-        // Logic đánh giá chỉ số rẽ nhánh kết thúc
-        if (this.stats.morale >= 60 && this.stats.garrison >= 45 && this.stats.alert <= 40) {
+        if (this.stats.morale >= 55 && this.stats.garrison >= 40 && this.stats.alert <= 45) {
             endingKey = "true_ending";
         } else if (this.stats.alert > 45 || this.stats.morale < 40) {
             endingKey = "costly_victory";
@@ -481,12 +403,8 @@ class VNEngine {
         if (endingContent) endingContent.innerHTML = ending.text;
         if (endingNote) endingNote.textContent = ending.historicalNote;
 
-        if (ending.sfx === "fanfare") {
-            this.sound.playVictoryFanfare();
-        }
-        if (ending.bgm) {
-            this.sound.startAmbience(ending.bgm);
-        }
+        if (ending.sfx === "fanfare") this.sound.playVictoryFanfare();
+        if (ending.bgm) this.sound.startAmbience(ending.bgm);
     }
 
     toggleAutoPlay() {
@@ -513,20 +431,19 @@ class VNEngine {
             location: this.currentNode.location
         };
         localStorage.setItem(`hanoi1945_save_slot_${slot}`, JSON.stringify(saveData));
-        this.showToast(`💾 Đã lưu thành công vào Ô số ${slot}!`, "info");
+        this.showToast(`Đã lưu thành công vào Ô số ${slot}`);
     }
 
     loadGame(slot = 1) {
         const raw = localStorage.getItem(`hanoi1945_save_slot_${slot}`);
         if (!raw) {
-            this.showToast(`Ô số ${slot} hiện đang trống!`, "warning");
+            this.showToast(`Ô số ${slot} hiện đang trống`);
             return false;
         }
         try {
             const data = JSON.parse(raw);
             this.stats = { ...data.stats };
             this.history = [...data.history];
-            this.updateStatsUI(false);
 
             this.dom.titleScreen.classList.add("hidden");
             this.dom.endingScreen.classList.add("hidden");
@@ -534,18 +451,18 @@ class VNEngine {
 
             this.sound.init();
             this.goToNode(data.nodeId);
-            this.showToast(`📂 Đã tải thành công ván chơi Ô số ${slot}!`, "info");
+            this.showToast(`Đã tải ván chơi Ô số ${slot}`);
             return true;
         } catch (e) {
             console.error(e);
-            this.showToast("Dữ liệu lưu bị lỗi!", "warning");
+            this.showToast("Dữ liệu lưu bị lỗi");
             return false;
         }
     }
 
     loadUnlockedCodex() {
         const raw = localStorage.getItem("hanoi1945_codex");
-        return raw ? JSON.parse(raw) : ["doc_quan_lenh_1"]; // Mở sẵn quân lệnh 1 làm dẫn nhập
+        return raw ? JSON.parse(raw) : ["doc_quan_lenh_1"];
     }
 
     saveUnlockedCodex() {

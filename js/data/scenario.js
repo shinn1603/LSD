@@ -5,10 +5,10 @@
 
 const SCENARIO_DATA = {
     initialStats: {
-        morale: 40,      // Khí thế quần chúng (0 - 100)
-        readiness: 35,   // Chuẩn bị lực lượng (0 - 100)
-        garrison: 30,    // Thuyết phục Bảo an binh (0 - 100)
-        alert: 30        // Mức cảnh giác của quân Nhật (0 - 100, càng cao càng nguy hiểm)
+        morale: 40,
+        readiness: 35,
+        garrison: 30,
+        alert: 30
     },
 
     nodes: {
@@ -79,22 +79,19 @@ const SCENARIO_DATA = {
             sfx: "typewriter",
             choices: [
                 {
-                    text: "Táo bạo chủ động: In ngay 1 vạn truyền đơn cách mạng, cấp tốc chuyển giao cho mạng lưới công nhân xe lửa Gia Lâm và nhà máy điện Yên Phụ chuẩn bị biểu tình!",
-                    statChanges: { morale: 15, readiness: 15, alert: 5 },
-                    feedback: "Khí thế quần chúng và sự chuẩn bị tăng vọt! Quần chúng công nhân bắt đầu bí mật bãi công, rèn giáo mác!",
+                    text: "Táo bạo chủ động: In ngay một vạn truyền đơn cách mạng, cấp tốc chuyển giao cho mạng lưới công nhân xe lửa Gia Lâm và nhà máy điện Yên Phụ chuẩn bị biểu tình.",
+                    statChanges: { morale: 20, readiness: 15, alert: 5 },
                     unlockCodex: "doc_quan_lenh_1",
                     next: "act1_choice_bold"
                 },
                 {
-                    text: "Thận trọng củng cố: Tạm thời chỉ in tài liệu truyền miệng, tập trung toàn lực trinh sát hệ thống bố phòng doanh trại Nhật và Trại Bảo an binh.",
-                    statChanges: { readiness: 10, garrison: 10, alert: -5 },
-                    feedback: "Hệ thống trinh sát nắm chắc sơ đồ Trại Bảo an binh. Nguy cơ bị quân Nhật phát hiện giảm xuống.",
+                    text: "Thận trọng củng cố: Tạm thời tuyên truyền miệng, tập trung toàn lực trinh sát hệ thống bố phòng doanh trại Nhật và Trại Bảo an binh.",
+                    statChanges: { readiness: 10, garrison: 15, alert: -5 },
                     next: "act1_choice_cautious"
                 },
                 {
                     text: "Chờ đợi an toàn: Án binh bất động, kiên quyết chờ công văn hỏa tốc chính thức có chữ ký từ Tân Trào mới dám phát động phong trào.",
-                    statChanges: { morale: -15, readiness: -10, alert: -10 },
-                    feedback: "Sự do dự khiến một số cơ sở quần chúng hoang mang, mất đi lợi thế bất ngờ của thời khắc vàng!",
+                    statChanges: { morale: -20, readiness: -15, alert: -10 },
                     next: "act1_choice_hesitant"
                 }
             ]
@@ -145,7 +142,7 @@ const SCENARIO_DATA = {
             bgm: "epic",
             speaker: "Lời Dẫn",
             avatar: null,
-            text: "Chiều 17 tháng 8 năm 1945. Tổng hội Viên chức thân chính phủ Trần Trọng Kim tổ chức một cuộc đại mít tinh trước Nhà hát Lớn Hà Nội để cổ súy cho 'nền độc lập bánh vẽ' do Nhật ban phát.",
+            text: "Chiều 17 tháng 8 năm 1945. Tổng hội Viên chức thân chính phủ Trần Trọng Kim tổ chức một cuộc đại mít tinh trước Nhà hát Lớn Hà Nội để cổ súy cho chính quyền bù nhìn do Nhật dựng lên.",
             sfx: "typewriter",
             next: "act2_1"
         },
@@ -175,26 +172,23 @@ const SCENARIO_DATA = {
             background: "assets/images/bg_revolution.jpg",
             speaker: "Lời Dẫn",
             avatar: null,
-            text: "Một viên chức chính phủ bù nhìn bước lên micro chuẩn bị đọc diễn văn. Mọi ánh mắt dưới quảng trường đang đổ dồn về khán đài. Đây chính là ngã rẽ quyết định sống còn của phong trào Hà Nội!",
+            text: "Một viên chức chính phủ bù nhìn bước lên micro chuẩn bị đọc diễn văn. Mọi ánh mắt dưới quảng trường đang đổ dồn về khán đài. Đây chính là ngã rẽ quyết định phong trào Hà Nội!",
             sfx: "tension",
             choices: [
                 {
-                    text: "Táo bạo cướp diễn đàn: Buông lá cờ đỏ sao vàng khổng lồ từ tầng 2, giật lấy micro đọc Lời Hiệu Triệu Việt Minh và biến cuộc mít tinh thành tuần hành cách mạng!",
-                    statChanges: { morale: 25, readiness: 15, alert: 10 },
-                    feedback: "Lá cờ đỏ sao vàng rực rỡ tung bay! Hàng vạn quần chúng đồng thanh gầm vang: 'Việt Nam Độc Lập!' Biến cuộc mít tinh thân Nhật thành bão táp cách mạng!",
+                    text: "Táo bạo cướp diễn đàn: Buông lá cờ đỏ sao vàng khổng lồ từ tầng hai, tước lấy micro đọc Lời Hiệu Triệu Việt Minh và biến cuộc mít tinh thành tuần hành cách mạng.",
+                    statChanges: { morale: 25, readiness: 15, alert: 5 },
                     unlockCodex: "evt_17_august",
                     next: "act2_choice_hijack"
                 },
                 {
-                    text: "Phát truyền đơn bí mật: Chỉ đứng trong đám đông tán phát truyền đơn và hô vang khẩu hiệu ủng hộ Việt Minh rồi lặng lẽ hòa vào dòng người.",
+                    text: "Phát truyền đơn bí mật: Chỉ đứng trong đám đông tán phát truyền đơn và hô vang khẩu hiệu ủng hộ Việt Minh rồi lặng lẽ rút lui.",
                     statChanges: { morale: 5, readiness: 5, alert: -5 },
-                    feedback: "Truyền đơn được đón nhận, nhưng đám đông nhanh chóng giải tán. Chính quyền bù nhìn vẫn tổ chức trọn vẹn bài phát biểu.",
                     next: "act2_choice_subtle"
                 },
                 {
                     text: "Nổ súng thị uy: Ra lệnh cho tổ tự vệ nổ súng chỉ thiên để giải tán ngay lập tức cuộc mít tinh thân Nhật.",
-                    statChanges: { morale: -10, readiness: -10, alert: 30 },
-                    feedback: "Tiếng súng nổ gây hoảng loạn giẫm đạp! Lính tuần Nhật lập tức lên đạn súng máy sẵn sàng can thiệp! Tình thế trở nên cực kỳ hiểm nghèo!",
+                    statChanges: { morale: -15, readiness: -10, alert: 35 },
                     shake: true,
                     next: "act2_choice_violent"
                 }
@@ -230,7 +224,7 @@ const SCENARIO_DATA = {
             background: "assets/images/bg_revolution.jpg",
             speaker: "Đồng chí Lâm",
             avatar: "assets/images/char_lam.jpg",
-            text: "Ta đã an toàn bảo toàn được lực lượng, nhưng đã bỏ lỡ mất một cơ hội vàng rực rỡ để kiểm nghiệm và kích hoạt lòng yêu nước của hàng vạn đồng bào Thủ đô...",
+            text: "Ta đã bảo toàn được lực lượng, nhưng đã bỏ lỡ mất một thời cơ quý báu để kích hoạt ngọn lửa yêu nước trong lòng hàng vạn đồng bào Thủ đô...",
             sfx: "tension",
             next: "act3_intro"
         },
@@ -274,11 +268,11 @@ const SCENARIO_DATA = {
         },
         "act3_2": {
             id: "act3_2",
-            chapter: "Hồi 3: Cân Não Đêm Trước Giờ G",
+            chapter: "Hồi 3: Cân Nảo Đêm Trước Giờ G",
             background: "assets/images/bg_garrison.jpg",
             speaker: "Đồng chí Lâm",
             avatar: "assets/images/char_lam.jpg",
-            text: "Vũ Minh! Ta không thể dùng sức mạnh vũ trang thô sơ để công phá một đồn trại kiên cố như thế này. Ta phải thực hiện công tác binh vận ngay trong đêm. Cậu và tôi sẽ vào thẳng phòng chỉ huy gặp Đội trưởng Bảo an binh!",
+            text: "Vũ Minh! Ta không thể dùng vũ trang thô sơ để công phá một đồn trại kiên cố như thế này. Ta phải thực hiện công tác binh vận ngay trong đêm. Cậu và tôi sẽ vào thẳng phòng chỉ huy gặp Đội trưởng Bảo an binh!",
             sfx: "typewriter",
             next: "act3_3"
         },
@@ -292,22 +286,19 @@ const SCENARIO_DATA = {
             sfx: "tension",
             choices: [
                 {
-                    text: "Lấy đại nghĩa dân tộc & tình cảm đồng bào thuyết phục: 'Chúng ta đều là con Lạc cháu Hồng! Phát xít Nhật đã quỳ gối, chính quyền bù nhìn đã cáo chung. Hãy quay súng về với nhân dân để lập công với Tổ quốc!'",
+                    text: "Lấy đại nghĩa dân tộc và tình cảm đồng bào thuyết phục: 'Chúng ta đều là con Lạc cháu Hồng! Phát xít Nhật đã quỳ gối, chính quyền bù nhìn đã cáo chung. Hãy quay súng về với nhân dân để lập công với Tổ quốc!'",
                     statChanges: { garrison: 35, morale: 15, alert: -10 },
-                    feedback: "Lời gan ruột đánh trúng tâm can người lính! Viên chỉ huy xúc động, ánh mắt dao động dữ dội!",
                     unlockCodex: "fig_bao_an_binh",
                     next: "act3_choice_reason"
                 },
                 {
                     text: "Đưa ra tối hậu thư thép: 'Hà Nội ngày mai có hai mươi vạn đồng bào sẵn sàng san phẳng nơi này. Các anh buông súng thì được bảo toàn tính mạng, chống cự sẽ là kẻ thù của non sông!'",
                     statChanges: { garrison: 10, morale: 10, alert: 10 },
-                    feedback: "Viên chỉ huy giật mình hoang mang nhưng tỏ ra dè chừng, yêu cầu phải xem thực lực vào sáng mai mới quyết định.",
                     next: "act3_choice_threat"
                 },
                 {
                     text: "Đề nghị trung lập: 'Các anh không cần đi theo chúng tôi, chỉ cần đóng chặt cổng trại và cam kết không nổ súng vào đoàn người biểu tình sáng mai.'",
                     statChanges: { garrison: 5, readiness: -10, alert: 0 },
-                    feedback: "Trại lính đồng ý án binh, nhưng ta không thể tiếp quản kho súng để vũ trang cho các đội tự vệ!",
                     next: "act3_choice_neutral"
                 }
             ]
@@ -369,7 +360,7 @@ const SCENARIO_DATA = {
             background: "assets/images/bg_revolution.jpg",
             speaker: "Thảo (Nữ sinh Cứu Quốc)",
             avatar: "assets/images/char_thao.jpg",
-            text: "Anh Minh ơi! Quần chúng đã tràn vào chiếm Phủ Khâm sai Bắc Bộ! Nhưng nguy rồi... nhìn đằng kia xem!",
+            text: "Anh Minh ơi! Quần chúng đã tràn vào chiếm Phủ Khâm sai Bắc Bộ! Nhưng nhìn đằng kia xem!",
             sfx: "tension",
             shake: true,
             next: "act4_2"
@@ -395,23 +386,20 @@ const SCENARIO_DATA = {
             sfx: "typewriter",
             choices: [
                 {
-                    text: "Hiên ngang tiến ra đàm phán ngoại giao quân sự: Khẳng định cách mạng chỉ phế truất chính phủ bù nhìn, cam đoan an toàn cho quân Nhật chờ hồi hương, yêu cầu Nhật tôn trọng nguyện vọng độc lập của người Việt và án binh bất động!",
+                    text: "Hiên ngang tiến ra đàm phán ngoại giao quân sự: Khẳng định cách mạng chỉ phế truất chính phủ bù nhìn, cam đoan an toàn cho quân Nhật chờ hồi hương, yêu cầu Nhật tôn trọng nguyện vọng độc lập của người Việt và án binh bất động.",
                     statChanges: { morale: 20, garrison: 20, alert: -25 },
-                    feedback: "Tài ngoại giao cương quyết, đĩnh đạc làm viên sĩ quan Nhật cúi đầu chấp thuận! Xe tăng Nhật quay đầu rút về doanh trại!",
                     unlockCodex: "evt_19_august",
                     evalEnding: true
                 },
                 {
-                    text: "Hô hào toàn thể biển người biển gậy xông lên bao vây xe bọc thép Nhật bằng tinh thần quyết tử!",
+                    text: "Hô hào toàn thể biển người biển gậy xông lên bao vây xe bọc thép Nhật bằng tinh thần quyết tử.",
                     statChanges: { morale: 10, readiness: -20, alert: 40 },
-                    feedback: "Lính Nhật hoảng sợ nổ súng cảnh cáo! Xung đột bùng nổ dữ dội ở góc đường Tràng Tiền!",
                     shake: true,
                     evalEnding: true
                 },
                 {
                     text: "Rút lui khỏi Bắc Bộ Phủ để tránh thương vong, chờ quân Nhật tự rút đi.",
                     statChanges: { morale: -35, readiness: -25, alert: 0 },
-                    feedback: "Sự rút lui tạo khoảng trống quyền lực nguy hại! Quân thù thừa cơ tái chiếm các công sở xung yếu!",
                     evalEnding: true
                 }
             ]
@@ -425,7 +413,7 @@ const SCENARIO_DATA = {
         "true_ending": {
             id: "true_ending",
             title: "ĐẠI THẮNG THÁNG TÁM - HÀ NỘI ĐỘC LẬP",
-            badge: "⭐ Kết Thúc Lịch Sử Vĩ Đại (True Ending)",
+            badge: "Kết Thúc Lịch Sử Toàn Thắng",
             background: "assets/images/bg_revolution.jpg",
             bgm: "epic",
             sfx: "fanfare",
@@ -435,13 +423,13 @@ const SCENARIO_DATA = {
                 <p>Toàn bộ 1.000 lính Bảo an binh quy phục trao nộp kho vũ khí; quân đội phát xít Nhật chấp nhận án binh bất động trong doanh trại. Cuộc khởi nghĩa giành chính quyền tại Thủ đô toàn thắng vang dội mà hầu như không đổ một giọt máu!</p>
                 <p>Thắng lợi ở Hà Nội như phát pháo lệnh giục giã cả nước đứng lên, tạo tiền đề quyết định để Chủ tịch Hồ Chí Minh đọc bản <em>Tuyên ngôn Độc lập</em> khai sinh ra nước Việt Nam Dân chủ Cộng hòa vào ngày 2/9/1945 tại Quảng trường Ba Đình lịch sử!</p>
             `,
-            historicalNote: "Bạn đã tái hiện xuất sắc chiến lược tài tình của Đảng bộ Hà Nội và Xứ ủy Bắc Kỳ trong những ngày Cách mạng Tháng Tám lịch sử!"
+            historicalNote: "Bạn đã tái hiện xuất sắc chiến lược tài tình của Đảng bộ Hà Nội và Xứ ủy Bắc Kỳ trong những ngày Cách mạng Tháng Tám lịch sử."
         },
 
         "costly_victory": {
             id: "costly_victory",
             title: "CHIẾN THẮNG TRONG BÃO LỬA",
-            badge: "🥈 Thắng Lợi Gian Nan (Costly Victory)",
+            badge: "Kết Thúc Thắng Lợi Cam Go",
             background: "assets/images/bg_garrison.jpg",
             bgm: "tense",
             sfx: "tension",
@@ -456,7 +444,7 @@ const SCENARIO_DATA = {
         "missed_opportunity": {
             id: "missed_opportunity",
             title: "NGẬM NGÙI TRỄ BƯỚC",
-            badge: "⚠️ Bỏ Lỡ Thời Cơ Vàng (Alternate History)",
+            badge: "Kết Thúc Bỏ Lỡ Thời Cơ Vàng",
             background: "assets/images/bg_safehouse.jpg",
             bgm: "tense",
             sfx: "tension",
@@ -471,7 +459,7 @@ const SCENARIO_DATA = {
         "heroic_sacrifice": {
             id: "heroic_sacrifice",
             title: "TẤM KHIÊN BẤT TỬ",
-            badge: "🥀 Hy Sinh Vị Quốc (Heroic Sacrifice)",
+            badge: "Kết Thúc Hy Sinh Vị Quốc",
             background: "assets/images/bg_safehouse.jpg",
             bgm: "tense",
             sfx: "tension",

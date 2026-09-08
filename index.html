@@ -5,7 +5,11 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Bình Minh Tháng Tám - Hà Nội 1945 | Game Visual Novel Lịch Sử</title>
     <meta name="description" content="Trải nghiệm thời khắc quyết định của Cách mạng Tháng Tám 1945 tại Hà Nội trong tựa game Visual Novel lịch sử nhập vai tương tác.">
-    <meta name="keywords" content="Cách mạng tháng tám, 1945, Lịch sử Việt Nam, Visual Novel, Hà Nội 1945, game lịch sử">
+
+    <!-- Google Fonts chuẩn tiếng Việt 100% -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Be+Vietnam+Pro:ital,wght@0,300;0,400;0,500;0,600;0,700;1,400&family=Lora:ital,wght@0,400;0,500;0,600;0,700;1,400;1,500&family=Playfair+Display:ital,wght@0,600;0,700;0,800;0,900;1,600;1,700&display=swap" rel="stylesheet">
 
     <!-- Stylesheets -->
     <link rel="stylesheet" href="css/main.css">
@@ -14,7 +18,7 @@
 </head>
 <body>
     <div id="app-root">
-        <!-- Hiệu ứng chớp màn hình & Toasts -->
+        <!-- Hiệu ứng chớp màn hình & Thông báo -->
         <div id="flash-overlay" class="hidden"></div>
         <div id="toast-container"></div>
 
@@ -26,34 +30,32 @@
 
             <div class="title-header">
                 <div class="title-preheading">
-                    <span>⭐</span>
-                    <span>Tiểu Thuyết Trực Quan Lịch Sử Việt Nam</span>
-                    <span>⭐</span>
+                    Tiểu Thuyết Lịch Sử Tương Tác
                 </div>
                 <h1 class="title-main">Bình Minh <span>Tháng Tám</span></h1>
-                <p class="title-sub">Hà Nội Mùa Thu 1945 • Giờ Quyết Định Vận Mệnh Dân Tộc</p>
+                <p class="title-sub">Hà Nội Mùa Thu 1945 &bull; Giờ Quyết Định Vận Mệnh Dân Tộc</p>
             </div>
 
             <div class="title-menu">
                 <button id="btn-start" class="btn-title btn-title-primary">
-                    <span>⚔️</span> BẮT ĐẦU KHỞI NGHĨA
+                    BẮT ĐẦU KHỞI NGHĨA
                 </button>
                 <button id="btn-load-title" class="btn-title">
-                    <span>📂</span> TẢI VÁN CHƠI
+                    TẢI VÁN CHƠI
                 </button>
                 <button id="btn-codex-title" class="btn-title">
-                    <span>📜</span> HỒ SƠ TƯ LIỆU LỊCH SỬ
+                    HỒ SƠ TƯ LIỆU LỊCH SỬ
                 </button>
                 <button id="btn-endings-title" class="btn-title">
-                    <span>🏆</span> THƯ VIỆN KẾT THÚC
+                    KẾT THÚC ĐÃ MỞ
                 </button>
                 <button id="btn-settings-title" class="btn-title">
-                    <span>⚙️</span> THIẾT LẬP
+                    THIẾT LẬP
                 </button>
             </div>
 
             <div class="title-footer">
-                Tái hiện chân thực chuỗi sự kiện lịch sử 14/08 – 19/08/1945 tại Thủ đô Hà Nội
+                Tái hiện các mốc sự kiện lịch sử 14/08 – 19/08/1945 tại Thủ đô Hà Nội
             </div>
         </section>
 
@@ -70,7 +72,7 @@
                 <img id="character-avatar" class="character-avatar" src="" alt="Nhân vật">
             </div>
 
-            <!-- Thanh trạng thái đỉnh (Top HUD) -->
+            <!-- Thanh trạng thái tinh gọn đỉnh màn hình -->
             <header class="top-hud">
                 <div class="hud-context">
                     <div class="hud-badges">
@@ -80,90 +82,31 @@
                     <div id="location-badge" class="location-badge">Căn gác bí mật phố Hàng Bông</div>
                 </div>
 
-                <!-- 4 Chỉ số chiến lược thời cuộc -->
-                <div class="hud-stats">
-                    <!-- 1. Khí thế -->
-                    <div class="stat-item" title="Khí thế quần chúng nhân dân vùng lên">
-                        <span class="stat-icon">🔴</span>
-                        <div class="stat-info">
-                            <div class="stat-label-wrap">
-                                <span class="stat-name">Khí thế</span>
-                                <span id="stat-morale-val" class="stat-val">40%</span>
-                            </div>
-                            <div class="stat-bar-track">
-                                <div id="stat-morale-bar" class="stat-bar-fill bar-morale" style="width: 40%;"></div>
-                            </div>
-                        </div>
-                    </div>
-
-                    <!-- 2. Chuẩn bị lực lượng -->
-                    <div class="stat-item" title="Mức độ sẵn sàng của các đội tự vệ và cơ sở cách mạng">
-                        <span class="stat-icon">🟡</span>
-                        <div class="stat-info">
-                            <div class="stat-label-wrap">
-                                <span class="stat-name">Lực lượng</span>
-                                <span id="stat-readiness-val" class="stat-val">35%</span>
-                            </div>
-                            <div class="stat-bar-track">
-                                <div id="stat-readiness-bar" class="stat-bar-fill bar-readiness" style="width: 35%;"></div>
-                            </div>
-                        </div>
-                    </div>
-
-                    <!-- 3. Thuyết phục bảo an -->
-                    <div class="stat-item" title="Mức độ ngả về cách mạng của lính Trại Bảo an binh">
-                        <span class="stat-icon">🛡️</span>
-                        <div class="stat-info">
-                            <div class="stat-label-wrap">
-                                <span class="stat-name">Bảo an</span>
-                                <span id="stat-garrison-val" class="stat-val">30%</span>
-                            </div>
-                            <div class="stat-bar-track">
-                                <div id="stat-garrison-bar" class="stat-bar-fill bar-garrison" style="width: 30%;"></div>
-                            </div>
-                        </div>
-                    </div>
-
-                    <!-- 4. Nguy cơ quân Nhật can thiệp -->
-                    <div class="stat-item" title="Mức cảnh giác của quân đội Nhật (Nếu quá cao sẽ nổ ra đụng độ)">
-                        <span class="stat-icon">⚠️</span>
-                        <div class="stat-info">
-                            <div class="stat-label-wrap">
-                                <span class="stat-name">Cảnh giác Nhật</span>
-                                <span id="stat-alert-val" class="stat-val">30%</span>
-                            </div>
-                            <div class="stat-bar-track">
-                                <div id="stat-alert-bar" class="stat-bar-fill bar-alert" style="width: 30%;"></div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-
                 <!-- Thao tác nhanh -->
                 <div class="hud-actions">
-                    <button id="btn-auto" class="btn-hud" title="Tự động chạy thoại (Phím tắt: A)">
-                        <span>▶</span> Tự động
+                    <button id="btn-auto" class="btn-hud" title="Tự động chạy thoại (Phím A)">
+                        Tự động
                     </button>
                     <button id="btn-backlog" class="btn-hud" title="Xem lại lịch sử đối thoại">
-                        <span>📖</span> Nhật ký
+                        Nhật ký
                     </button>
                     <button id="btn-quick-save" class="btn-hud" title="Lưu ván chơi">
-                        <span>💾</span> Lưu
+                        Lưu
                     </button>
                     <button id="btn-quick-load" class="btn-hud" title="Tải ván chơi">
-                        <span>📂</span> Tải
+                        Tải
                     </button>
                     <button id="btn-codex-open" class="btn-hud" title="Hồ sơ tư liệu lịch sử">
-                        <span>📜</span> Tư liệu
+                        Tư liệu
                     </button>
-                    <button id="btn-settings-open" class="btn-hud" title="Cài đặt âm thanh & chữ">
-                        <span>⚙️</span>
+                    <button id="btn-settings-open" class="btn-hud" title="Cài đặt">
+                        Cài đặt
                     </button>
                     <button id="btn-mute" class="btn-hud" title="Bật/Tắt âm thanh">
-                        🔊
+                        Âm thanh: Bật
                     </button>
                     <button id="btn-home" class="btn-hud" title="Về Màn hình chính">
-                        🏠
+                        Thoát
                     </button>
                 </div>
             </header>
@@ -177,8 +120,7 @@
                     <div id="speaker-box" class="speaker-badge">Lời Dẫn</div>
                     <div id="dialogue-text" class="dialogue-text"></div>
                     <div id="advance-indicator" class="advance-indicator hidden">
-                        <span>Tiếp tục</span>
-                        <span>▼</span>
+                        <span>Nhấp để tiếp tục &rarr;</span>
                     </div>
                 </div>
             </div>
@@ -195,9 +137,9 @@
                 <div id="ending-content" class="ending-content"></div>
                 <div id="ending-note" class="ending-note"></div>
                 <div class="ending-actions">
-                    <button id="btn-ending-replay" class="btn-ending-action">⚔️ Chơi Lại Từ Đầu</button>
-                    <button id="btn-ending-codex" class="btn-ending-action">📜 Xem Tư Liệu Lịch Sử</button>
-                    <button id="btn-ending-home" class="btn-ending-action">🏠 Về Màn Hình Chính</button>
+                    <button id="btn-ending-replay" class="btn-ending-action">Chơi Lại Từ Đầu</button>
+                    <button id="btn-ending-codex" class="btn-ending-action">Xem Tư Liệu Lịch Sử</button>
+                    <button id="btn-ending-home" class="btn-ending-action">Về Màn Hình Chính</button>
                 </div>
             </div>
         </section>
@@ -210,7 +152,7 @@
             <div class="modal-backdrop"></div>
             <div class="modal-dialog">
                 <div class="modal-header">
-                    <h3 class="modal-title">📖 Nhật Ký Hội Thoại</h3>
+                    <h3 class="modal-title">Nhật Ký Hội Thoại</h3>
                     <button class="modal-close-btn">&times;</button>
                 </div>
                 <div class="modal-body">
@@ -224,7 +166,7 @@
             <div class="modal-backdrop"></div>
             <div class="modal-dialog">
                 <div class="modal-header">
-                    <h3 id="saveload-title" class="modal-title">💾 Quản Lý Lưu Trữ</h3>
+                    <h3 id="saveload-title" class="modal-title">Quản Lý Lưu Trữ</h3>
                     <button class="modal-close-btn">&times;</button>
                 </div>
                 <div class="modal-body">
@@ -238,14 +180,14 @@
             <div class="modal-backdrop"></div>
             <div class="modal-dialog modal-codex-dialog">
                 <div class="modal-header">
-                    <h3 class="modal-title">📜 Hồ Sơ Tư Liệu Lịch Sử 1945</h3>
+                    <h3 class="modal-title">Hồ Sơ Tư Liệu Lịch Sử 1945</h3>
                     <button class="modal-close-btn">&times;</button>
                 </div>
                 <div class="codex-layout">
                     <div class="codex-tabs">
-                        <button class="codex-tab-btn active" data-tab="documents">📄 Văn Kiện & Lời Kêu Gọi</button>
-                        <button class="codex-tab-btn" data-tab="events">🏛️ Sự Kiện Bước Ngoặt</button>
-                        <button class="codex-tab-btn" data-tab="figures">🎖️ Nhân Vật Lịch Sử</button>
+                        <button class="codex-tab-btn active" data-tab="documents">Văn Kiện &amp; Lời Kêu Gọi</button>
+                        <button class="codex-tab-btn" data-tab="events">Sự Kiện Lịch Sử</button>
+                        <button class="codex-tab-btn" data-tab="figures">Nhân Vật Lịch Sử</button>
                     </div>
                     <div class="codex-content-panes">
                         <div id="codex-items-list" class="codex-items-list"></div>
@@ -260,7 +202,7 @@
             <div class="modal-backdrop"></div>
             <div class="modal-dialog">
                 <div class="modal-header">
-                    <h3 class="modal-title">🏆 Thư Viện Kết Thúc</h3>
+                    <h3 class="modal-title">Kết Thúc Đã Mở Khóa</h3>
                     <button class="modal-close-btn">&times;</button>
                 </div>
                 <div class="modal-body">
@@ -274,7 +216,7 @@
             <div class="modal-backdrop"></div>
             <div class="modal-dialog">
                 <div class="modal-header">
-                    <h3 class="modal-title">⚙️ Thiết Lập Trò Chơi</h3>
+                    <h3 class="modal-title">Thiết Lập Trò Chơi</h3>
                     <button class="modal-close-btn">&times;</button>
                 </div>
                 <div class="modal-body">
@@ -283,11 +225,11 @@
                         <input id="range-text-speed" class="setting-slider" type="range" min="10" max="50" value="32">
                     </div>
                     <div class="setting-row">
-                        <span class="setting-label">Âm lượng Nhạc nền (BGM):</span>
+                        <span class="setting-label">Âm lượng Nhạc nền:</span>
                         <input id="range-bgm" class="setting-slider" type="range" min="0" max="100" value="40">
                     </div>
                     <div class="setting-row">
-                        <span class="setting-label">Âm lượng Hiệu ứng (SFX):</span>
+                        <span class="setting-label">Âm lượng Hiệu ứng:</span>
                         <input id="range-sfx" class="setting-slider" type="range" min="0" max="100" value="65">
                     </div>
                 </div>
@@ -295,7 +237,7 @@
         </div>
     </div>
 
-    <!-- Scripts (Tải theo thứ tự phụ thuộc) -->
+    <!-- Scripts -->
     <script src="js/audio.js"></script>
     <script src="js/data/codex-data.js"></script>
     <script src="js/data/scenario.js"></script>

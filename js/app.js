@@ -1,6 +1,7 @@
 /**
  * Main Application Controller for "Bình Minh Tháng Tám - Hà Nội 1945"
- * Quản lý các Modal, Menu, Lưu/Tải, Codex Lịch Sử và Thư Viện Kết Thúc
+ * Quản lý Modals, Menu, Lưu/Tải, Codex Lịch Sử và Thư Viện Kết Thúc
+ * Giao diện tinh gọn, lịch thiệp, không dùng emoji/token rườm rà
  */
 
 document.addEventListener("DOMContentLoaded", () => {
@@ -84,7 +85,7 @@ document.addEventListener("DOMContentLoaded", () => {
     // ==========================================
     if (btnHome) {
         btnHome.addEventListener("click", () => {
-            if (confirm("Bạn có muốn quay về Màn hình chính? Hãy nhớ lưu game trước nhé!")) {
+            if (confirm("Bạn có muốn quay về Màn hình chính?")) {
                 window.soundCtrl.stopAmbience();
                 gameScreen.classList.add("hidden");
                 endingScreen.classList.add("hidden");
@@ -131,8 +132,7 @@ document.addEventListener("DOMContentLoaded", () => {
     if (btnMute) {
         btnMute.addEventListener("click", () => {
             const isMuted = window.soundCtrl.toggleMute();
-            btnMute.textContent = isMuted ? "🔇" : "🔊";
-            btnMute.title = isMuted ? "Bật âm thanh" : "Tắt âm thanh";
+            btnMute.textContent = isMuted ? "Âm thanh: Tắt" : "Âm thanh: Bật";
         });
     }
 
@@ -187,7 +187,6 @@ document.addEventListener("DOMContentLoaded", () => {
                 `;
                 list.appendChild(entry);
             });
-            // Cuộn xuống cuối cùng
             setTimeout(() => { list.scrollTop = list.scrollHeight; }, 50);
         }
 
@@ -195,11 +194,11 @@ document.addEventListener("DOMContentLoaded", () => {
     }
 
     // SAVE / LOAD MODAL
-    let currentSaveLoadMode = "save"; // "save" | "load"
+    let currentSaveLoadMode = "save";
     function openSaveLoadModal(mode = "save") {
         currentSaveLoadMode = mode;
         const title = document.getElementById("saveload-title");
-        title.textContent = mode === "save" ? "Lưu Ván Chơi (Lưu Trữ)" : "Tải Ván Chơi (Đọc Lại)";
+        title.textContent = mode === "save" ? "Lưu Ván Chơi" : "Tải Ván Chơi";
 
         renderSaveSlots();
         modalSaveLoad.classList.remove("hidden");
@@ -220,12 +219,8 @@ document.addEventListener("DOMContentLoaded", () => {
                     <div class="slot-num">Ô Số ${i}</div>
                     <div class="slot-info">
                         <div class="slot-chapter">${data.chapter || "Chưa rõ hồi"}</div>
-                        <div class="slot-location">📍 ${data.location || "Hà Nội"}</div>
-                        <div class="slot-date">🕒 ${data.date}</div>
-                        <div class="slot-stats-preview">
-                            <span>Khí thế: ${data.stats.morale}%</span> |
-                            <span>Bảo an: ${data.stats.garrison}%</span>
-                        </div>
+                        <div class="slot-location">Địa điểm: ${data.location || "Hà Nội"}</div>
+                        <div class="slot-date">Thời gian: ${data.date}</div>
                     </div>
                     <button class="btn-slot-action">${currentSaveLoadMode === "save" ? "Ghi Đè" : "Tải Game"}</button>
                 `;
@@ -288,8 +283,8 @@ document.addEventListener("DOMContentLoaded", () => {
             card.className = `codex-card ${isUnlocked ? "unlocked" : "locked"} ${index === 0 && isUnlocked ? "selected" : ""}`;
 
             card.innerHTML = `
-                <div class="codex-card-title">${isUnlocked ? (item.title || item.name) : "🔒 Hồ sơ chưa mở khóa"}</div>
-                <div class="codex-card-tag">${isUnlocked ? (item.tag || item.role || item.category) : "Hãy chơi tiếp để mở khóa"}</div>
+                <div class="codex-card-title">${isUnlocked ? (item.title || item.name) : "Hồ sơ chưa mở khóa"}</div>
+                <div class="codex-card-tag">${isUnlocked ? (item.tag || item.role || item.category) : "Tiếp tục chơi để mở khóa"}</div>
             `;
 
             if (isUnlocked) {
@@ -314,7 +309,7 @@ document.addEventListener("DOMContentLoaded", () => {
             <div class="codex-detail-header">
                 <span class="codex-badge">${item.category || item.role || "Tư liệu"}</span>
                 <h3 class="codex-detail-title">${item.title || item.name}</h3>
-                ${item.date ? `<div class="codex-detail-date">📅 Thời gian: ${item.date}</div>` : ""}
+                ${item.date ? `<div class="codex-detail-date">Thời gian: ${item.date}</div>` : ""}
             </div>
             <div class="codex-detail-body">
                 ${item.content || item.bio || item.summary}
@@ -337,8 +332,8 @@ document.addEventListener("DOMContentLoaded", () => {
             card.className = `ending-card ${isUnlocked ? "unlocked" : "locked"}`;
 
             card.innerHTML = `
-                <div class="ending-card-status">${isUnlocked ? "ĐÃ MỞ KHÓA" : "CHƯA MỞ KHÓA"}</div>
-                <h4 class="ending-card-title">${isUnlocked ? ending.title : "❓ Cột Mốc Chưa Sáng Tỏ"}</h4>
+                <div class="ending-card-status">${isUnlocked ? "Đã Mở Khóa" : "Chưa Mở Khóa"}</div>
+                <h4 class="ending-card-title">${isUnlocked ? ending.title : "Cột Mốc Chưa Sáng Tỏ"}</h4>
                 <div class="ending-card-badge">${isUnlocked ? ending.badge : "Tham gia khởi nghĩa để trải nghiệm nhánh này"}</div>
                 ${isUnlocked ? `<div class="ending-card-desc">${ending.historicalNote}</div>` : ""}
             `;
@@ -356,7 +351,7 @@ document.addEventListener("DOMContentLoaded", () => {
         const rangeSfx = document.getElementById("range-sfx");
 
         if (rangeTextSpeed) {
-            rangeTextSpeed.value = 60 - engine.settings.textSpeed; // Đảo chiều cho tự nhiên: trượt phải là nhanh hơn
+            rangeTextSpeed.value = 60 - engine.settings.textSpeed;
             rangeTextSpeed.oninput = (e) => {
                 engine.settings.textSpeed = Math.max(5, 60 - parseInt(e.target.value));
             };
