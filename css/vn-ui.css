@@ -66,6 +66,18 @@
 /* ==========================================================================
    TOP BAR (THANH ĐIỀU HƯỚNG TINH GỌN)
    ========================================================================== */
+#game-screen {
+    position: absolute;
+    inset: 0;
+    height: 100%;
+    height: 100dvh;
+    z-index: 20;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    overflow: hidden;
+}
+
 .top-hud {
     position: relative;
     z-index: 10;
@@ -83,6 +95,7 @@
     display: flex;
     align-items: center;
     gap: 0.85rem;
+    flex-shrink: 0;
 }
 
 .hud-context {
@@ -169,21 +182,44 @@
 }
 
 @media (max-width: 960px) {
-    .top-hud {
-        padding: 0.55rem 1rem;
-    }
-    .hud-left {
-        gap: 0.5rem;
-    }
     .location-badge {
         display: none;
     }
+}
+
+@media (max-width: 768px) {
+    .top-hud {
+        padding: 0.45rem 0.65rem;
+    }
+    .hud-left {
+        gap: 0.4rem;
+    }
+    .hud-context {
+        padding-left: 0.35rem;
+        gap: 0.1rem;
+    }
+    .chapter-badge {
+        font-size: 0.82rem;
+    }
+    .date-badge {
+        font-size: 0.7rem;
+        padding: 0.12rem 0.4rem;
+    }
     .hud-actions {
-        gap: 0.35rem;
+        gap: 0.3rem;
+        overflow-x: auto;
+        -webkit-overflow-scrolling: touch;
+        max-width: 58vw;
+        scrollbar-width: none;
+    }
+    .hud-actions::-webkit-scrollbar {
+        display: none;
     }
     .btn-hud {
-        padding: 0.35rem 0.6rem;
-        font-size: 0.76rem;
+        padding: 0.32rem 0.5rem;
+        font-size: 0.72rem;
+        white-space: nowrap;
+        flex-shrink: 0;
     }
 }
 
@@ -368,4 +404,63 @@
 @keyframes flashEffect {
     0% { opacity: 0.85; }
     100% { opacity: 0; }
+}
+
+/* ==========================================================================
+   MOBILE & SMALL SCREEN OPTIMIZATIONS (IN-GAME VN UI)
+   ========================================================================== */
+@media (max-width: 768px) {
+    .character-stage {
+        height: 48vh;
+        max-height: 380px;
+        right: 2%;
+        bottom: 11.5rem;
+        opacity: 0.75;
+    }
+
+    .dialogue-wrapper {
+        padding: 0 0.75rem 0.75rem;
+    }
+
+    .dialogue-box {
+        min-height: 115px;
+        padding: 1.35rem 1.15rem 1.1rem;
+        border-radius: 6px;
+    }
+
+    .speaker-badge {
+        top: -0.95rem;
+        left: 1rem;
+        font-size: 0.8rem;
+        padding: 0.22rem 0.85rem;
+    }
+
+    .dialogue-text {
+        font-size: 0.95rem;
+        line-height: 1.6;
+        min-height: 3.5rem;
+    }
+
+    .advance-indicator {
+        bottom: 0.45rem;
+        right: 0.75rem;
+        font-size: 0.72rem;
+    }
+
+    .choices-container {
+        padding: 0 0.75rem;
+        gap: 0.5rem;
+        margin-bottom: 0.65rem;
+    }
+
+    .choice-btn {
+        padding: 0.75rem 1rem;
+        font-size: 0.88rem;
+        line-height: 1.45;
+        gap: 0.65rem;
+    }
+
+    .choice-bullet {
+        font-size: 0.9rem;
+    }
 }
