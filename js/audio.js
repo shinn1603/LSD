@@ -12,6 +12,21 @@ class SoundController {
         this.currentAmbientNode = null;
         this.bgmInterval = null;
         this.isInitialized = false;
+
+        // Trình phát nhạc nền MP3 thật
+        this.bgmAudio = new Audio();
+        this.bgmAudio.loop = true;
+        this.customAudioUrl = null;
+        this.customAudioName = "";
+        this.currentBgmKey = null;
+
+        // Bảng ánh xạ các bản nhạc nền theo chủ đề
+        this.musicTracks = {
+            title: 'assets/audio/bgm_title.mp3',
+            tense: 'assets/audio/bgm_tense.mp3',
+            epic: 'assets/audio/bgm_epic.mp3',
+            victory: 'assets/audio/bgm_victory.mp3'
+        };
     }
 
     init() {
@@ -190,10 +205,50 @@ class SoundController {
         });
     }
 
-    // BGM Ambient: Tiếng tích tắc đồng hồ hoặc tiếng rì rào đêm tối
+    // BGM Ambient: Hỗ trợ cả file MP3 thật và Synthesizer dự phòng
     startAmbience(mode = 'tense') {
-        if (!this.ctx || this.isMuted) return;
         this.stopAmbience();
+        this.currentBgmKey = mode;
+        if (this.isMuted) return;
+
+        // Ưu tiên 1: Nếu người dùng đã tải nhạc tùy chọn từ máy tính
+        if (this.customAudioUrl) {
+            this.playHtmlAudio(this.customAudioUrl);
+            return;
+        }
+
+        // Ưu tiên 2: Nếu có file nhạc trong thư mục assets/audio/
+        const trackPath = this.musicTracks[mode];
+        if (trackPath) {
+            this.playHtmlAudio(trackPath, () => {
+                // Tự động fallback sang Synthesizer nếu chưa có file MP3
+                this.startSynthesizedAmbience(mode);
+            });
+        } else {
+            this.startSynthesizedAmbience(mode);
+        }
+    }
+
+    playHtmlAudio(src, onErrorFallback) {
+        if (!this.bgmAudio) return;
+        this.bgmAudio.src = src;
+        this.bgmAudio.volume = this.isMuted ? 0 : this.bgmVolume;
+        this.bgmAudio.loop = true;
+
+        const playPromise = this.bgmAudio.play();
+        if (playPromise !== undefined) {
+            playPromise.catch(err => {
+                if (onErrorFallback) onErrorFallback();
+            });
+        }
+
+        this.bgmAudio.onerror = () => {
+            if (onErrorFallback) onErrorFallback();
+        };
+    }
+
+    startSynthesizedAmbience(mode = 'tense') {
+        if (!this.ctx || this.isMuted) return;
         this.resume();
 
         if (mode === 'tense') {
@@ -249,12 +304,49 @@ class SoundController {
             clearInterval(this.bgmInterval);
             this.bgmInterval = null;
         }
+        if (this.bgmAudio) {
+            this.bgmAudio.pause();
+        }
+    }
+
+    loadCustomAudioFile(file) {
+        if (this.customAudioUrl) {
+            URL.revokeObjectURL(this.customAudioUrl);
+        }
+        this.customAudioUrl = URL.createObjectURL(file);
+        this.customAudioName = file.name;
+        this.playHtmlAudio(this.customAudioUrl);
+        return this.customAudioName;
+    }
+
+    resetCustomAudio() {
+        if (this.customAudioUrl) {
+            URL.revokeObjectURL(this.customAudioUrl);
+            this.customAudioUrl = null;
+            this.customAudioName = "";
+        }
+        if (this.currentBgmKey) {
+            this.startAmbience(this.currentBgmKey);
+        } else {
+            this.stopAmbience();
+        }
+    }
+
+    setBgmVolume(val) {
+        this.bgmVolume = val;
+        if (this.bgmAudio) {
+            this.bgmAudio.volume = this.isMuted ? 0 : val;
+        }
     }
 
     toggleMute() {
         this.isMuted = !this.isMuted;
         if (this.isMuted) {
             this.stopAmbience();
+        } else {
+            if (this.currentBgmKey) {
+                this.startAmbience(this.currentBgmKey);
+            }
         }
         return this.isMuted;
     }

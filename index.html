@@ -28,6 +28,26 @@
         <section id="title-screen">
             <div class="title-screen-vignette"></div>
 
+            <!-- Thanh góc 2 bên: Âm thanh, Giới thiệu & Cài đặt (Tối ưu diện tích) -->
+            <div class="title-corner-bar">
+                <div class="title-corner-left">
+                    <button id="btn-title-mute" class="btn-corner-icon" title="Bật / Tắt âm thanh">
+                        <span id="title-mute-icon" class="corner-icon">🔊</span>
+                        <span id="title-mute-text" class="corner-text">Âm thanh: Bật</span>
+                    </button>
+                    <button id="btn-info-title" class="btn-corner-icon" title="Giới thiệu dự án lịch sử">
+                        <span class="corner-icon">ℹ️</span>
+                        <span class="corner-text">Giới thiệu</span>
+                    </button>
+                </div>
+                <div class="title-corner-right">
+                    <button id="btn-settings-title" class="btn-corner-icon" title="Cài đặt trò chơi">
+                        <span class="corner-icon">⚙️</span>
+                        <span class="corner-text">Cài đặt</span>
+                    </button>
+                </div>
+            </div>
+
             <div class="title-header">
                 <div class="title-preheading">
                     Tiểu Thuyết Lịch Sử Tương Tác
@@ -36,22 +56,25 @@
                 <p class="title-sub">Hà Nội Mùa Thu 1945 &bull; Giờ Quyết Định Vận Mệnh Dân Tộc</p>
             </div>
 
+            <!-- Menu trung tâm tinh gọn: Nút chính nổi bật & lưới 2x2 tối ưu không gian -->
             <div class="title-menu">
                 <button id="btn-start" class="btn-title btn-title-primary">
                     BẮT ĐẦU KHỞI NGHĨA
                 </button>
-                <button id="btn-load-title" class="btn-title">
-                    TẢI VÁN CHƠI
-                </button>
-                <button id="btn-codex-title" class="btn-title">
-                    HỒ SƠ TƯ LIỆU LỊCH SỬ
-                </button>
-                <button id="btn-endings-title" class="btn-title">
-                    KẾT THÚC ĐÃ MỞ
-                </button>
-                <button id="btn-settings-title" class="btn-title">
-                    THIẾT LẬP
-                </button>
+                <div class="title-menu-grid">
+                    <button id="btn-load-title" class="btn-title btn-title-compact">
+                        TẢI VÁN CHƠI
+                    </button>
+                    <button id="btn-codex-title" class="btn-title btn-title-compact">
+                        HỒ SƠ TƯ LIỆU
+                    </button>
+                    <button id="btn-quiz-title" class="btn-title btn-title-compact">
+                        ÔN TẬP (QUIZ)
+                    </button>
+                    <button id="btn-endings-title" class="btn-title btn-title-compact">
+                        KẾT THÚC ĐÃ MỞ
+                    </button>
+                </div>
             </div>
 
             <div class="title-footer">
@@ -72,42 +95,34 @@
                 <img id="character-avatar" class="character-avatar" src="" alt="Nhân vật">
             </div>
 
-            <!-- Thanh trạng thái tinh gọn đỉnh màn hình -->
+            <!-- Thanh trạng thái đỉnh màn hình dàn đều 2 bên góc -->
             <header class="top-hud">
-                <div class="hud-context">
-                    <div class="hud-badges">
-                        <span id="chapter-badge" class="chapter-badge">Hồi 1</span>
-                        <span id="date-badge" class="date-badge">14/08/1945</span>
+                <!-- Cụm góc trái: Nút Thoát, Âm thanh & Bối cảnh lịch sử -->
+                <div class="hud-left">
+                    <button id="btn-home" class="btn-hud btn-hud-corner" title="Quay về Màn hình chính">
+                        ⌂ Menu
+                    </button>
+                    <button id="btn-mute" class="btn-hud btn-hud-corner" title="Bật/Tắt âm thanh">
+                        🔊 Nhạc
+                    </button>
+                    <div class="hud-context">
+                        <div class="hud-badges">
+                            <span id="chapter-badge" class="chapter-badge">Hồi 1</span>
+                            <span id="date-badge" class="date-badge">14/08/1945</span>
+                        </div>
+                        <div id="location-badge" class="location-badge">Căn gác bí mật phố Hàng Bông</div>
                     </div>
-                    <div id="location-badge" class="location-badge">Căn gác bí mật phố Hàng Bông</div>
                 </div>
 
-                <!-- Thao tác nhanh -->
-                <div class="hud-actions">
-                    <button id="btn-auto" class="btn-hud" title="Tự động chạy thoại (Phím A)">
-                        Tự động
-                    </button>
-                    <button id="btn-backlog" class="btn-hud" title="Xem lại lịch sử đối thoại">
-                        Nhật ký
-                    </button>
-                    <button id="btn-quick-save" class="btn-hud" title="Lưu ván chơi">
-                        Lưu
-                    </button>
-                    <button id="btn-quick-load" class="btn-hud" title="Tải ván chơi">
-                        Tải
-                    </button>
-                    <button id="btn-codex-open" class="btn-hud" title="Hồ sơ tư liệu lịch sử">
-                        Tư liệu
-                    </button>
-                    <button id="btn-settings-open" class="btn-hud" title="Cài đặt">
-                        Cài đặt
-                    </button>
-                    <button id="btn-mute" class="btn-hud" title="Bật/Tắt âm thanh">
-                        Âm thanh: Bật
-                    </button>
-                    <button id="btn-home" class="btn-hud" title="Về Màn hình chính">
-                        Thoát
-                    </button>
+                <!-- Cụm góc phải: Các công cụ tương tác game -->
+                <div class="hud-actions hud-right">
+                    <button id="btn-auto" class="btn-hud" title="Tự động chạy thoại (Phím A)">Tự động</button>
+                    <button id="btn-backlog" class="btn-hud" title="Xem lại lịch sử đối thoại">Nhật ký</button>
+                    <button id="btn-quick-save" class="btn-hud" title="Lưu ván chơi">Lưu</button>
+                    <button id="btn-quick-load" class="btn-hud" title="Tải ván chơi">Tải</button>
+                    <button id="btn-codex-open" class="btn-hud" title="Hồ sơ tư liệu lịch sử">Tư liệu</button>
+                    <button id="btn-quiz-open" class="btn-hud" title="Trắc nghiệm ôn tập kiến thức">Ôn tập</button>
+                    <button id="btn-settings-open" class="btn-hud" title="Cài đặt">⚙️ Cài đặt</button>
                 </div>
             </header>
 
@@ -139,6 +154,7 @@
                 <div class="ending-actions">
                     <button id="btn-ending-replay" class="btn-ending-action">Chơi Lại Từ Đầu</button>
                     <button id="btn-ending-codex" class="btn-ending-action">Xem Tư Liệu Lịch Sử</button>
+                    <button id="btn-ending-quiz" class="btn-ending-action" style="background: var(--color-crimson); color: #fff; border-color: var(--color-gold);">Ôn Tập Kiến Thức (Quiz)</button>
                     <button id="btn-ending-home" class="btn-ending-action">Về Màn Hình Chính</button>
                 </div>
             </div>
@@ -232,6 +248,128 @@
                         <span class="setting-label">Âm lượng Hiệu ứng:</span>
                         <input id="range-sfx" class="setting-slider" type="range" min="0" max="100" value="65">
                     </div>
+                    <div class="setting-row setting-audio-upload">
+                        <div class="setting-label-group">
+                            <span class="setting-label">🎵 Nhạc Nền Tùy Chọn:</span>
+                            <span class="setting-hint">Tải file MP3 từ máy tính để phát làm nhạc nền trong game</span>
+                        </div>
+                        <label class="btn-file-upload">
+                            <span>Tải File MP3...</span>
+                            <input id="input-custom-bgm" type="file" accept="audio/*" class="hidden">
+                        </label>
+                    </div>
+                    <div id="custom-bgm-status" class="custom-bgm-status hidden">
+                        <span>Đang phát: <strong id="custom-bgm-name"></strong></span>
+                        <button id="btn-reset-bgm" class="btn-reset-bgm" title="Khôi phục nhạc mặc định">Khôi phục mặc định</button>
+                    </div>
+                    <div class="setting-note-box">
+                        💡 <em>Mẹo: Bạn cũng có thể copy trực tiếp file nhạc MP3 vào thư mục <code>assets/audio/</code> (ví dụ: <code>bgm_title.mp3</code>, <code>bgm_epic.mp3</code>) để game tự động phát vĩnh viễn!</em>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- 6. Modal Trắc Nghiệm Ôn Tập (Mini-Quiz) -->
+        <div id="modal-quiz" class="modal hidden">
+            <div class="modal-backdrop"></div>
+            <div class="modal-dialog modal-quiz-dialog">
+                <div class="modal-header">
+                    <h3 class="modal-title">Trắc Nghiệm Ôn Tập Lịch Sử Đảng (1945)</h3>
+                    <button class="modal-close-btn">&times;</button>
+                </div>
+                <div class="modal-body">
+                    <div id="quiz-active-view" class="quiz-container">
+                        <div class="quiz-header-status">
+                            <span id="quiz-progress" class="quiz-progress-text">Câu 1 / 6</span>
+                            <span id="quiz-score-tracker" class="quiz-score-badge">Điểm: 0</span>
+                        </div>
+                        <div class="quiz-question-box">
+                            <div id="quiz-question-text" class="quiz-question-text"></div>
+                        </div>
+                        <div id="quiz-options-container" class="quiz-options-list"></div>
+                        <div id="quiz-explanation-container" class="quiz-explanation-box hidden">
+                            <div id="quiz-verdict" class="quiz-verdict"></div>
+                            <div id="quiz-explanation-text" class="quiz-explanation-text"></div>
+                            <div id="quiz-source-tag" class="quiz-source-tag"></div>
+                            <div class="quiz-footer">
+                                <button id="btn-quiz-next" class="btn-quiz-next">Câu Tiếp Theo &rarr;</button>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Màn hình tổng kết khi hoàn thành -->
+                    <div id="quiz-result-view" class="quiz-result-view hidden">
+                        <div class="quiz-result-badge">Kết Quả Ôn Tập Lịch Sử</div>
+                        <div id="quiz-result-score" class="quiz-result-score">100/100</div>
+                        <h3 id="quiz-result-title" class="quiz-result-title">Xuất Sắc!</h3>
+                        <p id="quiz-result-desc" class="quiz-result-desc"></p>
+                        <div class="quiz-result-actions">
+                            <button id="btn-quiz-restart" class="btn-quiz-next">Làm Lại Bài Test</button>
+                            <button id="btn-quiz-view-codex" class="btn-ending-action">Tra Cứu Hồ Sơ Tư Liệu</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- 7. Modal Giới Thiệu Dự Án & Ban Biên Tập -->
+        <div id="modal-project-info" class="modal hidden">
+            <div class="modal-backdrop"></div>
+            <div class="modal-dialog modal-info-dialog">
+                <div class="modal-header">
+                    <h3 class="modal-title">Giới Thiệu Dự Án: Bình Minh Tháng Tám</h3>
+                    <button class="modal-close-btn">&times;</button>
+                </div>
+                <div class="modal-body">
+                    <div class="info-section">
+                        <h4 class="info-section-title">📌 Lời Tựa Đầu Sách</h4>
+                        <p class="info-p">Tháng Tám năm 1945 đã đi vào lịch sử dân tộc Việt Nam như một bản anh hùng ca bất diệt. Tại Hà Nội, từ ngày 14/08 đến ngày 19/08/1945, nhân dân Thủ đô dưới sự lãnh đạo kiên cường và tài tình của Đảng đã chớp lấy thời cơ ngàn năm có một, đập tan xiềng xích thực dân - phát xít, giành lại quyền làm chủ non sông.</p>
+                        <p class="info-p">Dự án <strong>"Bình Minh Tháng Tám - Hà Nội 1945"</strong> là một nỗ lực của nhóm sinh viên nhằm số hóa trải nghiệm lịch sử dưới hình thức tiểu thuyết trực quan (Visual Novel). Thông qua vai diễn chiến sĩ Đội Tuyên truyền Xung phong Thành Hoàng Diệu, người chơi được trực tiếp đối mặt với những ngã rẽ hiểm nguy, đưa ra những quyết sách mang tính thời khắc, từ đó thấu hiểu sâu sắc hơn tinh thần bất khuất và trí tuệ sáng tạo của thế hệ cha anh.</p>
+                    </div>
+
+                    <div class="info-section">
+                        <h4 class="info-section-title">🎯 Bối Cảnh Lịch Sử &amp; Những Thời Khắc Quyết Định</h4>
+                        <p class="info-p">&bull; <strong>Nghệ thuật chớp thời cơ:</strong> Khi phát xít Nhật đầu hàng Đồng minh, chính quyền tay sai hoang mang tê liệt, quân Đồng minh chưa kịp kéo vào — thời cơ ngàn năm xuất hiện chớp nhoáng đòi hỏi ngọn lửa cách mạng phải bùng lên kịp thời và thần tốc.</p>
+                        <p class="info-p">&bull; <strong>Bản lĩnh sáng tạo của Xứ ủy Bắc Kỳ:</strong> Trong hoàn cảnh liên lạc với Trung ương tại Tân Trào bị chia cắt, Thường vụ Xứ ủy Bắc Kỳ tại làng Vạn Phúc (Hà Đông) đã chủ động, dám nghĩ, dám làm, quyết định phát lệnh khởi nghĩa tại Hà Nội vào ngày 19/8/1945.</p>
+                        <p class="info-p">&bull; <strong>Kết hợp lực lượng chính trị với ngoại giao quân sự:</strong> Sức mạnh biển người áp đảo kết hợp cùng nghệ thuật thương thuyết tài tình đã khiến đội quân viễn chinh Nhật phải án binh bất động, giúp cuộc khởi nghĩa ở Thủ đô toàn thắng mà bảo toàn được tối đa xương máu đồng bào.</p>
+                    </div>
+
+                    <div class="info-section">
+                        <h4 class="info-section-title">🕹️ Các Hạng Mục Trải Nghiệm Trong Ứng Dụng</h4>
+                        <p class="info-p">&bull; <strong>Tiểu Thuyết Trực Quan (Visual Novel):</strong> Nhập vai chiến sĩ cách mạng, tương tác qua từng hồi, đối mặt với các quyết định rẽ nhánh dẫn đến 4 kết thúc lịch sử khác nhau.</p>
+                        <p class="info-p">&bull; <strong>Hồ Sơ Tư Liệu Lịch Sử (Codex):</strong> Mở khóa các văn kiện gốc (Quân lệnh số 1, Lời kêu gọi của Bác Hồ...), hồ sơ sự kiện và nhân vật lịch sử qua từng mốc chơi.</p>
+                        <p class="info-p">&bull; <strong>Ôn Tập &amp; Đố Vui Lịch Sử (Quiz):</strong> Thử thách bản thân với 6 câu hỏi trắc nghiệm trọng tâm để củng cố và ghi nhớ các kiến thức lịch sử vừa trải nghiệm.</p>
+                    </div>
+
+                    <div class="info-section">
+                        <h4 class="info-section-title">👥 Ban Biên Tập &amp; Nhóm Thực Hiện</h4>
+                        <table class="team-table">
+                            <thead>
+                                <tr>
+                                    <th>Ban chuyên trách</th>
+                                    <th>Nội dung đảm nhiệm</th>
+                                    <th>Ghi chú</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td><strong>Đơn vị thực hiện</strong></td>
+                                    <td>Nhóm Sinh viên Nghiên cứu Lịch sử Đảng</td>
+                                    <td>Dự án số hóa lịch sử cách mạng</td>
+                                </tr>
+                                <tr>
+                                    <td><strong>Nội dung &amp; Kịch bản</strong></td>
+                                    <td>Ban Biên tập Tư liệu Lịch sử</td>
+                                    <td>Nghiên cứu văn kiện Đảng &amp; Lịch sử Hà Nội 1945</td>
+                                </tr>
+                                <tr>
+                                    <td><strong>Kỹ thuật &amp; Giao diện</strong></td>
+                                    <td>Ban Phát triển Web Tương tác</td>
+                                    <td>Nền tảng HTML5 / CSS3 / JavaScript thuần</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
                 </div>
             </div>
         </div>
@@ -240,6 +378,7 @@
     <!-- Scripts -->
     <script src="js/audio.js"></script>
     <script src="js/data/codex-data.js"></script>
+    <script src="js/data/quiz-data.js"></script>
     <script src="js/data/scenario.js"></script>
     <script src="js/engine.js"></script>
     <script src="js/app.js"></script>

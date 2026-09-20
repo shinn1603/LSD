@@ -195,6 +195,22 @@
     margin-bottom: 0.5rem;
 }
 
+.codex-detail-source {
+    margin-top: 1.8rem;
+    padding: 0.9rem 1.25rem;
+    background: rgba(229, 169, 59, 0.08);
+    border-left: 3.5px solid var(--color-gold);
+    border-radius: 0 6px 6px 0;
+    font-family: var(--font-ui);
+    font-size: 0.88rem;
+    color: #ded5c2;
+    line-height: 1.6;
+}
+
+.codex-detail-source strong {
+    color: var(--color-gold-bright);
+}
+
 /* ==========================================================================
    ENDINGS GALLERY (THƯ VIỆN KẾT THÚC)
    ========================================================================== */

@@ -1,0 +1,32 @@
+HƯỚNG DẪN THÊM VÀ TÙY BIẾN NHẠC NỀN (BGM) CHO GAME
+===================================================
+
+Game hỗ trợ 2 cách thêm nhạc nền cực kỳ linh hoạt:
+
+---------------------------------------------------
+CÁCH 1: ĐẶT FILE MP3 TRỰC TIẾP VÀO THƯ MỤC NÀY (assets/audio/)
+---------------------------------------------------
+Bạn chỉ cần tải các bài hát (định dạng .mp3) về máy tính, đổi tên đúng theo danh sách dưới đây và dán (paste) vào thư mục:
+`assets/audio/`
+
+Danh sách tên file chuẩn:
+1. `bgm_title.mp3`  : Nhạc phát tại Màn hình chính (Menu chính).
+   (Gợi ý: Nhạc hào hùng, trang trọng, hoặc giai điệu mùa thu Hà Nội)
+2. `bgm_tense.mp3`  : Nhạc kịch tính, hồi hộp cho Hồi 1 (Đêm bí mật 14/8/1945).
+   (Gợi ý: Nhạc không khí cách mạng bí mật, trống dồn hoặc tiếng cello trầm)
+3. `bgm_epic.mp3`   : Nhạc khí thế cách mạng bão táp cho Hồi 2, Hồi 4 (17/8 & 19/8).
+   (Gợi ý: Bản thu Tiến Quân Ca, Mười Chín Tháng Tám, hoặc nhạc hành khúc cách mạng)
+4. `bgm_victory.mp3`: Nhạc kết thúc chiến thắng khải hoàn (Ending Screen).
+   (Gợi ý: Khúc ca khải hoàn, Tuyên ngôn Độc lập)
+
+Lưu ý:
+- Nếu chưa có file MP3, hệ thống sẽ tự động chuyển sang nhạc nền mô phỏng có sẵn của game, hoàn toàn không bị lỗi.
+- Ngay khi bạn copy file MP3 vào đúng tên, game sẽ tự động ưu tiên phát file MP3 của bạn!
+
+---------------------------------------------------
+CÁCH 2: TẢI NHẠC TRỰC TIẾP TỪ GIAO DIỆN WEB
+---------------------------------------------------
+- Bấm vào nút "CÀI ĐẶT" (ở góc phải màn hình hoặc trên thanh công cụ trong game).
+- Ở mục "🎵 Nhạc Nền Tùy Chọn", bấm nút "Tải File MP3...".
+- Chọn bất kỳ bài hát nào từ máy tính của bạn.
+- Game sẽ nhận bài hát và phát ngay lập tức làm nhạc nền!

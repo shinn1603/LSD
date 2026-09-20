@@ -17,8 +17,13 @@ document.addEventListener("DOMContentLoaded", () => {
     const btnStart = document.getElementById("btn-start");
     const btnLoadTitle = document.getElementById("btn-load-title");
     const btnCodexTitle = document.getElementById("btn-codex-title");
+    const btnQuizTitle = document.getElementById("btn-quiz-title");
     const btnEndingsTitle = document.getElementById("btn-endings-title");
+    const btnInfoTitle = document.getElementById("btn-info-title");
     const btnSettingsTitle = document.getElementById("btn-settings-title");
+    const btnTitleMute = document.getElementById("btn-title-mute");
+    const titleMuteIcon = document.getElementById("title-mute-icon");
+    const titleMuteText = document.getElementById("title-mute-text");
 
     // In-game top bar buttons
     const btnHome = document.getElementById("btn-home");
@@ -26,12 +31,14 @@ document.addEventListener("DOMContentLoaded", () => {
     const btnQuickSave = document.getElementById("btn-quick-save");
     const btnQuickLoad = document.getElementById("btn-quick-load");
     const btnCodexOpen = document.getElementById("btn-codex-open");
+    const btnQuizOpen = document.getElementById("btn-quiz-open");
     const btnSettingsOpen = document.getElementById("btn-settings-open");
     const btnMute = document.getElementById("btn-mute");
 
     // Ending screen buttons
     const btnEndingReplay = document.getElementById("btn-ending-replay");
     const btnEndingCodex = document.getElementById("btn-ending-codex");
+    const btnEndingQuiz = document.getElementById("btn-ending-quiz");
     const btnEndingHome = document.getElementById("btn-ending-home");
 
     // Modals
@@ -39,6 +46,8 @@ document.addEventListener("DOMContentLoaded", () => {
     const modalSaveLoad = document.getElementById("modal-saveload");
     const modalCodex = document.getElementById("modal-codex");
     const modalEndings = document.getElementById("modal-endings");
+    const modalQuiz = document.getElementById("modal-quiz");
+    const modalProjectInfo = document.getElementById("modal-project-info");
     const modalSettings = document.getElementById("modal-settings");
     const closeButtons = document.querySelectorAll(".modal-close-btn, .modal-backdrop");
 
@@ -66,10 +75,24 @@ document.addEventListener("DOMContentLoaded", () => {
         });
     }
 
+    if (btnQuizTitle) {
+        btnQuizTitle.addEventListener("click", () => {
+            window.soundCtrl.playHover();
+            openQuizModal();
+        });
+    }
+
     if (btnEndingsTitle) {
         btnEndingsTitle.addEventListener("click", () => {
             window.soundCtrl.playHover();
             openEndingsModal();
+        });
+    }
+
+    if (btnInfoTitle) {
+        btnInfoTitle.addEventListener("click", () => {
+            window.soundCtrl.playHover();
+            openProjectInfoModal();
         });
     }
 
@@ -122,6 +145,13 @@ document.addEventListener("DOMContentLoaded", () => {
         });
     }
 
+    if (btnQuizOpen) {
+        btnQuizOpen.addEventListener("click", () => {
+            window.soundCtrl.playHover();
+            openQuizModal();
+        });
+    }
+
     if (btnSettingsOpen) {
         btnSettingsOpen.addEventListener("click", () => {
             window.soundCtrl.playHover();
@@ -129,10 +159,23 @@ document.addEventListener("DOMContentLoaded", () => {
         });
     }
 
+    function updateMuteButtons(isMuted) {
+        if (btnMute) btnMute.textContent = isMuted ? "🔇 Tắt" : "🔊 Nhạc";
+        if (titleMuteIcon) titleMuteIcon.textContent = isMuted ? "🔇" : "🔊";
+        if (titleMuteText) titleMuteText.textContent = isMuted ? "Âm thanh: Tắt" : "Âm thanh: Bật";
+    }
+
+    if (btnTitleMute) {
+        btnTitleMute.addEventListener("click", () => {
+            const isMuted = window.soundCtrl.toggleMute();
+            updateMuteButtons(isMuted);
+        });
+    }
+
     if (btnMute) {
         btnMute.addEventListener("click", () => {
             const isMuted = window.soundCtrl.toggleMute();
-            btnMute.textContent = isMuted ? "Âm thanh: Tắt" : "Âm thanh: Bật";
+            updateMuteButtons(isMuted);
         });
     }
 
@@ -150,6 +193,13 @@ document.addEventListener("DOMContentLoaded", () => {
         btnEndingCodex.addEventListener("click", () => {
             window.soundCtrl.playHover();
             openCodexModal();
+        });
+    }
+
+    if (btnEndingQuiz) {
+        btnEndingQuiz.addEventListener("click", () => {
+            window.soundCtrl.playHover();
+            openQuizModal();
         });
     }
 
@@ -313,6 +363,11 @@ document.addEventListener("DOMContentLoaded", () => {
             </div>
             <div class="codex-detail-body">
                 ${item.content || item.bio || item.summary}
+                ${item.source ? `
+                    <div class="codex-detail-source">
+                        <strong>Nguồn tư liệu:</strong> <em>${item.source}</em>
+                    </div>
+                ` : ""}
             </div>
         `;
     }
@@ -361,7 +416,7 @@ document.addEventListener("DOMContentLoaded", () => {
             rangeBgm.value = engine.settings.bgmVolume * 100;
             rangeBgm.oninput = (e) => {
                 engine.settings.bgmVolume = e.target.value / 100;
-                window.soundCtrl.bgmVolume = engine.settings.bgmVolume;
+                window.soundCtrl.setBgmVolume(engine.settings.bgmVolume);
             };
         }
 
@@ -374,6 +429,184 @@ document.addEventListener("DOMContentLoaded", () => {
             };
         }
 
+        // Tải nhạc tùy chọn từ máy tính
+        const inputCustomBgm = document.getElementById("input-custom-bgm");
+        const customBgmStatus = document.getElementById("custom-bgm-status");
+        const customBgmName = document.getElementById("custom-bgm-name");
+        const btnResetBgm = document.getElementById("btn-reset-bgm");
+
+        if (inputCustomBgm) {
+            inputCustomBgm.onchange = (e) => {
+                const file = e.target.files[0];
+                if (file) {
+                    const trackName = window.soundCtrl.loadCustomAudioFile(file);
+                    if (customBgmStatus && customBgmName) {
+                        customBgmName.textContent = trackName;
+                        customBgmStatus.classList.remove("hidden");
+                    }
+                }
+            };
+        }
+
+        if (btnResetBgm) {
+            btnResetBgm.onclick = () => {
+                window.soundCtrl.resetCustomAudio();
+                if (customBgmStatus) customBgmStatus.classList.add("hidden");
+                if (inputCustomBgm) inputCustomBgm.value = "";
+            };
+        }
+
+        if (window.soundCtrl.customAudioName && customBgmStatus && customBgmName) {
+            customBgmName.textContent = window.soundCtrl.customAudioName;
+            customBgmStatus.classList.remove("hidden");
+        }
+
         modalSettings.classList.remove("hidden");
+    }
+
+    // ==========================================
+    // MINI-QUIZ (TRẮC NGHIỆM ÔN TẬP LỊCH SỬ)
+    // ==========================================
+    let currentQuizIndex = 0;
+    let quizScore = 0;
+    let quizAnswered = false;
+
+    function openQuizModal() {
+        currentQuizIndex = 0;
+        quizScore = 0;
+        quizAnswered = false;
+        renderCurrentQuestion();
+        document.getElementById("quiz-active-view").classList.remove("hidden");
+        document.getElementById("quiz-result-view").classList.add("hidden");
+        modalQuiz.classList.remove("hidden");
+    }
+
+    function renderCurrentQuestion() {
+        const questions = window.QUIZ_DATA || [];
+        if (!questions.length) return;
+
+        const q = questions[currentQuizIndex];
+        quizAnswered = false;
+
+        document.getElementById("quiz-progress").textContent = `Câu ${currentQuizIndex + 1} / ${questions.length}`;
+        document.getElementById("quiz-score-tracker").textContent = `Điểm: ${Math.round((quizScore / questions.length) * 100)}`;
+        document.getElementById("quiz-question-text").textContent = q.question;
+
+        const optionsContainer = document.getElementById("quiz-options-container");
+        optionsContainer.innerHTML = "";
+        document.getElementById("quiz-explanation-container").classList.add("hidden");
+
+        const keys = ["A", "B", "C", "D"];
+        q.options.forEach((optText, idx) => {
+            const btn = document.createElement("button");
+            btn.className = "quiz-option-btn";
+            btn.innerHTML = `
+                <span class="quiz-option-key">${keys[idx]}</span>
+                <span class="quiz-option-text">${optText}</span>
+            `;
+
+            btn.addEventListener("click", () => {
+                if (quizAnswered) return;
+                handleAnswerSelection(idx, q);
+            });
+
+            optionsContainer.appendChild(btn);
+        });
+    }
+
+    function handleAnswerSelection(selectedIndex, q) {
+        quizAnswered = true;
+        const optionButtons = document.querySelectorAll(".quiz-option-btn");
+        optionButtons.forEach(b => b.disabled = true);
+
+        const isCorrect = selectedIndex === q.correctIndex;
+        if (isCorrect) {
+            quizScore++;
+            window.soundCtrl.playUnlock();
+            optionButtons[selectedIndex].classList.add("correct");
+        } else {
+            window.soundCtrl.playTension();
+            optionButtons[selectedIndex].classList.add("wrong");
+            optionButtons[q.correctIndex].classList.add("correct");
+        }
+
+        const questions = window.QUIZ_DATA || [];
+        document.getElementById("quiz-score-tracker").textContent = `Điểm: ${Math.round((quizScore / questions.length) * 100)}`;
+
+        // Hiển thị hộp giải thích
+        const verdictEl = document.getElementById("quiz-verdict");
+        verdictEl.className = `quiz-verdict ${isCorrect ? "correct" : "wrong"}`;
+        verdictEl.innerHTML = isCorrect ? "&#10004; CHÍNH XÁC!" : "&#10008; CHƯA CHÍNH XÁC!";
+
+        document.getElementById("quiz-explanation-text").textContent = q.explanation;
+        document.getElementById("quiz-source-tag").innerHTML = `<strong>Tài liệu tham khảo:</strong> ${q.source}`;
+        document.getElementById("quiz-explanation-container").classList.remove("hidden");
+    }
+
+    const btnQuizNext = document.getElementById("btn-quiz-next");
+    if (btnQuizNext) {
+        btnQuizNext.addEventListener("click", () => {
+            window.soundCtrl.playChoice();
+            const questions = window.QUIZ_DATA || [];
+            if (currentQuizIndex + 1 < questions.length) {
+                currentQuizIndex++;
+                renderCurrentQuestion();
+            } else {
+                showQuizResults();
+            }
+        });
+    }
+
+    function showQuizResults() {
+        const questions = window.QUIZ_DATA || [];
+        const total = questions.length;
+        const finalScore = Math.round((quizScore / total) * 100);
+
+        document.getElementById("quiz-active-view").classList.add("hidden");
+        const resultView = document.getElementById("quiz-result-view");
+        resultView.classList.remove("hidden");
+
+        const scoreEl = document.getElementById("quiz-result-score");
+        const titleEl = document.getElementById("quiz-result-title");
+        const descEl = document.getElementById("quiz-result-desc");
+
+        scoreEl.textContent = `${finalScore} / 100 Điểm`;
+
+        if (finalScore === 100) {
+            window.soundCtrl.playFanfare();
+            titleEl.textContent = "Xuất Sắc! Nắm Vững Lịch Sử Thủ Đô!";
+            descEl.textContent = `Bạn đã trả lời đúng toàn bộ ${quizScore}/${total} câu hỏi. Toàn bộ các mốc thời cơ lịch sử, quyết định tại Vạn Phúc, sự kiện Nhà hát Lớn và ngày Tổng khởi nghĩa 19/8/1945 đã được bạn nắm bắt rất sâu sắc!`;
+        } else if (finalScore >= 70) {
+            window.soundCtrl.playUnlock();
+            titleEl.textContent = "Rất Tốt! Nắm Chắc Kiến Thức Trọng Tâm!";
+            descEl.textContent = `Bạn đã đạt ${quizScore}/${total} câu đúng (${finalScore} điểm). Hãy tiếp tục khám phá thêm các văn kiện trong Hồ sơ tư liệu để hiểu sâu hơn về nghệ thuật khởi nghĩa nhé!`;
+        } else {
+            window.soundCtrl.playTension();
+            titleEl.textContent = "Hãy Tiếp Tục Cố Gắng!";
+            descEl.textContent = `Bạn đạt ${quizScore}/${total} câu đúng (${finalScore} điểm). Bạn có thể tra cứu thêm các văn kiện và sự kiện trong Hồ sơ tư liệu (Codex) rồi thử lại bài ôn tập nhé!`;
+        }
+    }
+
+    const btnQuizRestart = document.getElementById("btn-quiz-restart");
+    if (btnQuizRestart) {
+        btnQuizRestart.addEventListener("click", () => {
+            window.soundCtrl.playHover();
+            openQuizModal();
+        });
+    }
+
+    const btnQuizViewCodex = document.getElementById("btn-quiz-view-codex");
+    if (btnQuizViewCodex) {
+        btnQuizViewCodex.addEventListener("click", () => {
+            modalQuiz.classList.add("hidden");
+            openCodexModal();
+        });
+    }
+
+    // ==========================================
+    // PROJECT INFO MODAL
+    // ==========================================
+    function openProjectInfoModal() {
+        modalProjectInfo.classList.remove("hidden");
     }
 });
