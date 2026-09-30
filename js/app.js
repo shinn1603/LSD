@@ -52,8 +52,17 @@ document.addEventListener("DOMContentLoaded", () => {
     const closeButtons = document.querySelectorAll(".modal-close-btn, .modal-backdrop");
 
     // ==========================================
-    // TITLE SCREEN ACTIONS
+    // TITLE SCREEN ACTIONS & BGM
     // ==========================================
+    const triggerTitleAudioOnUserGesture = () => {
+        if (titleScreen && !titleScreen.classList.contains("hidden")) {
+            window.soundCtrl.init();
+            window.soundCtrl.startAmbience('title');
+        }
+    };
+    document.addEventListener("click", triggerTitleAudioOnUserGesture, { once: true });
+    document.addEventListener("keydown", triggerTitleAudioOnUserGesture, { once: true });
+
     if (btnStart) {
         btnStart.addEventListener("click", () => {
             window.soundCtrl.playChoice();
@@ -112,7 +121,11 @@ document.addEventListener("DOMContentLoaded", () => {
                 window.soundCtrl.stopAmbience();
                 gameScreen.classList.add("hidden");
                 endingScreen.classList.add("hidden");
+                const cutsceneScreen = document.getElementById("cutscene-screen");
+                if (cutsceneScreen) cutsceneScreen.classList.add("hidden");
+                if (engine) engine.isCutsceneActive = false;
                 titleScreen.classList.remove("hidden");
+                window.soundCtrl.startAmbience('title');
             }
         });
     }
@@ -208,6 +221,7 @@ document.addEventListener("DOMContentLoaded", () => {
             window.soundCtrl.stopAmbience();
             endingScreen.classList.add("hidden");
             titleScreen.classList.remove("hidden");
+            window.soundCtrl.startAmbience('title');
         });
     }
 

@@ -21,7 +21,7 @@ const SCENARIO_DATA = {
             date: "Đêm 14 tháng 8 năm 1945",
             location: "Căn gác bí mật phố Hàng Bông, Hà Nội",
             background: "assets/images/bg_safehouse.jpg",
-            bgm: "tense",
+            bgm: "gameplay",
             speaker: "Lời Dẫn",
             avatar: null,
             text: "Hà Nội về đêm chìm trong không khí ngột ngạt đến nghẹt thở. Mùi khói dầu hỏa từ chiếc đèn bão hòa lẫn với mùi mực in sắc lẻm từ chiếc máy in roneo đặt ở góc phòng.",
@@ -82,16 +82,77 @@ const SCENARIO_DATA = {
                     text: "Táo bạo chủ động: In ngay một vạn truyền đơn cách mạng, cấp tốc chuyển giao cho mạng lưới công nhân xe lửa Gia Lâm và nhà máy điện Yên Phụ chuẩn bị biểu tình.",
                     statChanges: { morale: 20, readiness: 15, alert: 5 },
                     unlockCodex: "doc_quan_lenh_1",
+                    cutscene: {
+                        tag: "HÀNH ĐỘNG TÁO BẠO",
+                        title: "CHIẾN DỊCH KHẨN CẤP",
+                        frames: [
+                            {
+                                image: "assets/images/cutscene_rush_alley.jpg",
+                                title: "LAO VÀO MÀN ĐÊM HÀ NỘI",
+                                speaker: "Lời Dẫn",
+                                text: "Thời cơ ngàn năm có một, không thể chần chừ một khắc nào. Chiến sĩ liên lạc lập tức băng qua khung cửa gác mái, lao xuống từng bậc thang gỗ ọp ẹp và phóng mình xé màn đêm phố cổ Hà Nội.",
+                                sfx: "tension",
+                                shake: true
+                            },
+                            {
+                                image: "assets/images/cutscene_print_press.jpg",
+                                title: "GUỒNG MÁY IN KHẨN CẤP",
+                                speaker: "Lời Dẫn",
+                                text: "Dưới ánh đèn bão leo lét trong căn buồng bí mật, con lăn máy in roneo rít lên liên hồi. Mùi mực in hăng nồng xốc vào cánh mũi, từng chồng truyền đơn mang Quân lệnh số 1 nóng hổi liên tục xuất xưởng.",
+                                sfx: "typewriter"
+                            },
+                            {
+                                image: "assets/images/cutscene_distribute_leaflets.jpg",
+                                title: "RẢI TRUYỀN ĐƠN KHẮP CÁC CỬA Ô",
+                                speaker: "Lời Dẫn",
+                                text: "Trời vừa hửng sáng, các đội nữ sinh và thanh niên cứu quốc đã tỏa về ga xe lửa Gia Lâm, chợ Đồng Xuân và trạm xe điện Bờ Hồ. Hàng nghìn truyền đơn đỏ thắm mang lệnh khởi nghĩa được trao tận tay công nhân ca sớm.",
+                                sfx: "unlock"
+                            }
+                        ]
+                    },
                     next: "act1_choice_bold"
                 },
                 {
                     text: "Thận trọng củng cố: Tạm thời tuyên truyền miệng, tập trung toàn lực trinh sát hệ thống bố phòng doanh trại Nhật và Trại Bảo an binh.",
                     statChanges: { readiness: 10, garrison: 15, alert: -5 },
+                    cutscene: {
+                        tag: "TRINH SÁT NẮM ĐỊCH",
+                        title: "BƯỚC CHÂN TRONG BÓNG ĐÊM",
+                        frames: [
+                            {
+                                image: "assets/images/cutscene_recon_night.jpg",
+                                title: "ÁP SÁT BỐT GÁC QUÂN NHẬT",
+                                speaker: "Lời Dẫn",
+                                text: "Đêm đen như mực, tổ trinh sát mật bám sát từng ụ cát súng máy và bốt gác lính Nhật phố Hàng Bài, dùng ống nhòm ghi chép tỉ mỉ thời gian đổi gác và sơ đồ bố phòng.",
+                                sfx: "tension"
+                            },
+                            {
+                                image: "assets/images/cutscene_plan_map.jpg",
+                                title: "SƠ ĐỒ TÁC CHIẾN HOÀN THÀNH",
+                                speaker: "Lời Dẫn",
+                                text: "Dưới ánh đèn dầu chụm đầu cùng các chỉ huy, bản đồ hệ thống phòng thủ của địch đã nằm trọn trong tay cách mạng. Nắm chắc lực lượng đối phương, ta chủ động hạn chế đến mức tối thiểu xương máu của quần chúng.",
+                                sfx: "unlock"
+                            }
+                        ]
+                    },
                     next: "act1_choice_cautious"
                 },
                 {
                     text: "Chờ đợi an toàn: Án binh bất động, kiên quyết chờ công văn hỏa tốc chính thức có chữ ký từ Tân Trào mới dám phát động phong trào.",
                     statChanges: { morale: -20, readiness: -15, alert: -10 },
+                    cutscene: {
+                        tag: "THỜI KHẮC DAO ĐỘNG",
+                        title: "KHOẢNG LẶNG NGỘT NGẠT",
+                        frames: [
+                            {
+                                image: "assets/images/cutscene_safehouse_wait.jpg",
+                                title: "CĂN GÁC IM LÌM",
+                                speaker: "Lời Dẫn",
+                                text: "Căn gác phố Hàng Bông chìm trong khoảng lặng âu lo. Ngọn đèn dầu cạn dần, sự thận trọng quá mức khiến cỗ máy cách mạng bỏ lỡ những giờ phút vàng ngọc giữa lúc quân thù đang hoang mang tột độ.",
+                                sfx: "tension"
+                            }
+                        ]
+                    },
                     next: "act1_choice_hesitant"
                 }
             ]
@@ -139,7 +200,7 @@ const SCENARIO_DATA = {
             date: "Chiều 17 tháng 8 năm 1945",
             location: "Quảng trường Nhà hát Lớn Hà Nội",
             background: "assets/images/bg_revolution.jpg",
-            bgm: "epic",
+            bgm: "gameplay",
             speaker: "Lời Dẫn",
             avatar: null,
             text: "Chiều 17 tháng 8 năm 1945. Tổng hội Viên chức thân chính phủ Trần Trọng Kim tổ chức một cuộc đại mít tinh trước Nhà hát Lớn Hà Nội để cổ súy cho chính quyền bù nhìn do Nhật dựng lên.",
@@ -179,17 +240,87 @@ const SCENARIO_DATA = {
                     text: "Táo bạo cướp diễn đàn: Buông lá cờ đỏ sao vàng khổng lồ từ tầng hai, tước lấy micro đọc Lời Hiệu Triệu Việt Minh và biến cuộc mít tinh thành tuần hành cách mạng.",
                     statChanges: { morale: 25, readiness: 15, alert: 5 },
                     unlockCodex: "evt_17_august",
+                    cutscene: {
+                        tag: "BƯỚC NGOẶT LỊCH SỬ",
+                        title: "BÃO TÁP NHÀ HÁT LỚN",
+                        frames: [
+                            {
+                                image: "assets/images/cutscene_storm_podium.jpg",
+                                title: "CƯỚP DIỄN ĐÀN TRUYỀN THANH",
+                                speaker: "Lời Dẫn",
+                                text: "Các chiến sĩ Đội Tuyên truyền Xung phong bất ngờ vọt lên lễ đài! Trong chớp mắt, chiếc micro của viên chức bù nhìn bị giật phăng, nhường chỗ cho Lời Hiệu Triệu Việt Minh vang dội cứu quốc.",
+                                sfx: "choice",
+                                shake: true
+                            },
+                            {
+                                image: "assets/images/cutscene_flag_opera.jpg",
+                                title: "CỜ ĐỎ SAO VÀNG RỰC RỠ",
+                                speaker: "Lời Dẫn",
+                                text: "Từ ban công tầng hai Nhà hát Lớn, lá cờ đỏ sao vàng bằng lụa đỏ rộng bốn mét buông phủ xuống mặt tiền! Cả quảng trường nín thở trong một giây rồi bùng nổ trong tiếng reo hò dậy sóng.",
+                                sfx: "fanfare",
+                                flash: true
+                            },
+                            {
+                                image: "assets/images/bg_revolution.jpg",
+                                title: "TIẾN QUÂN CA VANG DỘI HÀ NỘI",
+                                speaker: "Lời Dẫn",
+                                text: "Hàng vạn cánh tay giơ cao như rừng! Bài hát 'Tiến Quân Ca' lần đầu tiên vang lên giữa lòng Hà Nội, biến cuộc mít tinh của địch thành cuộc biểu tình tuần hành rực lửa dọc phố Tràng Tiền.",
+                                sfx: "unlock"
+                            }
+                        ]
+                    },
                     next: "act2_choice_hijack"
                 },
                 {
                     text: "Phát truyền đơn bí mật: Chỉ đứng trong đám đông tán phát truyền đơn và hô vang khẩu hiệu ủng hộ Việt Minh rồi lặng lẽ rút lui.",
                     statChanges: { morale: 5, readiness: 5, alert: -5 },
+                    cutscene: {
+                        tag: "VẬN ĐỘNG TRONG LẶNG LẼ",
+                        title: "DÒNG NGƯỜI PHÂN VÂN",
+                        frames: [
+                            {
+                                image: "assets/images/cutscene_leaflets_crowd.jpg",
+                                title: "RẢI TRUYỀN ĐƠN TRONG BIỂN NGƯỜI",
+                                speaker: "Lời Dẫn",
+                                text: "Len lỏi giữa dòng người đông đúc trước Nhà hát Lớn, từng tập truyền đơn đỏ thắm được các chiến sĩ tự vệ bí mật chuyền tay đến từng người dân.",
+                                sfx: "unlock"
+                            },
+                            {
+                                image: "assets/images/cutscene_reading_leaflets.jpg",
+                                title: "NGỌN LỬA ÂM Ỉ TRONG LÒNG DÂN",
+                                speaker: "Lời Dẫn",
+                                text: "Quần chúng truyền tay nhau đọc từng dòng chữ cứu quốc trong niềm xao động sâu sắc, ngọn lửa cách mạng âm ỉ lan truyền khắp các nẻo đường Hà Nội.",
+                                sfx: "typewriter"
+                            }
+                        ]
+                    },
                     next: "act2_choice_subtle"
                 },
                 {
                     text: "Nổ súng thị uy: Ra lệnh cho tổ tự vệ nổ súng chỉ thiên để giải tán ngay lập tức cuộc mít tinh thân Nhật.",
                     statChanges: { morale: -15, readiness: -10, alert: 35 },
                     shake: true,
+                    cutscene: {
+                        tag: "HIỂM NGU BẤT NGỜ",
+                        title: "TIẾNG SÚNG XÉ TAN QUẢNG TRƯỜNG",
+                        frames: [
+                            {
+                                image: "assets/images/cutscene_gunshot_warning.jpg",
+                                title: "TIẾNG SÚNG CHỈ THIÊN",
+                                speaker: "Lời Dẫn",
+                                text: "Tiếng súng nổ chỉ thiên chát chúa vang lên xé tan không khí quảng trường! Sự kích động bất ngờ khiến hàng vạn người hoảng hốt dạt ra hai bên trong cảnh hỗn loạn.",
+                                sfx: "tension",
+                                shake: true
+                            },
+                            {
+                                image: "assets/images/cutscene_chaos_barricade.jpg",
+                                title: "LÍNH NHẬT BỐ PHÒNG PHONG TỎA",
+                                speaker: "Lời Dẫn",
+                                text: "Lính Nhật đóng quanh quảng trường lập tức nạp đạn súng máy, kéo rào thép gai phong tỏa các tuyến phố lân cận, đẩy phong trào vào tình thế căng thẳng bị động.",
+                                sfx: "tension"
+                            }
+                        ]
+                    },
                     next: "act2_choice_violent"
                 }
             ]
@@ -249,7 +380,7 @@ const SCENARIO_DATA = {
             date: "Đêm 18 tháng 8 năm 1945",
             location: "Trước cổng Trại Bảo an binh phố Hàng Bài",
             background: "assets/images/bg_garrison.jpg",
-            bgm: "tense",
+            bgm: "gameplay",
             speaker: "Lời Dẫn",
             avatar: null,
             text: "Đêm 18 tháng 8 năm 1945. Khí thế khởi nghĩa đã sôi sục khắp các phố phường ngoại ô và nội thành. Tuy nhiên, Trại Bảo an binh tại phố Hàng Bài vẫn là cái gai nhức nhối nhất.",
@@ -289,16 +420,83 @@ const SCENARIO_DATA = {
                     text: "Lấy đại nghĩa dân tộc và tình cảm đồng bào thuyết phục: 'Chúng ta đều là con Lạc cháu Hồng! Phát xít Nhật đã quỳ gối, chính quyền bù nhìn đã cáo chung. Hãy quay súng về với nhân dân để lập công với Tổ quốc!'",
                     statChanges: { garrison: 35, morale: 15, alert: -10 },
                     unlockCodex: "fig_bao_an_binh",
+                    cutscene: {
+                        tag: "NGHỆ THUẬT BINH VẬN",
+                        title: "TIẾNG GỌI CỦA NON SÔNG",
+                        frames: [
+                            {
+                                image: "assets/images/bg_garrison.jpg",
+                                title: "TIẾN VÀO TRẠI BẢO AN BINH",
+                                speaker: "Lời Dẫn",
+                                text: "Chiến sĩ cách mạng tay không vũ khí, đĩnh đạc bước qua hàng lính gác lưỡi lê phố Hàng Bài, tiến thẳng vào phòng chỉ huy để đối thoại trực tiếp cùng viên Đội trưởng.",
+                                sfx: "tension"
+                            },
+                            {
+                                image: "assets/images/cutscene_talk_commander.jpg",
+                                title: "ĐẤU TRÍ THỨC TỈNH LƯƠNG TÂM",
+                                speaker: "Lời Dẫn",
+                                text: "Tại bàn chỉ huy, những lời phân tích chân tình về nguồn cội Lạc Hồng và thời cơ dân tộc đã đánh trúng lương tri người lính, thức tỉnh tinh thần yêu nước quật khởi.",
+                                sfx: "tension"
+                            },
+                            {
+                                image: "assets/images/char_bao_an.jpg",
+                                title: "QUY PHỤC CÁCH MẠNG",
+                                speaker: "Lời Dẫn",
+                                text: "Viên chỉ huy xúc động buông bút, cam kết: sáng mai khi cờ đỏ sao vàng tiến tới, toàn thể binh lính Trại Hàng Bài sẽ mở toang cổng trại, giao nộp toàn bộ kho vũ khí cho nhân dân.",
+                                sfx: "unlock"
+                            }
+                        ]
+                    },
                     next: "act3_choice_reason"
                 },
                 {
                     text: "Đưa ra tối hậu thư thép: 'Hà Nội ngày mai có hai mươi vạn đồng bào sẵn sàng san phẳng nơi này. Các anh buông súng thì được bảo toàn tính mạng, chống cự sẽ là kẻ thù của non sông!'",
                     statChanges: { garrison: 10, morale: 10, alert: 10 },
+                    cutscene: {
+                        tag: "ĐỐI ĐẦU NGHẸT THỞ",
+                        title: "LẰN RANH NGUY HIỂM",
+                        frames: [
+                            {
+                                image: "assets/images/cutscene_threat_dialogue.jpg",
+                                title: "TUYÊN BỐ TỐI HẬU THƯ",
+                                speaker: "Lời Dẫn",
+                                text: "Đại diện Việt Minh đanh thép đưa tối hậu thư trước sự bối rối, tái mặt của viên sĩ quan chỉ huy tại phòng làm việc.",
+                                sfx: "tension"
+                            },
+                            {
+                                image: "assets/images/cutscene_barracks_tension.jpg",
+                                title: "GHÌM SÚNG TRONG BÓNG TỐI TRẠI LÍNH",
+                                speaker: "Lời Dẫn",
+                                text: "Tối hậu thư thép vang lên đanh thép giữa bóng tối trại lính. Tiếng lên đạn lách cách căng thẳng từ các góc tối, bầu không khí đối đầu nghẹt thở kéo dài trong sự giằng co thận trọng.",
+                                sfx: "tension"
+                            }
+                        ]
+                    },
                     next: "act3_choice_threat"
                 },
                 {
                     text: "Đề nghị trung lập: 'Các anh không cần đi theo chúng tôi, chỉ cần đóng chặt cổng trại và cam kết không nổ súng vào đoàn người biểu tình sáng mai.'",
                     statChanges: { garrison: 5, readiness: -10, alert: 0 },
+                    cutscene: {
+                        tag: "CỔNG ĐỒN ĐÓNG KÍN",
+                        title: "KHO SÚNG BỊ KHÓA CHẶT",
+                        frames: [
+                            {
+                                image: "assets/images/cutscene_iron_gate.jpg",
+                                title: "CỔNG SẮT KHÉP CHẶT",
+                                speaker: "Lời Dẫn",
+                                text: "Cánh cổng sắt to lớn kiên cố của Trại Bảo an binh khép chặt, then đồng cài kín sau lưng tổ liên lạc.",
+                                sfx: "typewriter"
+                            },
+                            {
+                                image: "assets/images/cutscene_armory_locked.jpg",
+                                title: "KHO VŨ KHÍ BỊ NIÊM PHONG",
+                                speaker: "Lời Dẫn",
+                                text: "Trại bảo an giữ thế trung lập không nổ súng, nhưng kho vũ khí hơn một ngàn khẩu vẫn bị khóa kín sau những chấn song sắt ngoài tầm tay tự vệ.",
+                                sfx: "tension"
+                            }
+                        ]
+                    },
                     next: "act3_choice_neutral"
                 }
             ]
@@ -346,7 +544,7 @@ const SCENARIO_DATA = {
             date: "Sáng 19 tháng 8 năm 1945",
             location: "Quảng trường Nhà hát Lớn & Bắc Bộ Phủ",
             background: "assets/images/bg_revolution.jpg",
-            bgm: "epic",
+            bgm: "gameplay",
             speaker: "Lời Dẫn",
             avatar: null,
             text: "Sáng 19 tháng 8 năm 1945! Cả Hà Nội bừng tỉnh trong rừng cờ đỏ sao vàng rực rỡ! Hơn 20 vạn nhân dân từ khắp các cửa ô: Đống Đa, Bưởi, Cầu Giấy, Bạch Mai cuồn cuộn đổ về Nhà hát Lớn!",
@@ -389,17 +587,73 @@ const SCENARIO_DATA = {
                     text: "Hiên ngang tiến ra đàm phán ngoại giao quân sự: Khẳng định cách mạng chỉ phế truất chính phủ bù nhìn, cam đoan an toàn cho quân Nhật chờ hồi hương, yêu cầu Nhật tôn trọng nguyện vọng độc lập của người Việt và án binh bất động.",
                     statChanges: { morale: 20, garrison: 20, alert: -25 },
                     unlockCodex: "evt_19_august",
+                    cutscene: {
+                        tag: "BẢN LĨNH NGOẠI GIAO",
+                        title: "ĐỐI MẶT HỌNG SÚNG XE TĂNG",
+                        frames: [
+                            {
+                                image: "assets/images/cutscene_negotiation.jpg",
+                                title: "CHẶN ĐẦU ĐOÀN THIẾT GIÁP",
+                                speaker: "Lời Dẫn",
+                                text: "Dù nòng pháo đại bác của xe bọc thép Nhật chĩa thẳng về phía đoàn biểu tình, phái đoàn Việt Minh vẫn đĩnh đạc tiến lên đứng sừng sững trước cổng Bắc Bộ Phủ.",
+                                sfx: "tension",
+                                shake: true
+                            },
+                            {
+                                image: "assets/images/cutscene_negotiation_face.jpg",
+                                title: "LẬP LUẬN THÉP CỦA CÁCH MẠNG",
+                                speaker: "Lời Dẫn",
+                                text: "Tại cuộc đàm phán mặt đối mặt, lập luận thép của cách mạng khẳng định tính chính nghĩa của quyền tự quyết dân tộc, cam đoan bảo toàn tính mạng cho binh lính Nhật chờ ngày hồi hương nếu họ án binh bất động.",
+                                sfx: "unlock"
+                            },
+                            {
+                                image: "assets/images/cutscene_tanks_withdraw.jpg",
+                                title: "XE TĂNG RÚT LUI - TOÀN THẮNG!",
+                                speaker: "Lời Dẫn",
+                                text: "Trước bản lĩnh kiên cường của cách mạng và sức mạnh của biển người bao vây, tiếng xích sắt ken két vang lên: Những cỗ xe tăng phát xít Nhật lùi dần vào doanh trại! Cờ đỏ sao vàng ngạo nghễ tung bay trên nóc Phủ Bắc Bộ!",
+                                sfx: "fanfare",
+                                flash: true
+                            }
+                        ]
+                    },
                     evalEnding: true
                 },
                 {
                     text: "Hô hào toàn thể biển người biển gậy xông lên bao vây xe bọc thép Nhật bằng tinh thần quyết tử.",
                     statChanges: { morale: 10, readiness: -20, alert: 40 },
                     shake: true,
+                    cutscene: {
+                        tag: "XUNG ĐỘT KHỐC LIỆT",
+                        title: "BÃO LỬA TRƯỚC BẮC BỘ PHỦ",
+                        frames: [
+                            {
+                                image: "assets/images/cutscene_clash_tanks.jpg",
+                                title: "BÃO LỬA TRƯỚC BẮC BỘ PHỦ",
+                                speaker: "Lời Dẫn",
+                                text: "Tiếng hô xung phong vang dội, biển người ào lên giằng súng và xích xe tăng! Súng máy đối phương rền vang xé toạc bầu trời trưa, các chiến sĩ tự vệ kiên cường ngã xuống trên mặt đường đá Tràng Tiền để bảo vệ quyền làm chủ chính quyền.",
+                                sfx: "tension",
+                                shake: true
+                            }
+                        ]
+                    },
                     evalEnding: true
                 },
                 {
                     text: "Rút lui khỏi Bắc Bộ Phủ để tránh thương vong, chờ quân Nhật tự rút đi.",
                     statChanges: { morale: -35, readiness: -25, alert: 0 },
+                    cutscene: {
+                        tag: "THỜI KHẮC ĐÁNH MẤT",
+                        title: "KHOẢNG TRỐNG NGUY HẠI",
+                        frames: [
+                            {
+                                image: "assets/images/bg_revolution.jpg",
+                                title: "KHOẢNG TRỐNG NGUY HẠI",
+                                speaker: "Lời Dẫn",
+                                text: "Đoàn biểu tình buộc phải tạm lùi bước. Khoảng trống quyền lực xuất hiện khi quân Nhật phong tỏa công sở, đe dọa biến thắng lợi trong tầm tay thành một cuộc đối đầu giằng co kéo dài đầy bất trắc.",
+                                sfx: "tension"
+                            }
+                        ]
+                    },
                     evalEnding: true
                 }
             ]
@@ -414,8 +668,8 @@ const SCENARIO_DATA = {
             id: "true_ending",
             title: "ĐẠI THẮNG THÁNG TÁM - HÀ NỘI ĐỘC LẬP",
             badge: "Kết Thúc Lịch Sử Toàn Thắng",
-            background: "assets/images/bg_revolution.jpg",
-            bgm: "epic",
+            background: "assets/images/cutscene_tanks_withdraw.jpg",
+            bgm: "victory",
             sfx: "fanfare",
             text: `
                 <p><strong>Ngày 19 tháng 8 năm 1945 đã đi vào trang sử vàng chói lọi của dân tộc Việt Nam!</strong></p>
@@ -431,7 +685,7 @@ const SCENARIO_DATA = {
             title: "CHIẾN THẮNG TRONG BÃO LỬA",
             badge: "Kết Thúc Thắng Lợi Cam Go",
             background: "assets/images/bg_garrison.jpg",
-            bgm: "tense",
+            bgm: "gameplay",
             sfx: "tension",
             text: `
                 <p>Trước sức mạnh vũ bão của hàng vạn đồng bào, chính quyền bù nhìn tay sai buộc phải sụp đổ. Việt Minh đã làm chủ hoàn toàn các công sở trọng yếu tại Hà Nội trước khi quân Đồng minh kịp tiến vào.</p>
@@ -446,7 +700,7 @@ const SCENARIO_DATA = {
             title: "NGẬM NGÙI TRỄ BƯỚC",
             badge: "Kết Thúc Bỏ Lỡ Thời Cơ Vàng",
             background: "assets/images/bg_safehouse.jpg",
-            bgm: "tense",
+            bgm: "gameplay",
             sfx: "tension",
             text: `
                 <p>Sự do dự, chần chừ và việc thiếu những quyết sách quyết liệt đã khiến thời cơ 'nghìn năm có một' trôi tuột khỏi tầm tay.</p>
@@ -460,8 +714,8 @@ const SCENARIO_DATA = {
             id: "heroic_sacrifice",
             title: "TẤM KHIÊN BẤT TỬ",
             badge: "Kết Thúc Hy Sinh Vị Quốc",
-            background: "assets/images/bg_safehouse.jpg",
-            bgm: "tense",
+            background: "assets/images/cutscene_rush_alley.jpg",
+            bgm: "gameplay",
             sfx: "tension",
             text: `
                 <p>Trong khoảnh khắc sinh tử khi kẻ địch nổ súng tấn công vào cơ sở mật của Thành ủy, bạn đã dũng cảm ở lại cản hậu, tiêu hủy toàn bộ tài liệu danh sách tự vệ và thu hút hỏa lực địch về phía mình để đồng chí Lâm và Thảo kịp thời rút lui an toàn.</p>

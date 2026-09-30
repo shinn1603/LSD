@@ -20,12 +20,14 @@ class SoundController {
         this.customAudioName = "";
         this.currentBgmKey = null;
 
-        // Bảng ánh xạ các bản nhạc nền theo chủ đề
+        // Bảng ánh xạ các bản nhạc nền:
+        // 1. title: Thịnh Vượng Việt Nam Sáng Ngời (vocal) - ngoài sảnh 100% âm lượng
+        // 2. gameplay: Thịnh Vượng Việt Nam Sáng Ngời (karaoke instrumental) - khi chơi 50% âm lượng sảnh
+        // 3. victory: Hào Khí Việt Nam (instrumental) - khi chiến thắng
         this.musicTracks = {
-            title: 'assets/audio/bgm_title.mp3',
-            tense: 'assets/audio/bgm_tense.mp3',
-            epic: 'assets/audio/bgm_epic.mp3',
-            victory: 'assets/audio/bgm_victory.mp3'
+            title: ['assets/audio/bgm_title.m4a', 'assets/audio/bgm_title.mp3'],
+            gameplay: ['assets/audio/bgm_gameplay.m4a', 'assets/audio/bgm_gameplay.mp3'],
+            victory: ['assets/audio/bgm_victory.m4a', 'assets/audio/bgm_victory.mp3']
         };
     }
 
@@ -205,44 +207,66 @@ class SoundController {
         });
     }
 
-    // BGM Ambient: Hỗ trợ cả file MP3 thật và Synthesizer dự phòng
-    startAmbience(mode = 'tense') {
+    // BGM Ambient: Hỗ trợ cả file M4A/MP3 thật và Synthesizer dự phòng
+    startAmbience(mode = 'gameplay') {
+        // Nếu đang phát đúng bản nhạc này rồi thì không tải lại từ đầu, chỉ cập nhật âm lượng
+        if (this.currentBgmKey === mode && this.bgmAudio && !this.bgmAudio.paused) {
+            const volumeFactor = (mode === 'gameplay') ? 0.5 : 1.0;
+            this.bgmAudio.volume = this.isMuted ? 0 : (this.bgmVolume * volumeFactor);
+            return;
+        }
+
         this.stopAmbience();
         this.currentBgmKey = mode;
         if (this.isMuted) return;
 
         // Ưu tiên 1: Nếu người dùng đã tải nhạc tùy chọn từ máy tính
         if (this.customAudioUrl) {
-            this.playHtmlAudio(this.customAudioUrl);
+            this.playHtmlAudio(this.customAudioUrl, null, mode);
             return;
         }
 
-        // Ưu tiên 2: Nếu có file nhạc trong thư mục assets/audio/
-        const trackPath = this.musicTracks[mode];
-        if (trackPath) {
-            this.playHtmlAudio(trackPath, () => {
-                // Tự động fallback sang Synthesizer nếu chưa có file MP3
-                this.startSynthesizedAmbience(mode);
-            });
+        // Ưu tiên 2: Danh sách các định dạng bản nhạc (m4a, mp3)
+        const trackCandidates = this.musicTracks[mode] || this.musicTracks.gameplay;
+        if (trackCandidates) {
+            const list = Array.isArray(trackCandidates) ? trackCandidates : [trackCandidates];
+            let idx = 0;
+            const tryNext = () => {
+                if (this.currentBgmKey !== mode || this.isMuted) return;
+                if (idx < list.length) {
+                    const src = list[idx++];
+                    this.playHtmlAudio(src, () => {
+                        tryNext();
+                    }, mode);
+                } else {
+                    // Tự động fallback sang Synthesizer nếu không file nào phát được
+                    this.startSynthesizedAmbience(mode);
+                }
+            };
+            tryNext();
         } else {
             this.startSynthesizedAmbience(mode);
         }
     }
 
-    playHtmlAudio(src, onErrorFallback) {
+    playHtmlAudio(src, onErrorFallback, mode = this.currentBgmKey) {
         if (!this.bgmAudio) return;
         this.bgmAudio.src = src;
-        this.bgmAudio.volume = this.isMuted ? 0 : this.bgmVolume;
+        // Âm lượng khi chơi (gameplay) bằng 50% âm lượng ngoài sảnh (title)
+        const volumeFactor = (mode === 'gameplay') ? 0.5 : 1.0;
+        this.bgmAudio.volume = this.isMuted ? 0 : (this.bgmVolume * volumeFactor);
         this.bgmAudio.loop = true;
 
         const playPromise = this.bgmAudio.play();
         if (playPromise !== undefined) {
             playPromise.catch(err => {
+                console.warn(`[Audio] Không thể phát ${src}:`, err.message || err);
                 if (onErrorFallback) onErrorFallback();
             });
         }
 
-        this.bgmAudio.onerror = () => {
+        this.bgmAudio.onerror = (e) => {
+            console.warn(`[Audio] Lỗi tải nguồn ${src}:`, e);
             if (onErrorFallback) onErrorFallback();
         };
     }
@@ -335,7 +359,8 @@ class SoundController {
     setBgmVolume(val) {
         this.bgmVolume = val;
         if (this.bgmAudio) {
-            this.bgmAudio.volume = this.isMuted ? 0 : val;
+            const volumeFactor = (this.currentBgmKey === 'gameplay') ? 0.5 : 1.0;
+            this.bgmAudio.volume = this.isMuted ? 0 : (val * volumeFactor);
         }
     }
 

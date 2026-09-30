@@ -142,6 +142,45 @@
         </section>
 
         <!-- ==========================================
+             CẢNH ĐIỆN ẢNH (CINEMATIC CUTSCREEN KHI LỰA CHỌN)
+             ========================================== -->
+        <section id="cutscene-screen" class="cutscene-screen hidden">
+            <!-- Dải đen điện ảnh viền 2 mép trên dưới (Letterbox) -->
+            <div class="cinema-letterbox cinema-bar-top"></div>
+
+            <!-- Phông nền chuyển động Ken Burns -->
+            <div id="cutscene-bg" class="cutscene-bg"></div>
+            <div class="cutscene-grain"></div>
+            <div class="cutscene-vignette"></div>
+
+            <!-- Thanh tiêu đề điện ảnh phía trên -->
+            <div class="cutscene-top-banner">
+                <div class="cutscene-tag-badge">
+                    <span id="cutscene-tag">HÀNH ĐỘNG KHẨN CẤP</span>
+                    <span class="cutscene-step-divider">•</span>
+                    <span id="cutscene-step-counter">Phân cảnh 1 / 3</span>
+                </div>
+                <h2 class="cutscene-cinema-title" id="cutscene-title">TIÊU ĐỀ BIẾN CỐ</h2>
+            </div>
+
+            <!-- Hộp thoại nhân vật / thuyết minh phía dưới -->
+            <div class="cutscene-dialogue-wrapper">
+                <div class="cutscene-dialogue-box">
+                    <div class="cutscene-speaker-badge" id="cutscene-speaker">Lời Dẫn</div>
+                    <div id="cutscene-narration" class="cutscene-dialogue-text"></div>
+                    <div class="cutscene-dialogue-footer">
+                        <span class="cutscene-hint">Nhấp chuột hoặc phím Cách để tiếp tục <span class="cutscene-caret">▼</span></span>
+                        <button id="btn-cutscene-continue" class="btn-cutscene-action">
+                            TIẾP TỤC &rarr;
+                        </button>
+                    </div>
+                </div>
+            </div>
+
+            <div class="cinema-letterbox cinema-bar-bottom"></div>
+        </section>
+
+        <!-- ==========================================
              3. MÀN HÌNH KẾT THÚC (ENDING SCREEN)
              ========================================== -->
         <section id="ending-screen" class="hidden">

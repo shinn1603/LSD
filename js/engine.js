@@ -34,6 +34,14 @@ class VNEngine {
         this.isAutoPlay = false;
         this.autoPlayTimeout = null;
         this.isWaitingForChoice = false;
+        this.isCutsceneActive = false;
+        this.cutsceneCallback = null;
+        this.cutsceneData = null;
+        this.cutsceneFrames = [];
+        this.cutsceneFrameIndex = 0;
+        this.isCutsceneTyping = false;
+        this.cutsceneTypewriterTimeout = null;
+        this.currentCutsceneFullText = "";
 
         // DOM Element cache
         this.dom = {};
@@ -61,6 +69,16 @@ class VNEngine {
             advanceIndicator: document.getElementById("advance-indicator"),
             flashOverlay: document.getElementById("flash-overlay"),
 
+            // Cutscene Elements
+            cutsceneScreen: document.getElementById("cutscene-screen"),
+            cutsceneBg: document.getElementById("cutscene-bg"),
+            cutsceneTag: document.getElementById("cutscene-tag"),
+            cutsceneTitle: document.getElementById("cutscene-title"),
+            cutsceneStepCounter: document.getElementById("cutscene-step-counter"),
+            cutsceneSpeaker: document.getElementById("cutscene-speaker"),
+            cutsceneNarration: document.getElementById("cutscene-narration"),
+            btnCutsceneContinue: document.getElementById("btn-cutscene-continue"),
+
             // Buttons
             btnAuto: document.getElementById("btn-auto"),
             btnBacklog: document.getElementById("btn-backlog"),
@@ -81,8 +99,30 @@ class VNEngine {
             dialogueBox.addEventListener("click", () => this.handleAdvance());
         }
 
+        // Tương tác trên màn hình Cutscene
+        if (this.dom.btnCutsceneContinue) {
+            this.dom.btnCutsceneContinue.addEventListener("click", (e) => {
+                e.stopPropagation();
+                this.advanceCutscene();
+            });
+        }
+        if (this.dom.cutsceneScreen) {
+            this.dom.cutsceneScreen.addEventListener("click", () => {
+                this.advanceCutscene();
+            });
+        }
+
         // Bàn phím điều khiển
         window.addEventListener("keydown", (e) => {
+            // Khi đang ở Cutscene
+            if (this.isCutsceneActive) {
+                if (e.code === "Space" || e.code === "Enter") {
+                    e.preventDefault();
+                    this.advanceCutscene();
+                }
+                return;
+            }
+
             if (this.dom.gameScreen && this.dom.gameScreen.classList.contains("hidden")) return;
             if (document.querySelector(".modal:not(.hidden)")) return;
 
@@ -110,7 +150,12 @@ class VNEngine {
         this.stats = { ...this.scenario.initialStats };
         this.history = [];
         this.isAutoPlay = false;
+        this.isCutsceneActive = false;
         if (this.dom.btnAuto) this.dom.btnAuto.classList.remove("active");
+        if (this.dom.cutsceneScreen) {
+            this.dom.cutsceneScreen.classList.add("hidden");
+            this.dom.cutsceneScreen.classList.remove("cutscene-exit");
+        }
 
         this.dom.titleScreen.classList.add("hidden");
         this.dom.endingScreen.classList.add("hidden");
@@ -242,6 +287,23 @@ class VNEngine {
             return;
         }
 
+        // Nếu node hiện tại có gắn Cutscene sau khi nhân vật đã nói xong:
+        if (this.currentNode && this.currentNode.pendingCutscene) {
+            const cutsceneData = this.currentNode.pendingCutscene;
+            this.currentNode.pendingCutscene = null;
+            const nextTarget = this.currentNode.next;
+            const evalEnding = this.currentNode.evalEnding;
+
+            this.showCutscene(cutsceneData, () => {
+                if (evalEnding) {
+                    this.evaluateAndShowEnding();
+                } else if (nextTarget) {
+                    this.goToNode(nextTarget);
+                }
+            });
+            return;
+        }
+
         if (this.currentNode && this.currentNode.next) {
             this.sound.playHover();
             this.goToNode(this.currentNode.next);
@@ -293,15 +355,192 @@ class VNEngine {
         if (choice.shake) this.triggerScreenShake();
         if (choice.flash) this.triggerScreenFlash();
 
-        if (choice.evalEnding) {
-            setTimeout(() => {
-                this.evaluateAndShowEnding();
-            }, 600);
+        // Nếu lựa chọn dẫn đến một lời thoại phản hồi (choice.next):
+        // Cho người chơi đọc trọn vẹn lời thoại nhân vật trước!
+        // Khi người chơi bấm tiếp tục từ lời thoại đó, Cutscene mới chính thức bắt đầu!
+        if (choice.next) {
+            const nextNode = this.scenario.nodes[choice.next];
+            if (choice.cutscene && nextNode) {
+                nextNode.pendingCutscene = choice.cutscene;
+            }
+            this.goToNode(choice.next);
+        } else if (choice.cutscene) {
+            this.showCutscene(choice.cutscene, () => {
+                if (choice.evalEnding) {
+                    this.evaluateAndShowEnding();
+                }
+            });
+        } else if (choice.evalEnding) {
+            this.evaluateAndShowEnding();
+        }
+    }
+
+    showCutscene(cutsceneData, onComplete) {
+        if (!cutsceneData || !this.dom.cutsceneScreen) {
+            if (onComplete) onComplete();
             return;
         }
 
-        if (choice.next) {
-            this.goToNode(choice.next);
+        this.isCutsceneActive = true;
+        this.cutsceneCallback = onComplete;
+        this.cutsceneData = cutsceneData;
+
+        // Chuẩn hóa danh sách các phân cảnh (frames)
+        if (cutsceneData.frames && Array.isArray(cutsceneData.frames) && cutsceneData.frames.length > 0) {
+            this.cutsceneFrames = cutsceneData.frames;
+        } else {
+            this.cutsceneFrames = [{
+                image: cutsceneData.image,
+                title: cutsceneData.title,
+                speaker: cutsceneData.speaker || "Lời Dẫn",
+                text: cutsceneData.narration || cutsceneData.text || "",
+                sfx: cutsceneData.sfx,
+                shake: cutsceneData.shake,
+                flash: cutsceneData.flash
+            }];
+        }
+
+        this.cutsceneFrameIndex = 0;
+
+        // Hiển thị màn hình Cutscene
+        this.dom.cutsceneScreen.classList.remove("cutscene-exit");
+        this.dom.cutsceneScreen.classList.remove("hidden");
+
+        this.renderCutsceneFrame(this.cutsceneFrameIndex);
+    }
+
+    renderCutsceneFrame(index) {
+        if (!this.cutsceneFrames || index >= this.cutsceneFrames.length) {
+            this.closeCutscene();
+            return;
+        }
+
+        const frame = this.cutsceneFrames[index];
+        const total = this.cutsceneFrames.length;
+
+        // Cập nhật tiêu đề & tiến trình trên thanh trên
+        if (this.dom.cutsceneTag) {
+            this.dom.cutsceneTag.textContent = this.cutsceneData.tag || "HÀNH ĐỘNG KHẨN CẤP";
+        }
+        if (this.dom.cutsceneTitle) {
+            this.dom.cutsceneTitle.textContent = frame.title || this.cutsceneData.title || "DIỄN BIẾN LỊCH SỬ";
+        }
+        if (this.dom.cutsceneStepCounter) {
+            this.dom.cutsceneStepCounter.textContent = `Phân cảnh ${index + 1} / ${total}`;
+        }
+
+        // Đổi hình ảnh nền chuyển động
+        if (this.dom.cutsceneBg && frame.image) {
+            this.dom.cutsceneBg.style.animation = 'none';
+            void this.dom.cutsceneBg.offsetWidth;
+            this.dom.cutsceneBg.style.backgroundImage = `url('${frame.image}')`;
+            this.dom.cutsceneBg.style.animation = 'cutscenePanZoom 18s cubic-bezier(0.25, 1, 0.5, 1) infinite alternate';
+        }
+
+        // Tên người dẫn trong cutscene: luôn là Lời Dẫn theo đúng chuẩn lịch sử
+        if (this.dom.cutsceneSpeaker) {
+            this.dom.cutsceneSpeaker.textContent = "Lời Dẫn";
+        }
+
+        // Nút bấm
+        if (this.dom.btnCutsceneContinue) {
+            if (index === total - 1) {
+                this.dom.btnCutsceneContinue.innerHTML = "TIẾP TỤC DIỄN BIẾN &rarr;";
+            } else {
+                this.dom.btnCutsceneContinue.innerHTML = "PHÂN CẢNH TIẾP &rarr;";
+            }
+        }
+
+        // Hiệu ứng âm thanh & màn hình
+        if (frame.sfx === "fanfare") this.sound.playVictoryFanfare();
+        else if (frame.sfx === "tension") this.sound.playTension();
+        else if (frame.sfx === "unlock") this.sound.playUnlock();
+        else if (frame.sfx === "typewriter") this.sound.playTypewriter();
+        else if (frame.sfx === "choice") this.sound.playChoice();
+
+        if (frame.shake) this.triggerScreenShake();
+        if (frame.flash) this.triggerScreenFlash();
+
+        // Gõ chữ lời thoại / thuyết minh
+        this.typeCutsceneNarration(frame.text || frame.narration || "");
+    }
+
+    typeCutsceneNarration(fullText) {
+        if (this.cutsceneTypewriterTimeout) clearTimeout(this.cutsceneTypewriterTimeout);
+        this.isCutsceneTyping = true;
+        this.currentCutsceneFullText = fullText;
+        let charIdx = 0;
+        if (this.dom.cutsceneNarration) this.dom.cutsceneNarration.textContent = "";
+
+        const typeNext = () => {
+            if (!this.isCutsceneTyping) return;
+            if (charIdx < this.currentCutsceneFullText.length) {
+                if (this.dom.cutsceneNarration) {
+                    this.dom.cutsceneNarration.textContent += this.currentCutsceneFullText[charIdx];
+                }
+                charIdx++;
+                if (charIdx % 3 === 0) {
+                    this.sound.playTypewriter();
+                }
+                this.cutsceneTypewriterTimeout = setTimeout(typeNext, this.settings.textSpeed);
+            } else {
+                this.isCutsceneTyping = false;
+            }
+        };
+        typeNext();
+    }
+
+    finishCutsceneTypingInstantly() {
+        if (this.cutsceneTypewriterTimeout) clearTimeout(this.cutsceneTypewriterTimeout);
+        this.isCutsceneTyping = false;
+        if (this.dom.cutsceneNarration) {
+            this.dom.cutsceneNarration.textContent = this.currentCutsceneFullText;
+        }
+    }
+
+    advanceCutscene() {
+        if (!this.isCutsceneActive) return;
+
+        // Nếu chữ đang gõ, bấm một cái sẽ hiện trọn vẹn văn bản ngay
+        if (this.isCutsceneTyping) {
+            this.finishCutsceneTypingInstantly();
+            return;
+        }
+
+        // Chuyển sang ảnh / phân cảnh tiếp theo trong chuỗi
+        if (this.cutsceneFrameIndex + 1 < this.cutsceneFrames.length) {
+            this.sound.playHover();
+            this.cutsceneFrameIndex++;
+            this.renderCutsceneFrame(this.cutsceneFrameIndex);
+        } else {
+            // Đã hết chuỗi ảnh, đóng cutscene và tiếp tục cốt truyện
+            this.closeCutscene();
+        }
+    }
+
+    closeCutscene() {
+        if (!this.isCutsceneActive) return;
+        this.sound.playChoice();
+
+        if (this.cutsceneTypewriterTimeout) clearTimeout(this.cutsceneTypewriterTimeout);
+        this.isCutsceneTyping = false;
+
+        if (this.dom.cutsceneScreen) {
+            this.dom.cutsceneScreen.classList.add("cutscene-exit");
+            setTimeout(() => {
+                this.dom.cutsceneScreen.classList.add("hidden");
+                this.dom.cutsceneScreen.classList.remove("cutscene-exit");
+                this.isCutsceneActive = false;
+
+                const cb = this.cutsceneCallback;
+                this.cutsceneCallback = null;
+                if (cb) cb();
+            }, 400);
+        } else {
+            this.isCutsceneActive = false;
+            const cb = this.cutsceneCallback;
+            this.cutsceneCallback = null;
+            if (cb) cb();
         }
     }
 

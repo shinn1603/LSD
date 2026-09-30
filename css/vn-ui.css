@@ -464,3 +464,304 @@
         font-size: 0.9rem;
     }
 }
+
+/* ==========================================================================
+   CINEMATIC CUTSCREEN (CẢNH ĐIỆN ẢNH CHUYỂN TIẾP KHI LỰA CHỌN)
+   ========================================================================== */
+.cutscene-screen {
+    position: absolute;
+    inset: 0;
+    z-index: 70;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    overflow: hidden;
+    animation: cutsceneFadeIn 0.6s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+}
+
+.cutscene-screen.cutscene-exit {
+    animation: cutsceneFadeOut 0.5s ease-out forwards;
+}
+
+/* Dải đen điện ảnh trên và dưới (Letterboxing) */
+.cinema-letterbox {
+    position: absolute;
+    left: 0;
+    width: 100%;
+    height: 7.5vh;
+    min-height: 48px;
+    background: #000000;
+    z-index: 5;
+    pointer-events: none;
+}
+
+.cinema-bar-top {
+    top: 0;
+    border-bottom: 1.5px solid rgba(229, 169, 59, 0.35);
+    box-shadow: 0 4px 25px rgba(0, 0, 0, 0.8);
+}
+
+.cinema-bar-bottom {
+    bottom: 0;
+    border-top: 1.5px solid rgba(229, 169, 59, 0.35);
+    box-shadow: 0 -4px 25px rgba(0, 0, 0, 0.8);
+}
+
+/* Phông nền Cutscene với hiệu ứng chuyển động Ken Burns */
+.cutscene-bg {
+    position: absolute;
+    inset: 0;
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    filter: brightness(0.68) contrast(1.15);
+    z-index: 1;
+    transform: scale(1.04);
+    animation: cutscenePanZoom 18s cubic-bezier(0.25, 1, 0.5, 1) infinite alternate;
+}
+
+.cutscene-vignette {
+    position: absolute;
+    inset: 0;
+    background: radial-gradient(circle at center, transparent 35%, rgba(8, 6, 5, 0.75) 85%, #050403 100%);
+    z-index: 2;
+    pointer-events: none;
+}
+
+.cutscene-grain {
+    position: absolute;
+    inset: 0;
+    background: repeating-radial-gradient(circle at 50% 50%, rgba(255,255,255,0.015) 0, rgba(0,0,0,0.03) 2px, transparent 3px);
+    z-index: 3;
+    pointer-events: none;
+}
+
+/* Thanh tiêu đề điện ảnh phía trên */
+.cutscene-top-banner {
+    position: absolute;
+    top: max(4.5vh, 26px);
+    left: 50%;
+    transform: translateX(-50%);
+    z-index: 5;
+    text-align: center;
+    width: 90%;
+    max-width: 900px;
+    pointer-events: none;
+    animation: cutsceneCardAppear 0.5s ease-out backwards;
+}
+
+.cutscene-tag-badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.6rem;
+    padding: 0.35rem 1.2rem;
+    background: rgba(18, 14, 12, 0.88);
+    border: 1px solid var(--color-gold);
+    border-radius: 20px;
+    font-family: var(--font-ui);
+    font-size: 0.78rem;
+    font-weight: 700;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    color: var(--color-gold-bright);
+    backdrop-filter: blur(10px);
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.6);
+}
+
+.cutscene-step-divider {
+    color: var(--color-gold);
+    opacity: 0.5;
+}
+
+.cutscene-cinema-title {
+    font-family: var(--font-heading);
+    font-size: clamp(1.4rem, 2.4vw, 2.1rem);
+    font-weight: 700;
+    color: #ffffff;
+    text-shadow: 0 2px 8px rgba(0, 0, 0, 0.95), 0 0 20px rgba(229, 169, 59, 0.45);
+    margin-top: 0.45rem;
+    letter-spacing: 0.04em;
+    line-height: 1.25;
+}
+
+/* Hộp thoại nhân vật / thuyết minh phía dưới */
+.cutscene-dialogue-wrapper {
+    position: absolute;
+    bottom: max(3vh, 20px);
+    left: 50%;
+    transform: translateX(-50%);
+    z-index: 10;
+    width: 100%;
+    max-width: 1020px;
+    padding: 0 1.5rem;
+}
+
+.cutscene-dialogue-box {
+    position: relative;
+    width: 100%;
+    min-height: 135px;
+    background: linear-gradient(180deg, rgba(22, 17, 15, 0.95) 0%, rgba(12, 9, 8, 0.98) 100%);
+    border: 1.5px solid var(--color-gold);
+    border-radius: 8px;
+    padding: 1.8rem 2.2rem 1.25rem;
+    box-shadow: 0 15px 50px rgba(0, 0, 0, 0.9), var(--shadow-gold);
+    backdrop-filter: blur(16px);
+    cursor: pointer;
+    transition: border-color var(--transition-fast), transform var(--transition-fast);
+    animation: cutsceneCardAppear 0.6s cubic-bezier(0.16, 1, 0.3, 1) backwards;
+}
+
+.cutscene-dialogue-box:hover {
+    border-color: var(--color-gold-bright);
+}
+
+.cutscene-speaker-badge {
+    position: absolute;
+    top: -1.15rem;
+    left: 2rem;
+    background: linear-gradient(135deg, #a81c1c 0%, #600f0f 100%);
+    border: 1.5px solid var(--color-gold);
+    border-radius: 4px;
+    padding: 0.35rem 1.4rem;
+    font-family: var(--font-ui);
+    font-size: 0.92rem;
+    font-weight: 700;
+    color: #ffffff;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.6);
+    text-shadow: 0 1px 3px rgba(0, 0, 0, 0.8);
+}
+
+.cutscene-dialogue-text {
+    font-family: var(--font-body);
+    font-size: clamp(1.02rem, 1.28vw, 1.18rem);
+    line-height: 1.8;
+    color: #fbf7ee;
+    text-align: justify;
+    text-shadow: 0 1px 3px rgba(0, 0, 0, 0.85);
+    min-height: 52px;
+}
+
+.cutscene-dialogue-footer {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-top: 0.9rem;
+    padding-top: 0.65rem;
+    border-top: 1px solid rgba(229, 169, 59, 0.22);
+}
+
+.cutscene-hint {
+    font-family: var(--font-ui);
+    font-size: 0.82rem;
+    color: #b8ad9e;
+    font-style: italic;
+    display: flex;
+    align-items: center;
+    gap: 0.4rem;
+}
+
+.cutscene-caret {
+    display: inline-block;
+    color: var(--color-gold-bright);
+    font-size: 0.72rem;
+    animation: cutsceneCaretBounce 1.2s infinite ease-in-out;
+}
+
+@keyframes cutsceneCaretBounce {
+    0%, 100% { transform: translateY(0); }
+    50% { transform: translateY(3px); }
+}
+
+.btn-cutscene-action {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.4rem;
+    padding: 0.55rem 1.6rem;
+    font-family: var(--font-ui);
+    font-size: 0.88rem;
+    font-weight: 700;
+    letter-spacing: 0.06em;
+    border-radius: 4px;
+    background: linear-gradient(135deg, #a81c1c 0%, #631010 100%);
+    border: 1.5px solid var(--color-gold);
+    color: #ffffff;
+    cursor: pointer;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.5), var(--shadow-gold);
+    transition: var(--transition-smooth);
+    animation: cutsceneBtnPulse 2.2s infinite;
+}
+
+.btn-cutscene-action:hover {
+    background: linear-gradient(135deg, #c62828 0%, #7e1515 100%);
+    transform: translateY(-2px);
+    box-shadow: 0 6px 20px rgba(168, 28, 28, 0.8), 0 0 20px var(--color-gold-bright);
+    color: var(--color-gold-bright);
+}
+
+/* Animations for Cutscene */
+@keyframes cutsceneFadeIn {
+    from { opacity: 0; }
+    to { opacity: 1; }
+}
+
+@keyframes cutsceneFadeOut {
+    from { opacity: 1; transform: scale(1); }
+    to { opacity: 0; transform: scale(1.03); }
+}
+
+@keyframes cutscenePanZoom {
+    0% { transform: scale(1.04) translate(0, 0); }
+    50% { transform: scale(1.12) translate(-1.5%, -1%); }
+    100% { transform: scale(1.08) translate(1%, -1.5%); }
+}
+
+@keyframes cutsceneCardAppear {
+    from { opacity: 0; transform: translateY(20px) scale(0.96); }
+    to { opacity: 1; transform: translateY(0) scale(1); }
+}
+
+@keyframes cutsceneBtnPulse {
+    0%, 100% { box-shadow: 0 6px 20px rgba(0, 0, 0, 0.6), 0 0 10px rgba(229, 169, 59, 0.3); }
+    50% { box-shadow: 0 6px 25px rgba(168, 28, 28, 0.7), 0 0 22px rgba(229, 169, 59, 0.65); }
+}
+
+@media (max-width: 768px) {
+    .cinema-letterbox {
+        height: 5vh;
+        min-height: 32px;
+    }
+
+    .cutscene-cinema-title {
+        font-size: 1.25rem;
+    }
+
+    .cutscene-dialogue-wrapper {
+        bottom: 15px;
+        padding: 0 0.8rem;
+    }
+
+    .cutscene-dialogue-box {
+        padding: 1.4rem 1.2rem 1rem;
+        min-height: 120px;
+    }
+
+    .cutscene-speaker-badge {
+        left: 1.2rem;
+        font-size: 0.82rem;
+        padding: 0.25rem 1rem;
+    }
+
+    .cutscene-dialogue-text {
+        font-size: 0.95rem;
+        line-height: 1.6;
+    }
+
+    .btn-cutscene-action {
+        padding: 0.45rem 1.1rem;
+        font-size: 0.82rem;
+    }
+}
