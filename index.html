@@ -148,10 +148,13 @@
             <!-- Dải đen điện ảnh viền 2 mép trên dưới (Letterbox) -->
             <div class="cinema-letterbox cinema-bar-top"></div>
 
-            <!-- Phông nền chuyển động Ken Burns -->
-            <div id="cutscene-bg" class="cutscene-bg"></div>
-            <div class="cutscene-grain"></div>
-            <div class="cutscene-vignette"></div>
+            <!-- Hai lớp phông nền điện ảnh kép chuyển cảnh Ken Burns luân phiên mượt mà 60fps -->
+            <div class="cutscene-stage">
+                <div id="cutscene-bg-1" class="cutscene-bg-layer active"></div>
+                <div id="cutscene-bg-2" class="cutscene-bg-layer"></div>
+                <div class="cutscene-tint-overlay"></div>
+                <div class="cutscene-vignette"></div>
+            </div>
 
             <!-- Thanh tiêu đề điện ảnh phía trên -->
             <div class="cutscene-top-banner">

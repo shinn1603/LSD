@@ -39,12 +39,24 @@ class VNEngine {
         this.cutsceneData = null;
         this.cutsceneFrames = [];
         this.cutsceneFrameIndex = 0;
+        this.cutsceneActiveLayer = 1;
+        this.preloadedImages = new Set();
         this.isCutsceneTyping = false;
         this.cutsceneTypewriterTimeout = null;
         this.currentCutsceneFullText = "";
 
         // DOM Element cache
         this.dom = {};
+    }
+
+    preloadImage(src) {
+        if (!src || typeof src !== "string" || this.preloadedImages.has(src)) return;
+        this.preloadedImages.add(src);
+        const img = new Image();
+        img.src = src;
+        if (img.decode) {
+            img.decode().catch(() => {});
+        }
     }
 
     init() {
@@ -69,9 +81,11 @@ class VNEngine {
             advanceIndicator: document.getElementById("advance-indicator"),
             flashOverlay: document.getElementById("flash-overlay"),
 
-            // Cutscene Elements
+            // Cutscene Elements - Hỗ trợ phông nền 2 lớp luân phiên (Dual-layer 60fps)
             cutsceneScreen: document.getElementById("cutscene-screen"),
-            cutsceneBg: document.getElementById("cutscene-bg"),
+            cutsceneBg1: document.getElementById("cutscene-bg-1"),
+            cutsceneBg2: document.getElementById("cutscene-bg-2"),
+            cutsceneBg: document.getElementById("cutscene-bg-1") || document.getElementById("cutscene-bg"),
             cutsceneTag: document.getElementById("cutscene-tag"),
             cutsceneTitle: document.getElementById("cutscene-title"),
             cutsceneStepCounter: document.getElementById("cutscene-step-counter"),
@@ -318,6 +332,27 @@ class VNEngine {
         this.dom.choicesContainer.innerHTML = "";
 
         choices.forEach((choice, index) => {
+            // Tiền tải trước (Preload & Decode) hình ảnh của cutscene và node tiếp theo vào bộ nhớ GPU
+            if (choice.cutscene) {
+                if (choice.cutscene.image) this.preloadImage(choice.cutscene.image);
+                if (Array.isArray(choice.cutscene.frames)) {
+                    choice.cutscene.frames.forEach(f => {
+                        if (f && f.image) this.preloadImage(f.image);
+                    });
+                }
+            }
+            if (choice.next && this.scenario && this.scenario.nodes && this.scenario.nodes[choice.next]) {
+                const nextNode = this.scenario.nodes[choice.next];
+                if (nextNode.background) this.preloadImage(nextNode.background);
+                if (nextNode.avatar) this.preloadImage(nextNode.avatar);
+                if (nextNode.pendingCutscene) {
+                    if (nextNode.pendingCutscene.image) this.preloadImage(nextNode.pendingCutscene.image);
+                    if (Array.isArray(nextNode.pendingCutscene.frames)) {
+                        nextNode.pendingCutscene.frames.forEach(f => f && f.image && this.preloadImage(f.image));
+                    }
+                }
+            }
+
             const btn = document.createElement("button");
             btn.className = "choice-btn";
             btn.innerHTML = `
@@ -400,7 +435,23 @@ class VNEngine {
             }];
         }
 
+        // Tiền giải mã bất đồng bộ (Async Image Decode) toàn bộ khung hình vào GPU ngay lập tức
+        this.cutsceneFrames.forEach(f => {
+            if (f && f.image) this.preloadImage(f.image);
+        });
+
         this.cutsceneFrameIndex = 0;
+        this.cutsceneActiveLayer = 1;
+
+        // Đặt lại các layer phông nền trước khi hiện
+        if (this.dom.cutsceneBg1) {
+            this.dom.cutsceneBg1.classList.remove("active");
+            this.dom.cutsceneBg1.style.backgroundImage = "";
+        }
+        if (this.dom.cutsceneBg2) {
+            this.dom.cutsceneBg2.classList.remove("active");
+            this.dom.cutsceneBg2.style.backgroundImage = "";
+        }
 
         // Hiển thị màn hình Cutscene
         this.dom.cutsceneScreen.classList.remove("cutscene-exit");
@@ -418,6 +469,11 @@ class VNEngine {
         const frame = this.cutsceneFrames[index];
         const total = this.cutsceneFrames.length;
 
+        // Tải đón đầu khung hình kế tiếp (nếu có)
+        if (index + 1 < total && this.cutsceneFrames[index + 1] && this.cutsceneFrames[index + 1].image) {
+            this.preloadImage(this.cutsceneFrames[index + 1].image);
+        }
+
         // Cập nhật tiêu đề & tiến trình trên thanh trên
         if (this.dom.cutsceneTag) {
             this.dom.cutsceneTag.textContent = this.cutsceneData.tag || "HÀNH ĐỘNG KHẨN CẤP";
@@ -429,12 +485,34 @@ class VNEngine {
             this.dom.cutsceneStepCounter.textContent = `Phân cảnh ${index + 1} / ${total}`;
         }
 
-        // Đổi hình ảnh nền chuyển động
-        if (this.dom.cutsceneBg && frame.image) {
-            this.dom.cutsceneBg.style.animation = 'none';
-            void this.dom.cutsceneBg.offsetWidth;
-            this.dom.cutsceneBg.style.backgroundImage = `url('${frame.image}')`;
-            this.dom.cutsceneBg.style.animation = 'cutscenePanZoom 18s cubic-bezier(0.25, 1, 0.5, 1) infinite alternate';
+        // Chuyển hình ảnh nền Ken Burns mượt mà qua 2 lớp phông luân phiên (Dual-layer Crossfade)
+        if (frame.image) {
+            const layer1 = this.dom.cutsceneBg1;
+            const layer2 = this.dom.cutsceneBg2;
+
+            if (layer1 && layer2) {
+                if (index === 0) {
+                    // Khung hình đầu tiên: kích hoạt layer 1 ngay lập tức
+                    layer1.style.backgroundImage = `url('${frame.image}')`;
+                    layer1.classList.add("active");
+                    layer2.classList.remove("active");
+                    layer2.style.backgroundImage = "";
+                    this.cutsceneActiveLayer = 1;
+                } else {
+                    // Khung hình kế tiếp: luân chuyển layer hòa tan không gây khựng reflow
+                    const currentLayer = this.cutsceneActiveLayer === 1 ? layer1 : layer2;
+                    const nextLayer = this.cutsceneActiveLayer === 1 ? layer2 : layer1;
+
+                    nextLayer.style.backgroundImage = `url('${frame.image}')`;
+                    nextLayer.classList.add("active");
+                    currentLayer.classList.remove("active");
+                    this.cutsceneActiveLayer = this.cutsceneActiveLayer === 1 ? 2 : 1;
+                }
+            } else if (this.dom.cutsceneBg) {
+                // Fallback nếu chỉ có 1 layer
+                this.dom.cutsceneBg.style.backgroundImage = `url('${frame.image}')`;
+                this.dom.cutsceneBg.classList.add("active");
+            }
         }
 
         // Tên người dẫn trong cutscene: luôn là Lời Dẫn theo đúng chuẩn lịch sử
@@ -530,12 +608,20 @@ class VNEngine {
             setTimeout(() => {
                 this.dom.cutsceneScreen.classList.add("hidden");
                 this.dom.cutsceneScreen.classList.remove("cutscene-exit");
+                if (this.dom.cutsceneBg1) {
+                    this.dom.cutsceneBg1.classList.remove("active");
+                    this.dom.cutsceneBg1.style.backgroundImage = "";
+                }
+                if (this.dom.cutsceneBg2) {
+                    this.dom.cutsceneBg2.classList.remove("active");
+                    this.dom.cutsceneBg2.style.backgroundImage = "";
+                }
                 this.isCutsceneActive = false;
 
                 const cb = this.cutsceneCallback;
                 this.cutsceneCallback = null;
                 if (cb) cb();
-            }, 400);
+            }, 350);
         } else {
             this.isCutsceneActive = false;
             const cb = this.cutsceneCallback;
