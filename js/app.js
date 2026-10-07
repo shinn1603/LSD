@@ -495,7 +495,7 @@ document.addEventListener("DOMContentLoaded", () => {
                 if (engine.activateCheatCode(code)) {
                     inputCheat.value = "";
                 } else {
-                    engine.showToast("Mã bí mật không chính xác. Gợi ý: 'yain'");
+                    engine.showToast("SAI CHEATCODE. Gợi ý: 'yain'");
                 }
             };
             inputCheat.onkeydown = (e) => {

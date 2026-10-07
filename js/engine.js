@@ -811,7 +811,7 @@ class VNEngine {
             this.triggerScreenFlash();
 
             // 4. Thông báo Toast nổi bật
-            this.showToast("⭐ ĐÃ KÍCH HOẠT MÃ 'YAIN': Mở khóa 100% Tư liệu & Tất cả Kết thúc!");
+            this.showToast("ĐÃ KÍCH HOẠT CHEATCODE: Mở khóa 100% Tư liệu & Tất cả Kết thúc");
             return true;
         }
         return false;
