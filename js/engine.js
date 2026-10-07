@@ -785,6 +785,38 @@ class VNEngine {
         }
     }
 
+    activateCheatCode(code) {
+        if (!code || typeof code !== "string") return false;
+        const normalized = code.trim().toLowerCase();
+        if (normalized === "yain") {
+            // 1. Mở khóa 100% tất cả các mục Hồ Sơ Tư Liệu Lịch Sử (Codex)
+            const allCodexIds = [];
+            for (let cat in this.codexData) {
+                if (Array.isArray(this.codexData[cat])) {
+                    this.codexData[cat].forEach(item => {
+                        if (item && item.id) allCodexIds.push(item.id);
+                    });
+                }
+            }
+            this.unlockedCodex = allCodexIds;
+            this.saveUnlockedCodex();
+
+            // 2. Mở khóa 100% tất cả các Kết Thúc (Endings)
+            const allEndingKeys = Object.keys(this.scenario.endings);
+            this.unlockedEndings = allEndingKeys;
+            this.saveUnlockedEndings();
+
+            // 3. Hiệu ứng âm thanh thắng lợi & chớp màn hình
+            this.sound.playVictoryFanfare();
+            this.triggerScreenFlash();
+
+            // 4. Thông báo Toast nổi bật
+            this.showToast("⭐ ĐÃ KÍCH HOẠT MÃ 'YAIN': Mở khóa 100% Tư liệu & Tất cả Kết thúc!");
+            return true;
+        }
+        return false;
+    }
+
     loadUnlockedCodex() {
         const raw = localStorage.getItem("hanoi1945_codex");
         return raw ? JSON.parse(raw) : ["doc_quan_lenh_1"];

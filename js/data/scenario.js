@@ -646,10 +646,10 @@ const SCENARIO_DATA = {
                         title: "KHOẢNG TRỐNG NGUY HẠI",
                         frames: [
                             {
-                                image: "assets/images/bg_revolution.jpg",
-                                title: "KHOẢNG TRỐNG NGUY HẠI",
+                                image: "assets/images/cutscene_retreat_fog.jpg",
+                                title: "NGẬM NGÙI LÙI BƯỚC",
                                 speaker: "Lời Dẫn",
-                                text: "Đoàn biểu tình buộc phải tạm lùi bước. Khoảng trống quyền lực xuất hiện khi quân Nhật phong tỏa công sở, đe dọa biến thắng lợi trong tầm tay thành một cuộc đối đầu giằng co kéo dài đầy bất trắc.",
+                                text: "Đoàn biểu tình buộc phải tạm lùi bước trong màn sương ảm đạm. Khoảng trống quyền lực xuất hiện khi quân Nhật phong tỏa công sở, đe dọa biến thắng lợi trong tầm tay thành một cuộc đối đầu giằng co kéo dài đầy bất trắc.",
                                 sfx: "tension"
                             }
                         ]
@@ -668,7 +668,7 @@ const SCENARIO_DATA = {
             id: "true_ending",
             title: "ĐẠI THẮNG THÁNG TÁM - HÀ NỘI ĐỘC LẬP",
             badge: "Kết Thúc Lịch Sử Toàn Thắng",
-            background: "assets/images/cutscene_tanks_withdraw.jpg",
+            background: "assets/images/ending_victory_badinh.jpg",
             bgm: "victory",
             sfx: "fanfare",
             text: `
@@ -684,7 +684,7 @@ const SCENARIO_DATA = {
             id: "costly_victory",
             title: "CHIẾN THẮNG TRONG BÃO LỬA",
             badge: "Kết Thúc Thắng Lợi Cam Go",
-            background: "assets/images/bg_garrison.jpg",
+            background: "assets/images/ending_standoff.jpg",
             bgm: "gameplay",
             sfx: "tension",
             text: `
@@ -699,7 +699,7 @@ const SCENARIO_DATA = {
             id: "missed_opportunity",
             title: "NGẬM NGÙI TRỄ BƯỚC",
             badge: "Kết Thúc Bỏ Lỡ Thời Cơ Vàng",
-            background: "assets/images/bg_safehouse.jpg",
+            background: "assets/images/ending_defeat.jpg",
             bgm: "gameplay",
             sfx: "tension",
             text: `

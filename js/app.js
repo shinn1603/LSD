@@ -404,8 +404,19 @@ document.addEventListener("DOMContentLoaded", () => {
                 <div class="ending-card-status">${isUnlocked ? "Đã Mở Khóa" : "Chưa Mở Khóa"}</div>
                 <h4 class="ending-card-title">${isUnlocked ? ending.title : "Cột Mốc Chưa Sáng Tỏ"}</h4>
                 <div class="ending-card-badge">${isUnlocked ? ending.badge : "Tham gia khởi nghĩa để trải nghiệm nhánh này"}</div>
-                ${isUnlocked ? `<div class="ending-card-desc">${ending.historicalNote}</div>` : ""}
+                ${isUnlocked ? `
+                    <div class="ending-card-desc">${ending.historicalNote}</div>
+                    <button class="btn-ending-replay-chip">Xem Lại Kết Thúc &rarr;</button>
+                ` : ""}
             `;
+
+            if (isUnlocked) {
+                card.style.cursor = "pointer";
+                card.onclick = () => {
+                    modalEndings.classList.add("hidden");
+                    engine.showEndingScreen(ending);
+                };
+            }
 
             container.appendChild(card);
         }
@@ -473,6 +484,25 @@ document.addEventListener("DOMContentLoaded", () => {
         if (window.soundCtrl.customAudioName && customBgmStatus && customBgmName) {
             customBgmName.textContent = window.soundCtrl.customAudioName;
             customBgmStatus.classList.remove("hidden");
+        }
+
+        // Kích hoạt Cheat Code trong Cài Đặt
+        const inputCheat = document.getElementById("input-cheat-code");
+        const btnApplyCheat = document.getElementById("btn-apply-cheat");
+        if (btnApplyCheat && inputCheat) {
+            btnApplyCheat.onclick = () => {
+                const code = inputCheat.value;
+                if (engine.activateCheatCode(code)) {
+                    inputCheat.value = "";
+                } else {
+                    engine.showToast("Mã bí mật không chính xác. Gợi ý: 'yain'");
+                }
+            };
+            inputCheat.onkeydown = (e) => {
+                if (e.key === "Enter") {
+                    btnApplyCheat.click();
+                }
+            };
         }
 
         modalSettings.classList.remove("hidden");
@@ -623,4 +653,29 @@ document.addEventListener("DOMContentLoaded", () => {
     function openProjectInfoModal() {
         modalProjectInfo.classList.remove("hidden");
     }
+
+    // ==========================================
+    // CHEAT CODE 'yain' (LẮNG NGHE TOÀN CỤC)
+    // ==========================================
+    let cheatBuffer = "";
+    window.addEventListener("keydown", (e) => {
+        // Bỏ qua nếu đang gõ chữ trong thẻ input/textarea
+        if (e.target && (e.target.tagName === "INPUT" || e.target.tagName === "TEXTAREA")) {
+            return;
+        }
+        if (e.key && e.key.length === 1) {
+            cheatBuffer = (cheatBuffer + e.key.toLowerCase()).slice(-10);
+            if (cheatBuffer.endsWith("yain")) {
+                cheatBuffer = "";
+                if (engine.activateCheatCode("yain")) {
+                    if (modalEndings && !modalEndings.classList.contains("hidden")) {
+                        openEndingsModal();
+                    }
+                    if (modalCodex && !modalCodex.classList.contains("hidden")) {
+                        openCodexModal();
+                    }
+                }
+            }
+        }
+    });
 });
