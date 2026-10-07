@@ -1,21 +1,26 @@
 <!DOCTYPE html>
 <html lang="vi">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Bình Minh Tháng Tám - Hà Nội 1945 | Game Visual Novel Lịch Sử</title>
-    <meta name="description" content="Trải nghiệm thời khắc quyết định của Cách mạng Tháng Tám 1945 tại Hà Nội trong tựa game Visual Novel lịch sử nhập vai tương tác.">
+    <meta name="description"
+        content="Trải nghiệm thời khắc quyết định của Cách mạng Tháng Tám 1945 tại Hà Nội trong tựa game Visual Novel lịch sử nhập vai tương tác.">
 
     <!-- Google Fonts chuẩn tiếng Việt 100% -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Be+Vietnam+Pro:ital,wght@0,300;0,400;0,500;0,600;0,700;1,400&family=Lora:ital,wght@0,400;0,500;0,600;0,700;1,400;1,500&family=Playfair+Display:ital,wght@0,600;0,700;0,800;0,900;1,600;1,700&display=swap" rel="stylesheet">
+    <link
+        href="https://fonts.googleapis.com/css2?family=Be+Vietnam+Pro:ital,wght@0,300;0,400;0,500;0,600;0,700;1,400&family=Lora:ital,wght@0,400;0,500;0,600;0,700;1,400;1,500&family=Playfair+Display:ital,wght@0,600;0,700;0,800;0,900;1,600;1,700&display=swap"
+        rel="stylesheet">
 
     <!-- Stylesheets -->
     <link rel="stylesheet" href="css/main.css">
     <link rel="stylesheet" href="css/vn-ui.css">
     <link rel="stylesheet" href="css/codex.css">
 </head>
+
 <body>
     <div id="app-root">
         <!-- Hiệu ứng chớp màn hình & Thông báo -->
@@ -81,15 +86,20 @@
                 <div class="title-team-card">
                     <div class="title-team-header">
                         <span class="team-star">★</span>
-                        <span class="team-heading">NHÓM SINH VIÊN THỰC HIỆN DỰ ÁN</span>
+                        <span class="team-heading">NHÓM 09</span>
                         <span class="team-star">★</span>
                     </div>
                     <div class="title-team-list">
-                        <span class="team-chip"><strong>Nguyễn Phước Minh Triết</strong> <span class="team-mssv">24110357</span></span>
-                        <span class="team-chip"><strong>Nguyễn Phước Thọ</strong> <span class="team-mssv">24110343</span></span>
-                        <span class="team-chip"><strong>Trần Tiến Đạt</strong> <span class="team-mssv">24110198</span></span>
-                        <span class="team-chip"><strong>Lương Xuân Phúc</strong> <span class="team-mssv">24142302</span></span>
-                        <span class="team-chip"><strong>Đinh Thiên Bảo</strong> <span class="team-mssv">24162009</span></span>
+                        <span class="team-chip"><strong>Nguyễn Phước Minh Triết</strong> <span
+                                class="team-mssv">24110357</span></span>
+                        <span class="team-chip"><strong>Nguyễn Phước Thọ</strong> <span
+                                class="team-mssv">24110343</span></span>
+                        <span class="team-chip"><strong>Trần Tiến Đạt</strong> <span
+                                class="team-mssv">24110198</span></span>
+                        <span class="team-chip"><strong>Lương Xuân Phúc</strong> <span
+                                class="team-mssv">24142302</span></span>
+                        <span class="team-chip"><strong>Đinh Thiên Bảo</strong> <span
+                                class="team-mssv">24162009</span></span>
                     </div>
                 </div>
             </div>
@@ -185,7 +195,8 @@
                     <div class="cutscene-speaker-badge" id="cutscene-speaker">Lời Dẫn</div>
                     <div id="cutscene-narration" class="cutscene-dialogue-text"></div>
                     <div class="cutscene-dialogue-footer">
-                        <span class="cutscene-hint">Nhấp chuột hoặc phím Cách để tiếp tục <span class="cutscene-caret">▼</span></span>
+                        <span class="cutscene-hint">Nhấp chuột hoặc phím Cách để tiếp tục <span
+                                class="cutscene-caret">▼</span></span>
                         <button id="btn-cutscene-continue" class="btn-cutscene-action">
                             TIẾP TỤC &rarr;
                         </button>
@@ -319,18 +330,23 @@
                     </div>
                     <div id="custom-bgm-status" class="custom-bgm-status hidden">
                         <span>Đang phát: <strong id="custom-bgm-name"></strong></span>
-                        <button id="btn-reset-bgm" class="btn-reset-bgm" title="Khôi phục nhạc mặc định">Khôi phục mặc định</button>
+                        <button id="btn-reset-bgm" class="btn-reset-bgm" title="Khôi phục nhạc mặc định">Khôi phục mặc
+                            định</button>
                     </div>
                     <div class="setting-note-box">
-                        💡 <em>Mẹo: Bạn cũng có thể copy trực tiếp file nhạc MP3 vào thư mục <code>assets/audio/</code> (ví dụ: <code>bgm_title.mp3</code>, <code>bgm_epic.mp3</code>) để game tự động phát vĩnh viễn!</em>
+                        💡 <em>Mẹo: Bạn cũng có thể copy trực tiếp file nhạc MP3 vào thư mục <code>assets/audio/</code>
+                            (ví dụ: <code>bgm_title.mp3</code>, <code>bgm_epic.mp3</code>) để game tự động phát vĩnh
+                            viễn!</em>
                     </div>
                     <div class="setting-row setting-cheat-row">
                         <div class="setting-label-group">
                             <span class="setting-label">Cheat Code:</span>
-                            <span class="setting-hint">Nhập mã <strong>yain</strong> (hoặc gõ phím y-a-i-n bất kỳ lúc nào) để mở khóa full tư liệu &amp; kết thúc</span>
+                            <span class="setting-hint">Nhập mã <strong>yain</strong> (hoặc gõ phím y-a-i-n bất kỳ lúc
+                                nào) để mở khóa full tư liệu &amp; kết thúc</span>
                         </div>
                         <div class="cheat-input-wrap">
-                            <input id="input-cheat-code" type="text" class="setting-text-input" placeholder="Nhập mã 'yain'..." autocomplete="off">
+                            <input id="input-cheat-code" type="text" class="setting-text-input"
+                                placeholder="Nhập mã 'yain'..." autocomplete="off">
                             <button id="btn-apply-cheat" class="btn-setting-action">Kích Hoạt</button>
                         </div>
                     </div>
@@ -392,22 +408,45 @@
                 <div class="modal-body">
                     <div class="info-section">
                         <h4 class="info-section-title">Lời Tựa Đầu Sách</h4>
-                        <p class="info-p">Tháng Tám năm 1945 đã đi vào lịch sử dân tộc Việt Nam như một bản anh hùng ca bất diệt. Tại Hà Nội, từ ngày 14/08 đến ngày 19/08/1945, nhân dân Thủ đô dưới sự lãnh đạo kiên cường và tài tình của Đảng đã chớp lấy thời cơ ngàn năm có một, đập tan xiềng xích thực dân - phát xít, giành lại quyền làm chủ non sông.</p>
-                        <p class="info-p">Dự án <strong>"Bình Minh Tháng Tám - Hà Nội 1945"</strong> là một nỗ lực của nhóm sinh viên nhằm số hóa trải nghiệm lịch sử dưới hình thức tiểu thuyết trực quan (Visual Novel). Thông qua vai diễn chiến sĩ Đội Tuyên truyền Xung phong Thành Hoàng Diệu, người chơi được trực tiếp đối mặt với những ngã rẽ hiểm nguy, đưa ra những quyết sách mang tính thời khắc, từ đó thấu hiểu sâu sắc hơn tinh thần bất khuất và trí tuệ sáng tạo của thế hệ cha anh.</p>
+                        <p class="info-p">Tháng Tám năm 1945 đã đi vào lịch sử dân tộc Việt Nam như một bản anh hùng ca
+                            bất diệt. Tại Hà Nội, từ ngày 14/08 đến ngày 19/08/1945, nhân dân Thủ đô dưới sự lãnh đạo
+                            kiên cường và tài tình của Đảng đã chớp lấy thời cơ ngàn năm có một, đập tan xiềng xích thực
+                            dân - phát xít, giành lại quyền làm chủ non sông.</p>
+                        <p class="info-p">Dự án <strong>"Bình Minh Tháng Tám - Hà Nội 1945"</strong> là một nỗ lực của
+                            nhóm sinh viên nhằm số hóa trải nghiệm lịch sử dưới hình thức tiểu thuyết trực quan (Visual
+                            Novel). Thông qua vai diễn chiến sĩ Đội Tuyên truyền Xung phong Thành Hoàng Diệu, người chơi
+                            được trực tiếp đối mặt với những ngã rẽ hiểm nguy, đưa ra những quyết sách mang tính thời
+                            khắc, từ đó thấu hiểu sâu sắc hơn tinh thần bất khuất và trí tuệ sáng tạo của thế hệ cha
+                            anh.</p>
                     </div>
 
                     <div class="info-section">
                         <h4 class="info-section-title">Bối Cảnh Lịch Sử &amp; Những Thời Khắc Quyết Định</h4>
-                        <p class="info-p">&bull; <strong>Nghệ thuật chớp thời cơ:</strong> Khi phát xít Nhật đầu hàng Đồng minh, chính quyền tay sai hoang mang tê liệt, quân Đồng minh chưa kịp kéo vào — thời cơ ngàn năm xuất hiện chớp nhoáng đòi hỏi ngọn lửa cách mạng phải bùng lên kịp thời và thần tốc.</p>
-                        <p class="info-p">&bull; <strong>Bản lĩnh sáng tạo của Xứ ủy Bắc Kỳ:</strong> Trong hoàn cảnh liên lạc với Trung ương tại Tân Trào bị chia cắt, Thường vụ Xứ ủy Bắc Kỳ tại làng Vạn Phúc (Hà Đông) đã chủ động, dám nghĩ, dám làm, quyết định phát lệnh khởi nghĩa tại Hà Nội vào ngày 19/8/1945.</p>
-                        <p class="info-p">&bull; <strong>Kết hợp lực lượng chính trị với ngoại giao quân sự:</strong> Sức mạnh biển người áp đảo kết hợp cùng nghệ thuật thương thuyết tài tình đã khiến đội quân viễn chinh Nhật phải án binh bất động, giúp cuộc khởi nghĩa ở Thủ đô toàn thắng mà bảo toàn được tối đa xương máu đồng bào.</p>
+                        <p class="info-p">&bull; <strong>Nghệ thuật chớp thời cơ:</strong> Khi phát xít Nhật đầu hàng
+                            Đồng minh, chính quyền tay sai hoang mang tê liệt, quân Đồng minh chưa kịp kéo vào — thời cơ
+                            ngàn năm xuất hiện chớp nhoáng đòi hỏi ngọn lửa cách mạng phải bùng lên kịp thời và thần
+                            tốc.</p>
+                        <p class="info-p">&bull; <strong>Bản lĩnh sáng tạo của Xứ ủy Bắc Kỳ:</strong> Trong hoàn cảnh
+                            liên lạc với Trung ương tại Tân Trào bị chia cắt, Thường vụ Xứ ủy Bắc Kỳ tại làng Vạn Phúc
+                            (Hà Đông) đã chủ động, dám nghĩ, dám làm, quyết định phát lệnh khởi nghĩa tại Hà Nội vào
+                            ngày 19/8/1945.</p>
+                        <p class="info-p">&bull; <strong>Kết hợp lực lượng chính trị với ngoại giao quân sự:</strong>
+                            Sức mạnh biển người áp đảo kết hợp cùng nghệ thuật thương thuyết tài tình đã khiến đội quân
+                            viễn chinh Nhật phải án binh bất động, giúp cuộc khởi nghĩa ở Thủ đô toàn thắng mà bảo toàn
+                            được tối đa xương máu đồng bào.</p>
                     </div>
 
                     <div class="info-section">
                         <h4 class="info-section-title">Các Hạng Mục Trải Nghiệm Trong Ứng Dụng</h4>
-                        <p class="info-p">&bull; <strong>Tiểu Thuyết Trực Quan (Visual Novel):</strong> Nhập vai chiến sĩ cách mạng, tương tác qua từng hồi, đối mặt với các quyết định rẽ nhánh dẫn đến 4 kết thúc lịch sử khác nhau.</p>
-                        <p class="info-p">&bull; <strong>Hồ Sơ Tư Liệu Lịch Sử (Codex):</strong> Mở khóa các văn kiện gốc (Quân lệnh số 1, Lời kêu gọi của Bác Hồ...), hồ sơ sự kiện và nhân vật lịch sử qua từng mốc chơi.</p>
-                        <p class="info-p">&bull; <strong>Ôn Tập &amp; Đố Vui Lịch Sử (Quiz):</strong> Thử thách bản thân với 6 câu hỏi trắc nghiệm trọng tâm để củng cố và ghi nhớ các kiến thức lịch sử vừa trải nghiệm.</p>
+                        <p class="info-p">&bull; <strong>Tiểu Thuyết Trực Quan (Visual Novel):</strong> Nhập vai chiến
+                            sĩ cách mạng, tương tác qua từng hồi, đối mặt với các quyết định rẽ nhánh dẫn đến 4 kết thúc
+                            lịch sử khác nhau.</p>
+                        <p class="info-p">&bull; <strong>Hồ Sơ Tư Liệu Lịch Sử (Codex):</strong> Mở khóa các văn kiện
+                            gốc (Quân lệnh số 1, Lời kêu gọi của Bác Hồ...), hồ sơ sự kiện và nhân vật lịch sử qua từng
+                            mốc chơi.</p>
+                        <p class="info-p">&bull; <strong>Ôn Tập &amp; Đố Vui Lịch Sử (Quiz):</strong> Thử thách bản thân
+                            với 6 câu hỏi trắc nghiệm trọng tâm để củng cố và ghi nhớ các kiến thức lịch sử vừa trải
+                            nghiệm.</p>
                     </div>
 
                     <div class="info-section">
@@ -468,4 +507,5 @@
     <script src="js/engine.js"></script>
     <script src="js/app.js"></script>
 </body>
+
 </html>
