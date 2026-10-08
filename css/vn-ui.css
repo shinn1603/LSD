@@ -650,7 +650,7 @@
     transition: border-color var(--transition-fast), transform var(--transition-fast);
     animation: cutsceneCardAppear 0.5s cubic-bezier(0.16, 1, 0.3, 1) backwards;
     transform: translateZ(0);
-    contain: content;
+    overflow: visible;
 }
 
 .cutscene-dialogue-box:hover {
@@ -659,19 +659,20 @@
 
 .cutscene-speaker-badge {
     position: absolute;
-    top: -1.15rem;
+    top: -1.2rem;
     left: 2rem;
-    background: linear-gradient(135deg, #a81c1c 0%, #600f0f 100%);
+    z-index: 10;
+    background: linear-gradient(135deg, #961b1b 0%, #590f0f 100%);
     border: 1.5px solid var(--color-gold);
-    border-radius: 4px;
+    border-radius: 5px;
     padding: 0.35rem 1.4rem;
-    font-family: var(--font-ui);
-    font-size: 0.92rem;
+    font-family: var(--font-heading);
+    font-size: 0.95rem;
     font-weight: 700;
-    color: #ffffff;
-    letter-spacing: 0.06em;
+    color: var(--color-gold-bright);
+    letter-spacing: 0.04em;
     text-transform: uppercase;
-    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.6);
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.6), var(--shadow-gold);
     text-shadow: 0 1px 3px rgba(0, 0, 0, 0.8);
 }
 
