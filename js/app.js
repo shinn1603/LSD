@@ -171,10 +171,24 @@ document.addEventListener("DOMContentLoaded", () => {
         });
     }
 
+    const SVG_SOUND_ICON = '<svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5"></polygon><path d="M19.07 4.93a10 10 0 0 1 0 14.14M15.54 8.46a5 5 0 0 1 0 7.07"></path></svg>';
+    const SVG_MUTE_ICON = '<svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5"></polygon><line x1="23" y1="9" x2="17" y2="15"></line><line x1="17" y1="9" x2="23" y2="15"></line></svg>';
+
     function updateMuteButtons(isMuted) {
-        if (btnMute) btnMute.textContent = isMuted ? "🔇 Tắt" : "🔊 Nhạc";
-        if (titleMuteIcon) titleMuteIcon.textContent = isMuted ? "🔇" : "🔊";
-        if (titleMuteText) titleMuteText.textContent = isMuted ? "Âm thanh: Tắt" : "Âm thanh: Bật";
+        const hudMuteIcon = document.getElementById("hud-mute-icon");
+        const hudMuteText = document.getElementById("hud-mute-text");
+        if (hudMuteIcon) {
+            hudMuteIcon.innerHTML = isMuted ? SVG_MUTE_ICON : SVG_SOUND_ICON;
+        }
+        if (hudMuteText) {
+            hudMuteText.textContent = isMuted ? "Tắt" : "Nhạc";
+        }
+        if (titleMuteIcon) {
+            titleMuteIcon.innerHTML = isMuted ? SVG_MUTE_ICON : SVG_SOUND_ICON;
+        }
+        if (titleMuteText) {
+            titleMuteText.textContent = isMuted ? "Âm thanh: Tắt" : "Âm thanh: Bật";
+        }
     }
 
     if (btnTitleMute) {
@@ -404,7 +418,6 @@ document.addEventListener("DOMContentLoaded", () => {
                 <h4 class="ending-card-title">${isUnlocked ? ending.title : "Cột Mốc Chưa Sáng Tỏ"}</h4>
                 <div class="ending-card-badge">${isUnlocked ? ending.badge : "Tham gia khởi nghĩa để trải nghiệm nhánh này"}</div>
                 ${isUnlocked ? `
-                    <div class="ending-card-desc">${ending.historicalNote}</div>
                     <button class="btn-ending-replay-chip">Xem Lại Kết Thúc &rarr;</button>
                 ` : ""}
             `;

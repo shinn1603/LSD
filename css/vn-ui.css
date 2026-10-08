@@ -146,6 +146,7 @@
     display: inline-flex;
     align-items: center;
     justify-content: center;
+    gap: 0.42rem;
     font-family: var(--font-ui);
     font-size: 0.82rem;
     font-weight: 500;
@@ -156,6 +157,14 @@
     color: var(--color-parchment);
     cursor: pointer;
     transition: var(--transition-fast);
+}
+
+.btn-hud svg {
+    width: 14px;
+    height: 14px;
+    stroke: currentColor;
+    display: inline-block;
+    flex-shrink: 0;
 }
 
 .btn-hud-corner {

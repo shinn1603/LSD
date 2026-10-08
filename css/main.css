@@ -145,8 +145,17 @@ html, body {
 }
 
 .corner-icon {
-    font-size: 1rem;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
     line-height: 1;
+}
+
+.corner-icon svg {
+    width: 15px;
+    height: 15px;
+    stroke: currentColor;
+    display: block;
 }
 
 .corner-text {
@@ -489,17 +498,7 @@ html, body {
     margin-bottom: 0.75rem;
 }
 
-.ending-note {
-    font-family: var(--font-ui);
-    font-size: 0.86rem;
-    font-style: italic;
-    color: var(--color-gold-bright);
-    background: rgba(0, 0, 0, 0.45);
-    border-left: 3px solid var(--color-gold);
-    padding: 0.75rem 1rem;
-    margin-bottom: 0.5rem;
-    text-align: left;
-}
+
 
 .ending-actions {
     flex-shrink: 0;
@@ -1276,10 +1275,7 @@ html, body {
         margin-bottom: 0.65rem;
     }
 
-    .ending-note {
-        font-size: 0.8rem;
-        padding: 0.6rem 0.85rem;
-    }
+
 
     .ending-actions {
         grid-template-columns: repeat(2, 1fr);

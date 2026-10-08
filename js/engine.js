@@ -719,14 +719,12 @@ class VNEngine {
         const endingTitle = document.getElementById("ending-title");
         const endingBadge = document.getElementById("ending-badge");
         const endingContent = document.getElementById("ending-content");
-        const endingNote = document.getElementById("ending-note");
         const endingBg = document.getElementById("ending-bg");
 
         if (endingBg) endingBg.style.backgroundImage = `url('${ending.background}')`;
         if (endingTitle) endingTitle.textContent = ending.title;
         if (endingBadge) endingBadge.textContent = ending.badge;
         if (endingContent) endingContent.innerHTML = ending.text;
-        if (endingNote) endingNote.textContent = ending.historicalNote;
 
         if (ending.sfx === "fanfare") this.sound.playVictoryFanfare();
         if (ending.bgm) this.sound.startAmbience(ending.bgm);

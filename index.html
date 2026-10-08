@@ -37,17 +37,23 @@
             <div class="title-corner-bar">
                 <div class="title-corner-left">
                     <button id="btn-title-mute" class="btn-corner-icon" title="Bật / Tắt âm thanh">
-                        <span id="title-mute-icon" class="corner-icon">🔊</span>
+                        <span id="title-mute-icon" class="corner-icon">
+                            <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5"></polygon><path d="M19.07 4.93a10 10 0 0 1 0 14.14M15.54 8.46a5 5 0 0 1 0 7.07"></path></svg>
+                        </span>
                         <span id="title-mute-text" class="corner-text">Âm thanh: Bật</span>
                     </button>
                     <button id="btn-info-title" class="btn-corner-icon" title="Giới thiệu học phần & nghiên cứu Lịch sử Đảng">
-                        <span class="corner-icon">ℹ️</span>
+                        <span class="corner-icon">
+                            <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"></circle><line x1="12" y1="16" x2="12" y2="12"></line><line x1="12" y1="8" x2="12.01" y2="8"></line></svg>
+                        </span>
                         <span class="corner-text">Đề cương & Tư liệu</span>
                     </button>
                 </div>
                 <div class="title-corner-right">
                     <button id="btn-settings-title" class="btn-corner-icon" title="Cài đặt trò chơi">
-                        <span class="corner-icon">⚙️</span>
+                        <span class="corner-icon">
+                            <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="3"></circle><path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1 0 2.83 2 2 0 0 1-2.83 0l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-2 2 2 2 0 0 1-2-2v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83 0 2 2 0 0 1 0-2.83l.06-.06a1.65 1.65 0 0 0 .33-1.82 1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1-2-2 2 2 0 0 1 2-2h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 0-2.83 2 2 0 0 1 2.83 0l.06.06a1.65 1.65 0 0 0 1.82.33H9a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 2-2 2 2 0 0 1 2 2v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 0 2 2 0 0 1 0 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82V9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 2 2 2 2 0 0 1-2 2h-.09a1.65 1.65 0 0 0-1.51 1z"></path></svg>
+                        </span>
                         <span class="corner-text">Cài đặt</span>
                     </button>
                 </div>
@@ -85,9 +91,7 @@
             <div class="title-footer">
                 <div class="title-team-card">
                     <div class="title-team-header">
-                        <span class="team-star">★</span>
-                        <span class="team-heading">NHÓM 09</span>
-                        <span class="team-star">★</span>
+                        <span class="team-heading">NHÓM 09 &bull; THỰC HIỆN DỰ ÁN</span>
                     </div>
                     <div class="title-team-list">
                         <span class="team-chip"><strong>Nguyễn Phước Minh Triết</strong> <span
@@ -123,10 +127,14 @@
                 <!-- Cụm góc trái: Nút Thoát, Âm thanh & Bối cảnh lịch sử -->
                 <div class="hud-left">
                     <button id="btn-home" class="btn-hud btn-hud-corner" title="Quay về Màn hình chính">
-                        ⌂ Menu
+                        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m3 9 9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"></path><polyline points="9 22 9 12 15 12 15 22"></polyline></svg>
+                        <span>Menu</span>
                     </button>
                     <button id="btn-mute" class="btn-hud btn-hud-corner" title="Bật/Tắt âm thanh">
-                        🔊 Nhạc
+                        <span id="hud-mute-icon">
+                            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5"></polygon><path d="M19.07 4.93a10 10 0 0 1 0 14.14M15.54 8.46a5 5 0 0 1 0 7.07"></path></svg>
+                        </span>
+                        <span id="hud-mute-text">Nhạc</span>
                     </button>
                     <div class="hud-context">
                         <div class="hud-badges">
@@ -145,7 +153,10 @@
                     <button id="btn-quick-load" class="btn-hud" title="Tải ván chơi">Tải</button>
                     <button id="btn-codex-open" class="btn-hud" title="Hồ sơ tư liệu lịch sử">Tư liệu</button>
                     <button id="btn-quiz-open" class="btn-hud" title="Trắc nghiệm ôn tập kiến thức">Ôn tập</button>
-                    <button id="btn-settings-open" class="btn-hud" title="Cài đặt">⚙️ Cài đặt</button>
+                    <button id="btn-settings-open" class="btn-hud" title="Cài đặt">
+                        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="3"></circle><path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1 0 2.83 2 2 0 0 1-2.83 0l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-2 2 2 2 0 0 1-2-2v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83 0 2 2 0 0 1 0-2.83l.06-.06a1.65 1.65 0 0 0 .33-1.82 1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1-2-2 2 2 0 0 1 2-2h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 0-2.83 2 2 0 0 1 2.83 0l.06.06a1.65 1.65 0 0 0 1.82.33H9a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 2-2 2 2 0 0 1 2 2v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 0 2 2 0 0 1 0 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82V9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 2 2 2 2 0 0 1-2 2h-.09a1.65 1.65 0 0 0-1.51 1z"></path></svg>
+                        <span>Cài đặt</span>
+                    </button>
                 </div>
             </header>
 
@@ -195,8 +206,7 @@
                     <div class="cutscene-speaker-badge" id="cutscene-speaker">Lời Dẫn</div>
                     <div id="cutscene-narration" class="cutscene-dialogue-text"></div>
                     <div class="cutscene-dialogue-footer">
-                        <span class="cutscene-hint">Nhấp chuột hoặc phím Cách để tiếp tục <span
-                                class="cutscene-caret">▼</span></span>
+                        <span class="cutscene-hint">Nhấp chuột hoặc phím Cách để tiếp tục</span>
                         <button id="btn-cutscene-continue" class="btn-cutscene-action">
                             TIẾP TỤC &rarr;
                         </button>
@@ -219,7 +229,6 @@
                 </div>
                 <div class="ending-body-scroll">
                     <div id="ending-content" class="ending-content"></div>
-                    <div id="ending-note" class="ending-note"></div>
                 </div>
                 <div class="ending-actions">
                     <button id="btn-ending-replay" class="btn-ending-action">Chơi Lại Từ Đầu</button>
@@ -320,7 +329,7 @@
                     </div>
                     <div class="setting-row setting-audio-upload">
                         <div class="setting-label-group">
-                            <span class="setting-label">🎵 Nhạc Nền Tùy Chọn:</span>
+                            <span class="setting-label">Nhạc Nền Tùy Chọn:</span>
                             <span class="setting-hint">Tải file MP3 từ máy tính để phát làm nhạc nền trong game</span>
                         </div>
                         <label class="btn-file-upload">
@@ -334,7 +343,7 @@
                             định</button>
                     </div>
                     <div class="setting-note-box">
-                        💡 <em>Mẹo: Bạn cũng có thể copy trực tiếp file nhạc MP3 vào thư mục <code>assets/audio/</code>
+                        <em>Lưu ý: Bạn cũng có thể copy trực tiếp file nhạc MP3 vào thư mục <code>assets/audio/</code>
                             (ví dụ: <code>bgm_title.mp3</code>, <code>bgm_epic.mp3</code>) để game tự động phát vĩnh
                             viễn!</em>
                     </div>
@@ -429,7 +438,7 @@
                     </div>
 
                     <div class="info-section">
-                        <h4 class="info-section-title">👥 Nhóm 09 &amp; Thành Viên Thực Hiện</h4>
+                        <h4 class="info-section-title">Nhóm 09 &amp; Thành Viên Thực Hiện</h4>
                         <table class="team-table">
                             <thead>
                                 <tr>
@@ -479,12 +488,12 @@
     </div>
 
     <!-- Scripts -->
-    <script src="js/audio.js?v=2.2"></script>
-    <script src="js/data/codex-data.js?v=2.2"></script>
-    <script src="js/data/quiz-data.js?v=2.2"></script>
-    <script src="js/data/scenario.js?v=2.2"></script>
-    <script src="js/engine.js?v=2.2"></script>
-    <script src="js/app.js?v=2.2"></script>
+    <script src="js/audio.js?v=2.3"></script>
+    <script src="js/data/codex-data.js?v=2.3"></script>
+    <script src="js/data/quiz-data.js?v=2.3"></script>
+    <script src="js/data/scenario.js?v=2.3"></script>
+    <script src="js/engine.js?v=2.3"></script>
+    <script src="js/app.js?v=2.3"></script>
 </body>
 
 </html>

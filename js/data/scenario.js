@@ -687,8 +687,7 @@ const SCENARIO_DATA = {
                 <p>2. <strong>Khối đại đoàn kết toàn dân:</strong> Lấy liên minh công nông làm nền tảng vững chắc, tập hợp mọi giai tầng yêu nước trong Mặt trận Việt Minh rộng rãi.</p>
                 <p>3. <strong>Nghệ thuật chớp thời cơ và phân hóa kẻ thù:</strong> Nhạy bén chớp thời cơ nghìn năm có một; kết hợp sức mạnh chính trị với ngoại giao quân sự mềm dẻo nhưng kiên quyết.</p>
                 <p>4. <strong>Xây dựng Đảng vững mạnh:</strong> Đảng có đường lối cứu nước đúng đắn, tổ chức Đảng các cấp chủ động, linh hoạt, dám nghĩ, dám làm và dám chịu trách nhiệm trước lịch sử.</p>
-            `,
-            historicalNote: "Bạn đã hoàn thành xuất sắc sứ mệnh lịch sử, thể hiện trọn vẹn những luận điểm cốt lõi trong Giáo trình Lịch sử Đảng Cộng sản Việt Nam (Chương I - Mục III)."
+            `
         },
 
         "costly_victory": {
@@ -702,8 +701,7 @@ const SCENARIO_DATA = {
                 <p>Trước sức mạnh vũ bão của hàng vạn đồng bào dưới sự lãnh đạo của Đảng và Mặt trận Việt Minh, chính quyền bù nhìn tay sai buộc phải sụp đổ. Nhân dân ta đã làm chủ hoàn toàn các công sở trọng yếu tại Hà Nội trước khi quân Đồng minh kịp tiến vào.</p>
                 <p>Tuy nhiên, do những xung đột vũ trang cục bộ bộc phát tại Trại Bảo an binh và trước hàng xe tăng Nhật, một số chiến sĩ tự vệ trung kiên và đồng bào yêu nước đã ngã xuống ngay trước giờ khải hoàn.</p>
                 <p>Hà Nội giành được độc lập, nhưng bài học xương máu về nghệ thuật phân hóa kẻ thù và kết hợp đấu tranh chính trị với ngoại giao quân sự sẽ còn được khắc ghi mãi mãi.</p>
-            `,
-            historicalNote: "Giáo trình Lịch sử Đảng khẳng định: Nghệ thuật phân hóa kẻ thù và ngoại giao quân sự mềm dẻo là chìa khóa để giành thắng lợi với chi phí xương máu thấp nhất."
+            `
         },
 
         "missed_opportunity": {
@@ -717,8 +715,7 @@ const SCENARIO_DATA = {
                 <p>Sự do dự, chần chừ và việc thiếu những quyết sách chủ động quyết liệt đã khiến thời cơ 'nghìn năm có một' trôi tuột khỏi tầm tay.</p>
                 <p>Cuộc biểu tình không đủ sức răn đe, các công sở đầu não chưa kịp tiếp quản thì quân đoàn Tưởng Giới Thạch từ biên giới phía Bắc và tàn dư thực dân Pháp đã ồ ạt kéo vào Hà Nội.</p>
                 <p>Cách mạng Việt Nam rơi vào tình thế hiểm nghèo, khắc sâu bài học lịch sử của Chủ tịch Hồ Chí Minh: Trong thời khắc quyết định vận mệnh dân tộc, phải thần tốc, táo bạo chớp thời cơ; chần chừ là có tội với non sông.</p>
-            `,
-            historicalNote: "Đúng như Chủ tịch Hồ Chí Minh từng căn dặn: 'Lúc này thời cơ thuận lợi đã tới, dù hy sinh tới đâu, dù phải đốt cháy cả dãy Trường Sơn cũng phải kiên quyết giành cho được độc lập!'"
+            `
         },
 
         "heroic_sacrifice": {
@@ -731,8 +728,7 @@ const SCENARIO_DATA = {
             text: `
                 <p>Trong khoảnh khắc sinh tử khi kẻ địch nổ súng tấn công vào cơ sở mật của Thành ủy, bạn đã dũng cảm ở lại cản hậu, tiêu hủy toàn bộ tài liệu danh sách tự vệ và thu hút hỏa lực địch về phía mình để các đồng chí lãnh đạo kịp thời rút lui an toàn.</p>
                 <p>Sự hy sinh anh dũng của bạn đã bảo vệ trọn vẹn bộ não lãnh đạo của cuộc khởi nghĩa. Ngày 19 tháng 8, Hà Nội rực đỏ cờ hoa đón mừng chiến thắng, và tấm gương của bạn mãi mãi được khắc ghi trong trái tim của đồng bào Thủ đô như một biểu tượng của lòng quả cảm trung trinh vì độc lập tự do.</p>
-            `,
-            historicalNote: "Sự hy sinh của các chiến sĩ cộng sản kiên trung là nền tảng vững chắc cho độc lập tự do của Tổ quốc."
+            `
         }
     }
 };
