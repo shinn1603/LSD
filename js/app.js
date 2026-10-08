@@ -1,7 +1,6 @@
 /**
- * Main Application Controller for "Bình Minh Tháng Tám - Hà Nội 1945"
- * Quản lý Modals, Menu, Lưu/Tải, Codex Lịch Sử và Thư Viện Kết Thúc
- * Giao diện tinh gọn, lịch thiệp, không dùng emoji/token rườm rà
+ * Main Application Controller for "Cách Mạng Tháng Tám 1945 - Sự Lãnh Đạo Của Đảng Tại Hà Nội"
+ * Học phần: Lịch Sử Đảng Cộng Sản Việt Nam (Bậc Đại học)
  */
 
 document.addEventListener("DOMContentLoaded", () => {

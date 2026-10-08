@@ -1,6 +1,6 @@
 /**
- * Web Audio API Sound & Ambience Synthesizer for "Bình Minh Tháng Tám - Hà Nội 1945"
- * Hoàn toàn tự sinh qua Web Audio API, không phụ thuộc file âm thanh bên ngoài
+ * Web Audio API Sound & Ambience Synthesizer for "Cách Mạng Tháng Tám 1945 - Sự Lãnh Đạo Của Đảng Tại Hà Nội"
+ * Học phần: Lịch Sử Đảng Cộng Sản Việt Nam (Bậc Đại học)
  */
 
 class SoundController {

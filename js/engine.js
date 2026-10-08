@@ -1,6 +1,6 @@
 /**
- * Core Visual Novel Engine for "Bình Minh Tháng Tám - Hà Nội 1945"
- * Tinh gọn, thuần túy cốt truyện, loại bỏ thanh token/chỉ số rườm rà
+ * Core Visual Novel Engine for "Cách Mạng Tháng Tám 1945 - Sự Lãnh Đạo Của Đảng Tại Hà Nội"
+ * Học phần: Lịch Sử Đảng Cộng Sản Việt Nam (Bậc Đại học)
  */
 
 class VNEngine {
