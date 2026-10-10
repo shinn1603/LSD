@@ -18,6 +18,7 @@
 ---
 
 ### I. CĂN CỨ KHOA HỌC & ĐỐI TƯỢNG NGHIÊN CỨU
+- **Tài liệu tham khảo chính:** *Lịch sử Đảng Cộng sản Việt Nam (Sách tham khảo)*, NXB Đại học Quốc gia TP.HCM, 2025. Đồng tác giả: ThS. Lê Quang Chung (Chương III: tr.156–214).
 - **Giáo trình cốt lõi:** *Giáo trình Lịch sử Đảng Cộng sản Việt Nam* do Bộ Giáo dục và Đào tạo phối hợp Nhà xuất bản Chính trị quốc gia Sự thật ban hành (Trọng tâm: **Chương I, Mục III: Phong trào giải phóng dân tộc 1939 - 1945 và Cách mạng Tháng Tám năm 1945**).
 - **Tài liệu bổ trợ:** *Văn kiện Đảng Toàn tập* (Tập 7: 1940 - 1945), NXB Chính trị quốc gia Sự thật; *Lịch sử Đảng bộ Thành phố Hà Nội (1930 - 2020)*, NXB Hà Nội.
 - **Định vị đề tài:** Bám sát đối tượng nghiên cứu của môn học — tập trung làm nổi bật **vai trò lãnh đạo, chủ trương, đường lối, nghệ thuật chớp thời cơ và chỉ đạo thực tiễn của Đảng** trong cuộc khởi nghĩa giành chính quyền tại Hà Nội tháng Tám năm 1945.
