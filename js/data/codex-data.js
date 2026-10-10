@@ -1,7 +1,7 @@
 /**
- * Historical Codex Data for "Cách Mạng Tháng Tám 1945 - Hà Nội"
+ * Hồ sơ tư liệu lịch sử (Codex): "Cách Mạng Tháng Tám Năm 1945 Dưới Sự Lãnh Đạo Của Đảng"
  * Học phần: Lịch Sử Đảng Cộng Sản Việt Nam (Bậc Đại học)
- * Căn cứ: Giáo trình Lịch sử Đảng Cộng sản Việt Nam - NXB Chính trị quốc gia Sự thật
+ * Căn cứ: Giáo trình Lịch sử Đảng Cộng sản Việt Nam - NXB Chính trị quốc gia Sự thật (Chương I - Mục III)
  * Văn kiện Đảng Toàn tập (Tập 7) & Hồ sơ tư liệu Lịch sử Đảng bộ TP. Hà Nội
  */
 

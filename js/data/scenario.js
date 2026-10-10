@@ -1,8 +1,9 @@
 /**
- * Scenario & Branching Script for "Cách Mạng Tháng Tám 1945 - Hà Nội"
+ * Kịch bản Visual Novel: "Cách Mạng Tháng Tám Năm 1945 Dưới Sự Lãnh Đạo Của Đảng"
+ * Trọng tâm nghiên cứu: Sự lãnh đạo của Đảng trong cuộc khởi nghĩa giành chính quyền tại Hà Nội
  * Học phần: Lịch Sử Đảng Cộng Sản Việt Nam (Bậc Đại học)
  * Căn cứ: Giáo trình Lịch sử Đảng Cộng sản Việt Nam - NXB Chính trị quốc gia Sự thật (Chương I - Mục III)
- * Tái hiện hào hùng, tự nhiên, đậm chất lịch sử và nghệ thuật chớp thời cơ của Đảng tại Hà Nội.
+ * Bố cục 4 phần chuẩn mực: Hoàn cảnh lịch sử - Chủ trương của Đảng - Diễn biến - Kết quả & Ý nghĩa
  */
 
 const SCENARIO_DATA = {

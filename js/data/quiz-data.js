@@ -1,7 +1,7 @@
 /**
- * Quiz Data for "Cách Mạng Tháng Tám 1945 - Hà Nội"
+ * Ngân hàng câu hỏi trắc nghiệm: "Cách Mạng Tháng Tám Năm 1945 Dưới Sự Lãnh Đạo Của Đảng"
  * Học phần: Lịch Sử Đảng Cộng Sản Việt Nam (Bậc Đại học)
- * Ngân hàng 6 câu hỏi trắc nghiệm trọng tâm củng cố và ôn tập kiến thức
+ * Ngân hàng 6 câu hỏi trắc nghiệm trọng tâm bao quát 4 phần: Hoàn cảnh lịch sử - Chủ trương của Đảng - Diễn biến - Kết quả & Ý nghĩa
  * Căn cứ: Giáo trình Lịch sử Đảng Cộng sản Việt Nam - NXB Chính trị quốc gia Sự thật (Chương I - Mục III)
  */
 
