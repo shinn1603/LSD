@@ -19,8 +19,10 @@
 
 ### I. CĂN CỨ KHOA HỌC & ĐỐI TƯỢNG NGHIÊN CỨU
 - **Tài liệu tham khảo chính:** *Lịch sử Đảng Cộng sản Việt Nam (Sách tham khảo)*, NXB Đại học Quốc gia TP.HCM, 2025. Đồng tác giả: ThS. Lê Quang Chung (Chương I: tr.29–91; trọng tâm Khởi nghĩa Hà Nội: tr.80–90).
-- **Giáo trình cốt lõi:** *Giáo trình Lịch sử Đảng Cộng sản Việt Nam* do Bộ Giáo dục và Đào tạo phối hợp Nhà xuất bản Chính trị quốc gia Sự thật ban hành (Trọng tâm: **Chương I, Mục III: Phong trào giải phóng dân tộc 1939 - 1945 và Cách mạng Tháng Tám năm 1945**).
-- **Tài liệu bổ trợ:** *Văn kiện Đảng Toàn tập* (Tập 7: 1940 - 1945), NXB Chính trị quốc gia Sự thật; *Lịch sử Đảng bộ Thành phố Hà Nội (1930 - 2020)*, NXB Hà Nội.
+- **Giáo trình cốt lõi:** *Giáo trình Lịch sử Đảng Cộng sản Việt Nam* (Dành cho bậc đại học hệ không chuyên lý luận chính trị), Bộ Giáo dục và Đào tạo phối hợp Nhà xuất bản Chính trị quốc gia Sự thật ban hành, Hà Nội, 2021 (Chương I, Mục III: tr.94–112).
+- **Văn kiện Đảng chính thống:** *Văn kiện Đảng Toàn tập* (Tập 7: 1940 - 1945), NXB Chính trị quốc gia Sự thật, Hà Nội, 2000 (Chỉ thị *Nhật - Pháp bắn nhau và hành động của chúng ta*, Quân lệnh số 1, Nghị quyết Hội nghị Tân Trào).
+- **Tác phẩm kinh điển & Địa phương:** *Hồ Chí Minh Toàn tập* (Tập 4: 1945 - 1946, NXB Chính trị quốc gia Sự thật); *Lịch sử Đảng bộ Thành phố Hà Nội (1930 - 2020)*, NXB Hà Nội (Hội nghị Vạn Phúc và khởi nghĩa Thủ đô).
+- **Tư liệu hiện vật:** Hồ sơ tư liệu lịch sử lưu trữ tại Bảo tàng Lịch sử Quốc gia và Bảo tàng Lịch sử Quân sự Việt Nam.
 - **Định vị đề tài:** Bám sát đối tượng nghiên cứu của môn học — tập trung làm nổi bật **vai trò lãnh đạo, chủ trương, đường lối, nghệ thuật chớp thời cơ và chỉ đạo thực tiễn của Đảng** trong cuộc khởi nghĩa giành chính quyền tại Hà Nội tháng Tám năm 1945.
 
 ---

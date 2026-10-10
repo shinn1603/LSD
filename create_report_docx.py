@@ -145,7 +145,12 @@ def create_student_report():
     add_run(p_ref, "• Tài liệu tham khảo chính: ", bold=True)
     add_run(p_ref, "Lịch sử Đảng Cộng sản Việt Nam (Sách tham khảo), NXB ĐHQG-HCM, 2025. Đồng tác giả: ThS. Lê Quang Chung (Chương I: tr.29–91; trọng tâm Khởi nghĩa Hà Nội: tr.80–90).")
 
-    # Mục 5: Thể loại sản phẩm
+    # Mục 5: Giáo trình và Văn kiện tham khảo bổ trợ
+    p_ref2 = add_p(align=WD_ALIGN_PARAGRAPH.JUSTIFY, space_after=3, line_spacing=1.5)
+    add_run(p_ref2, "• Giáo trình & Văn kiện tham khảo: ", bold=True)
+    add_run(p_ref2, "Giáo trình Lịch sử Đảng Cộng sản Việt Nam (Bộ Giáo dục và Đào tạo, NXB Chính trị quốc gia Sự thật, 2021, tr.94–112); Văn kiện Đảng Toàn tập (Tập 7: 1940–1945, NXB Chính trị quốc gia Sự thật); Hồ Chí Minh Toàn tập (Tập 4, NXB Chính trị quốc gia Sự thật); Lịch sử Đảng bộ Thành phố Hà Nội 1930–2020 (Ban Chấp hành Đảng bộ TP. Hà Nội, NXB Hà Nội).")
+
+    # Mục 6: Thể loại sản phẩm
     p_genre = add_p(align=WD_ALIGN_PARAGRAPH.JUSTIFY, space_after=3, line_spacing=1.5)
     add_run(p_genre, "• Thể loại sản phẩm: ", bold=True)
     add_run(p_genre, "Game tương tác dạng Visual Novel (Tiểu thuyết trực quan kết hợp Hồ sơ tư liệu & Trắc nghiệm ôn tập)")
