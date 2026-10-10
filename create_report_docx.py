@@ -143,7 +143,7 @@ def create_student_report():
     # Mục 4: Tài liệu tham khảo chính
     p_ref = add_p(align=WD_ALIGN_PARAGRAPH.JUSTIFY, space_after=3, line_spacing=1.5)
     add_run(p_ref, "• Tài liệu tham khảo chính: ", bold=True)
-    add_run(p_ref, "Lịch sử Đảng Cộng sản Việt Nam (Sách tham khảo), NXB ĐHQG-HCM, 2025. Đồng tác giả: ThS. Lê Quang Chung (Chương III: tr.156–214).")
+    add_run(p_ref, "Lịch sử Đảng Cộng sản Việt Nam (Sách tham khảo), NXB ĐHQG-HCM, 2025. Đồng tác giả: ThS. Lê Quang Chung (Chương I: tr.29–91; trọng tâm Khởi nghĩa Hà Nội: tr.80–90).")
 
     # Mục 5: Thể loại sản phẩm
     p_genre = add_p(align=WD_ALIGN_PARAGRAPH.JUSTIFY, space_after=3, line_spacing=1.5)
@@ -272,9 +272,19 @@ def create_student_report():
     file_primary = "261LLCT220514_06MOOC_GameLichSuDang_Nhom09.docx"
     file_alt = "261LLCT220514_06MOOC_Game_Nhom09.docx"
 
-    doc.save(file_primary)
-    doc.save(file_alt)
-    print(f"SUCCESS: Generated {file_primary} and {file_alt}")
+    saved_files = []
+    for f in [file_primary, file_alt]:
+        try:
+            doc.save(f)
+            saved_files.append(f)
+            print(f"SUCCESS: Generated {f}")
+        except PermissionError:
+            print(f"WARNING: File {f} is currently open in Microsoft Word. Please close Word to update this file.")
+
+    if not saved_files:
+        alt_save = "261LLCT220514_06MOOC_GameLichSuDang_Nhom09_CapNhat.docx"
+        doc.save(alt_save)
+        print(f"SUCCESS: Saved as backup {alt_save}")
 
 if __name__ == "__main__":
     create_student_report()
